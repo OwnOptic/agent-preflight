@@ -1,0 +1,434 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" width="1400" height="760" font-family="Segoe UI, Inter, system-ui, -apple-system, Arial, sans-serif">
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0B1B2B" flood-opacity="0.10"/>
+    </filter>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#8A96A3"/>
+    </marker>
+    <marker id="aho" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L9,5 L0,9 z" fill="#F26F21"/>
+    </marker>
+
+    <symbol id="ico-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5C12 3.343 13.343 2 15 2c1.657 0 3 1.343 3 3 1.105 0 2 .895 2 2v1.5c0 .828-.672 1.5-1.5 1.5H19v3c0 2.761-2.239 5-5 5h-4c-2.761 0-5-2.239-5-5V10H4.5C3.672 10 3 9.328 3 8.5V7c0-1.105.895-2 2-2 0-1.657 1.343-3 3-3 1.657 0 3 1.343 3 3h1z"/>
+      <line x1="9" y1="17" x2="9" y2="21"/><line x1="15" y1="17" x2="15" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/>
+    </symbol>
+    <symbol id="ico-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 11V9a2 2 0 0 0-2-2h-2V5a2 2 0 0 0-4 0v2H9a2 2 0 0 0-2 2v2H5a2 2 0 0 0 0 4h2v2a2 2 0 0 0 2 2h2v2a2 2 0 0 0 4 0v-2h2a2 2 0 0 0 2-2v-2h2a2 2 0 0 0 0-4h-2z"/>
+    </symbol>
+    <symbol id="ico-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/><line x1="14" y1="4" x2="10" y2="20"/>
+    </symbol>
+    <symbol id="ico-org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="6" r="2.3"/><circle cx="6" cy="18" r="2.3"/><circle cx="18" cy="18" r="2.3"/>
+      <path d="M12 8.3 V12 M6 12 H18 M6 12 V15.7 M18 12 V15.7"/>
+    </symbol>
+    <symbol id="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10.5" cy="10.5" r="6"/><line x1="15" y1="15" x2="20" y2="20"/>
+    </symbol>
+    <symbol id="ico-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="21,8 21,21 3,21 3,8"/><rect x="1" y="3" width="22" height="5" rx="1"/><line x1="10" y1="12" x2="14" y2="12"/>
+    </symbol>
+    <symbol id="ico-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/>
+      <path d="M5 17C5 12 12 12 12 7"/><path d="M12 7C12 5.343 14.343 3 16 3"/><polyline points="15,5 19,5 19,9"/>
+    </symbol>
+    <symbol id="ico-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2L11 12"/><path d="M15 8l2 2"/><path d="M17 6l2 2"/>
+    </symbol>
+    <symbol id="ico-checklist" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <polyline points="7,12 9,14 12,10"/><line x1="14" y1="12" x2="17" y2="12"/>
+      <polyline points="7,7 9,9 12,5"/><line x1="14" y1="7" x2="17" y2="7"/>
+      <polyline points="7,17 9,19 12,15"/><line x1="14" y1="17" x2="17" y2="17"/>
+    </symbol>
+    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22C12 22 4 17 4 10V5l8-3 8 3v5c0 7-8 12-8 12z"/><polyline points="9,12 11,14 15,10"/>
+    </symbol>
+    <symbol id="ico-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="7" r="3.5"/><path d="M2 21c0-3.866 3.134-7 7-7s7 3.134 7 7"/>
+      <circle cx="18" cy="8" r="2.5"/><path d="M22 21c0-2.761-1.791-5-4-5"/>
+    </symbol>
+    <symbol id="ico-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </symbol>
+    <symbol id="ico-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="ico-document" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/>
+    </symbol>
+    <symbol id="ico-version" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 8V4l-4 4"/><path d="M12 4l4 4"/>
+      <rect x="3" y="13" width="18" height="3" rx="1"/>
+      <rect x="3" y="18" width="14" height="3" rx="1" opacity="0.55"/>
+      <rect x="3" y="8" width="11" height="3" rx="1" opacity="0.4"/>
+    </symbol>
+    <symbol id="ico-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23,4 23,10 17,10"/><polyline points="1,20 1,14 7,14"/>
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+    </symbol>
+    <symbol id="ico-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4.5 17 A7.5 7.5 0 0 1 19.5 17"/><line x1="12" y1="17" x2="16" y2="12.5"/><circle cx="12" cy="17" r="1.2"/>
+    </symbol>
+
+    <!-- Microsoft Foundry (AI Studio) -->
+    <symbol id="ico-foundry" viewBox="0 0 18 18">
+      <defs>
+        <linearGradient id="fd1" x1="-603.563" y1="-218.378" x2="-606.6" y2="-206.22" gradientTransform="translate(617.126 -205.758) scale(1 -1)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#712575"/><stop offset=".18" stop-color="#bf2c92"/><stop offset=".4" stop-color="#f131a5"/><stop offset=".72" stop-color="#c92d96"/><stop offset="1" stop-color="#712575"/>
+        </linearGradient>
+        <linearGradient id="fd2" x1="-602.412" y1="-206.025" x2="-602.412" y2="-223.175" gradientTransform="translate(617.126 -205.758) scale(1 -1)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#da7ed0"/><stop offset=".3" stop-color="#6276e1"/><stop offset=".67" stop-color="#1d71eb"/><stop offset="1" stop-color="#1171ed"/>
+        </linearGradient>
+        <linearGradient id="fd3" x1="-603.438" y1="-206.414" x2="-614.807" y2="-224.644" gradientTransform="translate(617.126 -205.758) scale(1 -1)" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#da7ed0"/><stop offset=".25" stop-color="#5175e3"/><stop offset=".54" stop-color="#1a71eb"/><stop offset="1" stop-color="#1171ed"/>
+        </linearGradient>
+      </defs>
+      <path d="m12.061.012c.534,0,1.008.401,1.178.984s1.166,4.19,1.166,4.19v7.166h-3.607l.073-12.352h1.19v.012Z" fill="url(#fd1)" fill-rule="evenodd"/>
+      <path d="m17.356,5.611c0-.255-.206-.449-.449-.449h-2.126c-1.494,0-2.709,1.215-2.709,2.709v4.494h2.575c1.494,0,2.709-1.215,2.709-2.709v-4.045Z" fill="url(#fd2)"/>
+      <path d="m12.061.012c-.413,0-.741.328-.741.741l-.073,13.64c0,1.992-1.615,3.607-3.607,3.607H1.093c-.316,0-.522-.304-.425-.595L5.915,2.429C6.425.984,7.785.012,9.316.012h2.757-.012Z" fill="url(#fd3)" fill-rule="evenodd"/>
+    </symbol>
+
+    <!-- Copilot Studio -->
+    <symbol id="ico-cstudio" viewBox="0 0 96 96">
+      <defs>
+        <linearGradient id="cs0" x1="53.5" y1="77" x2="81" y2="10" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#2764E7"/><stop offset="0.307" stop-color="#8B52F4"/><stop offset="0.545" stop-color="#BB45EA"/><stop offset="0.804" stop-color="#DB56C6"/><stop offset="1" stop-color="#F462AB"/>
+        </linearGradient>
+        <radialGradient id="cs1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(52.5 45) rotate(43.8065) scale(33.9485 21.4653)">
+          <stop offset="0.549" stop-color="#5B2AB5"/><stop offset="1" stop-color="#A931D8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="cs2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(44 34) rotate(17.7004) scale(49.3356 24.5964)">
+          <stop offset="0.528" stop-color="#9529C2"/><stop offset="1" stop-color="#DD3CE2" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="cs3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(61.3922 89.3373) rotate(-124.89) scale(82.0935 82.0935)">
+          <stop stop-color="#2764E7"/><stop offset="0.225" stop-color="#0094F0"/><stop offset="0.443" stop-color="#19B2CE"/><stop offset="0.7" stop-color="#52D17C"/><stop offset="1" stop-color="#FFD638"/>
+        </radialGradient>
+        <linearGradient id="cs4" x1="19.5444" y1="82.7096" x2="53.8452" y2="82.7096" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#16BBDA" stop-opacity="0"/><stop offset="0.535" stop-color="#0094F0"/><stop offset="1" stop-color="#2764E7"/>
+        </linearGradient>
+        <radialGradient id="cs5" cx="0" cy="0" r="1" gradientTransform="matrix(23 12.9998 8.90874 -13.0499 43 67.9995)" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1B44B1"/><stop offset="1" stop-color="#367AF2" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="cs6" x1="33.5" y1="32.5" x2="34" y2="13" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#FF9C70"/><stop offset="1" stop-color="#FFD394"/>
+        </linearGradient>
+        <linearGradient id="cs8" x1="58" y1="20" x2="58.5" y2="64.5" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#FFB357"/><stop offset="0.38" stop-color="#FB6F7B"/><stop offset="0.66" stop-color="#F24A9D"/><stop offset="1" stop-color="#DD3CE2"/>
+        </linearGradient>
+        <radialGradient id="cs9" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(40 54) rotate(12.702) scale(24.0895 24.0895)">
+          <stop offset="0.568" stop-color="#D7257D"/><stop offset="1" stop-color="#F462AB" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="cs10" x1="50.03" y1="77.3707" x2="20" y2="25.6869" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#0FAFFF"/><stop offset="0.548" stop-color="#2BDABE"/><stop offset="0.766" stop-color="#88E06C"/><stop offset="1" stop-color="#FFD638"/>
+        </linearGradient>
+        <linearGradient id="cs11" x1="36" y1="44.5" x2="53" y2="50.5" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#76EB95"/><stop offset="1" stop-color="#3BD5FF" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M64.3242 4.77449C52.3121 0.77044 46.3052 -1.23042 42.1523 1.76277C38.0001 4.75619 38 11.0874 38 23.7491V33.9991L28.3242 30.7745C16.3121 26.7705 10.3052 24.7696 6.15234 27.7628C1.99998 30.7562 2 37.0874 2 49.7491V67.585C2 74.5417 1.9996 78.0209 3.88672 80.6397C5.7743 83.2586 9.07559 84.3596 15.6758 86.5596L20.002 87.9991L20 88.0011L33.8906 92.63C41.0527 95.0173 44.634 96.2117 48.2168 95.6612C51.7998 95.1105 54.8577 92.8959 60.9727 88.4678L79.5957 74.9835C84.6242 71.3421 87.5709 69.2032 89.3691 66.7569C89.551 66.5194 89.7213 66.2697 89.8789 66.005C90.0501 65.7303 90.212 65.4518 90.3594 65.1632C91.9996 61.9502 92 58.1948 92 50.6846V28.4151C92 21.4583 92.0007 17.9792 90.1133 15.3604C88.2257 12.7416 84.9244 11.6425 78.3242 9.44246L64.3242 4.77449Z" fill="url(#cs0)"/>
+      <path d="M64.3242 4.77449C52.3121 0.77044 46.3052 -1.23042 42.1523 1.76277C38.0001 4.75619 38 11.0874 38 23.7491V33.9991L28.3242 30.7745C16.3121 26.7705 10.3052 24.7696 6.15234 27.7628C1.99998 30.7562 2 37.0874 2 49.7491V67.585C2 74.5417 1.9996 78.0209 3.88672 80.6397C5.7743 83.2586 9.07559 84.3596 15.6758 86.5596L20.002 87.9991L20 88.0011L33.8906 92.63C41.0527 95.0173 44.634 96.2117 48.2168 95.6612C51.7998 95.1105 54.8577 92.8959 60.9727 88.4678L79.5957 74.9835C84.6242 71.3421 87.5709 69.2032 89.3691 66.7569C89.551 66.5194 89.7213 66.2697 89.8789 66.005C90.0501 65.7303 90.212 65.4518 90.3594 65.1632C91.9996 61.9502 92 58.1948 92 50.6846V28.4151C92 21.4583 92.0007 17.9792 90.1133 15.3604C88.2257 12.7416 84.9244 11.6425 78.3242 9.44246L64.3242 4.77449Z" fill="url(#cs1)"/>
+      <path d="M64.3242 4.77449C52.3121 0.77044 46.3052 -1.23042 42.1523 1.76277C38.0001 4.75619 38 11.0874 38 23.7491V33.9991L28.3242 30.7745C16.3121 26.7705 10.3052 24.7696 6.15234 27.7628C1.99998 30.7562 2 37.0874 2 49.7491V67.585C2 74.5417 1.9996 78.0209 3.88672 80.6397C5.7743 83.2586 9.07559 84.3596 15.6758 86.5596L20.002 87.9991L20 88.0011L33.8906 92.63C41.0527 95.0173 44.634 96.2117 48.2168 95.6612C51.7998 95.1105 54.8577 92.8959 60.9727 88.4678L79.5957 74.9835C84.6242 71.3421 87.5709 69.2032 89.3691 66.7569C89.551 66.5194 89.7213 66.2697 89.8789 66.005C90.0501 65.7303 90.212 65.4518 90.3594 65.1632C91.9996 61.9502 92 58.1948 92 50.6846V28.4151C92 21.4583 92.0007 17.9792 90.1133 15.3604C88.2257 12.7416 84.9244 11.6425 78.3242 9.44246L64.3242 4.77449Z" fill="url(#cs2)"/>
+      <path d="M56 54.4151C56 47.4579 56 43.9793 54.1124 41.3604C52.2248 38.7415 48.9247 37.6415 42.3246 35.4414L28.3246 30.7748C16.312 26.7706 10.3058 24.7685 6.1529 27.7617C2 30.755 2 37.0861 2 49.7484V67.5847C2 74.5419 2 78.0206 3.88758 80.6394C5.77516 83.2583 9.07525 84.3583 15.6754 86.5584L29.6754 91.2251C41.688 95.2292 47.6942 97.2313 51.8471 94.2381C56 91.2448 56 84.9137 56 72.2514V54.4151Z" fill="url(#cs3)"/>
+      <path d="M56 54.4151C56 47.4579 56 43.9793 54.1124 41.3604C52.2248 38.7415 48.9247 37.6415 42.3246 35.4414L28.3246 30.7748C16.312 26.7706 10.3058 24.7685 6.1529 27.7617C2 30.755 2 37.0861 2 49.7484V67.5847C2 74.5419 2 78.0206 3.88758 80.6394C5.77516 83.2583 9.07525 84.3583 15.6754 86.5584L29.6754 91.2251C41.688 95.2292 47.6942 97.2313 51.8471 94.2381C56 91.2448 56 84.9137 56 72.2514V54.4151Z" fill="url(#cs4)"/>
+      <path d="M92 50.6846C92 58.1947 91.9996 61.9501 90.3594 65.1631C90.212 65.4517 90.0501 65.7302 89.8789 66.0049C89.7213 66.2696 89.551 66.5193 89.3691 66.7568C87.5709 69.2031 84.6242 71.3421 79.5957 74.9834L60.9727 88.4678C54.8577 92.8959 51.7998 95.1105 48.2168 95.6611C44.634 96.2116 41.0527 95.0172 33.8906 92.6299L25.2158 89.7393L20 88L20.002 87.999L16.7822 86.9277L15.2217 86.4072C8.92337 84.3067 5.73047 83.1977 3.88672 80.6396C1.99964 78.0208 2 74.5416 2 67.585V49.749C2 48.4323 2.00119 47.1841 2.00586 46.001L56 61.501L92 35.001V50.6846Z" fill="url(#cs5)"/>
+      <path d="M38.0742 15.1036C31.3033 13.0668 27.2217 12.5497 24.1523 14.7618C21.0793 16.9767 20.281 21.0195 20.0732 28.1026C22.4635 28.8216 25.1889 29.7306 28.3232 30.7754L37.999 34V23.7491C37.999 20.4569 38.0012 17.5925 38.0742 15.1036Z" fill="url(#cs6)"/>
+      <path d="M38.0742 15.1035C38.0012 17.5922 38 20.4561 38 23.748V41.585C38 48.5419 38.0002 52.0208 39.8877 54.6396C41.7753 57.2583 45.0758 58.3586 51.6758 60.5586L56 62C64.0027 64.6676 68.0041 66.0014 70.84 64.1408C71.0112 64.0284 71.1774 63.9086 71.3381 63.7817C74 61.6798 74 57.462 74 49.0263V41.415C74 34.4579 73.9999 30.9792 72.1123 28.3604C70.2247 25.7416 66.9243 24.6414 60.3242 22.4414L46.3242 17.7744C43.1901 16.7297 40.4644 15.8225 38.0742 15.1035Z" fill="url(#cs8)"/>
+      <path d="M38.0742 15.1035C38.0012 17.5922 38 20.4561 38 23.748V41.585C38 48.5419 38.0002 52.0208 39.8877 54.6396C41.7753 57.2583 45.0758 58.3586 51.6758 60.5586L56 62C64.0027 64.6676 68.0041 66.0014 70.84 64.1408C71.0112 64.0284 71.1774 63.9086 71.3381 63.7817C74 61.6798 74 57.462 74 49.0263V41.415C74 34.4579 73.9999 30.9792 72.1123 28.3604C70.2247 25.7416 66.9243 24.6414 60.3242 22.4414L46.3242 17.7744C43.1901 16.7297 40.4644 15.8225 38.0742 15.1035Z" fill="url(#cs9)"/>
+      <path d="M20.0742 28.1035C20.0012 30.5922 20 33.4561 20 36.748V54.585C20 61.5421 20.0001 65.0208 21.8877 67.6396C23.7753 70.2584 27.0757 71.3586 33.6758 73.5586L37.975 74.9917C46.0014 77.6671 50.0146 79.0049 52.855 77.1309C53.0159 77.0247 53.1724 76.9119 53.324 76.7928C56 74.6909 56 70.4606 56 62V54.415C56 47.4579 55.9999 43.9792 54.1123 41.3604C52.2247 38.7416 48.9243 37.6414 42.3242 35.4414L28.3242 30.7744C25.1901 29.7297 22.4644 28.8225 20.0742 28.1035Z" fill="url(#cs10)"/>
+      <path d="M38 41.585C38 48.5422 38.0001 52.0208 39.8877 54.6397C41.7753 57.2585 45.0756 58.3585 51.6758 60.5586L56 62V54.415C56 47.4581 55.9998 43.9792 54.1123 41.3604C52.2247 38.7417 48.9242 37.6414 42.3242 35.4414L38 34V41.585Z" fill="url(#cs11)"/>
+    </symbol>
+
+    <!-- Microsoft 365 Copilot -->
+    <symbol id="ico-m365copilot" viewBox="0 0 48 48">
+      <defs>
+        <radialGradient id="mc0" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.005 20.5144) rotate(-129.304) scale(17.3033 16.2706)">
+          <stop offset="0.096" stop-color="#00AEFF"/><stop offset="0.773" stop-color="#2253CE"/><stop offset="1" stop-color="#0736C4"/>
+        </radialGradient>
+        <radialGradient id="mc1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.1215 32.8171) rotate(51.84) scale(15.9912 15.5119)">
+          <stop stop-color="#FFB657"/><stop offset="0.634" stop-color="#FF5F3D"/><stop offset="0.923" stop-color="#C02B3C"/>
+        </radialGradient>
+        <linearGradient id="mc2" x1="12.5" y1="7.5" x2="14.7884" y2="33.9751" gradientUnits="userSpaceOnUse">
+          <stop offset="0.156" stop-color="#0D91E1"/><stop offset="0.487" stop-color="#52B471"/><stop offset="0.652" stop-color="#98BD42"/><stop offset="0.937" stop-color="#FFC800"/>
+        </linearGradient>
+        <linearGradient id="mc3" x1="14.5" y1="4" x2="15.7496" y2="32.8852" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#3DCBFF"/><stop offset="0.247" stop-color="#0588F7" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="mc4" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(41.3187 12.2813) rotate(109.274) scale(38.3873 45.9867)">
+          <stop offset="0.066" stop-color="#8C48FF"/><stop offset="0.5" stop-color="#F2598A"/><stop offset="0.896" stop-color="#FFB152"/>
+        </radialGradient>
+        <linearGradient id="mc5" x1="42.5859" y1="13.346" x2="42.5695" y2="21.2147" gradientUnits="userSpaceOnUse">
+          <stop offset="0.058" stop-color="#F8ADFA"/><stop offset="0.708" stop-color="#A86EDD" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M34.1423 7.32501C33.5634 5.35387 31.7547 4 29.7003 4L28.3488 4C26.1142 4 24.1985 5.59611 23.7952 7.79398L21.4805 20.4072L22.0549 18.4419C22.6319 16.4679 24.4419 15.1111 26.4986 15.1111H34.3524L37.6462 16.3942L40.8213 15.1111H39.8946C37.8401 15.1111 36.0315 13.7572 35.4525 11.7861L34.1423 7.32501Z" fill="url(#mc0)"/>
+      <path d="M14.3307 40.656C14.9032 42.6366 16.7165 44 18.7783 44H21.6486C24.1592 44 26.2122 41.999 26.2767 39.4893L26.5893 27.3271L25.9354 29.5602C25.3577 31.5332 23.5481 32.8889 21.4923 32.8889L13.5732 32.8889L10.7499 31.3573L7.69336 32.8889H8.60461C10.6663 32.8889 12.4796 34.2522 13.0521 36.2329L14.3307 40.656Z" fill="url(#mc1)"/>
+      <path d="M29.4993 4H13.46C8.87732 4 6.12772 10.0566 4.29466 16.1132C2.12296 23.2886 -0.718769 32.8852 7.50252 32.8852H14.4282C16.4978 32.8852 18.3147 31.5168 18.8835 29.5269C20.0876 25.3143 22.1978 17.9655 23.8554 12.3712C24.6977 9.52831 25.3993 7.08673 26.4762 5.56628C27.0799 4.71385 28.086 4 29.4993 4Z" fill="url(#mc2)"/>
+      <path d="M29.4993 4H13.46C8.87732 4 6.12772 10.0566 4.29466 16.1132C2.12296 23.2886 -0.718769 32.8852 7.50252 32.8852H14.4282C16.4978 32.8852 18.3147 31.5168 18.8835 29.5269C20.0876 25.3143 22.1978 17.9655 23.8554 12.3712C24.6977 9.52831 25.3993 7.08673 26.4762 5.56628C27.0799 4.71385 28.086 4 29.4993 4Z" fill="url(#mc3)"/>
+      <path d="M18.498 44H34.5374C39.12 44 41.8696 37.9424 43.7027 31.8848C45.8744 24.7081 48.7161 15.1098 40.4948 15.1098H33.5693C31.4996 15.1098 29.6827 16.4784 29.114 18.4684C27.9098 22.6817 25.7996 30.032 24.142 35.6273C23.2996 38.4708 22.598 40.9127 21.5212 42.4335C20.9175 43.286 19.9113 44 18.498 44Z" fill="url(#mc4)"/>
+      <path d="M18.498 44H34.5374C39.12 44 41.8696 37.9424 43.7027 31.8848C45.8744 24.7081 48.7161 15.1098 40.4948 15.1098H33.5693C31.4996 15.1098 29.6827 16.4784 29.114 18.4684C27.9098 22.6817 25.7996 30.032 24.142 35.6273C23.2996 38.4708 22.598 40.9127 21.5212 42.4335C20.9175 43.286 19.9113 44 18.498 44Z" fill="url(#mc5)"/>
+    </symbol>
+
+    <!-- Agent 365 -->
+    <symbol id="ico-agent365" viewBox="0 0 96 96">
+      <defs>
+        <linearGradient id="a30" x1="62" y1="5.5" x2="87" y2="64.5" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1B44B1"/><stop offset="1" stop-color="#2764E7"/>
+        </linearGradient>
+        <radialGradient id="a31" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(80.5 71) rotate(-92.0166) scale(71.0441 31.9304)">
+          <stop offset="0.539" stop-color="#2052CB" stop-opacity="0"/><stop offset="1" stop-color="#163697"/>
+        </radialGradient>
+        <linearGradient id="a32" x1="96.6015" y1="96" x2="96.7128" y2="56.0003" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#367AF2"/><stop offset="1" stop-color="#BABAFF"/>
+        </linearGradient>
+        <radialGradient id="a33" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(71 93.7778) rotate(-74.268) scale(40.9795 35.3954)">
+          <stop offset="0.514" stop-color="#BABAFF" stop-opacity="0"/><stop offset="1" stop-color="#FECBE6"/>
+        </radialGradient>
+        <linearGradient id="a34" x1="57" y1="0" x2="57" y2="96" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#BABAFF"/><stop offset="0.513" stop-color="#4894FE"/><stop offset="1" stop-color="#2764E7"/>
+        </linearGradient>
+        <linearGradient id="a35" x1="51" y1="33.5" x2="51" y2="0" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#BABAFF" stop-opacity="0"/><stop offset="1" stop-color="#FECBE6"/>
+        </linearGradient>
+      </defs>
+      <path d="M48.6273 23.9918C48.4433 16.9565 48.3514 13.4388 49.3514 10.6312C50.9152 6.24117 54.3152 2.75106 58.6629 1.07311C61.4434 0 64.9623 0 72 0C79.1102 0 85.2633 12.5109 89.4089 29.9356C91.3095 37.9241 92.2597 41.9184 89.8575 44.9592C87.4553 48 83.095 48 74.3746 48H65C55.6524 48 51.1922 50.0237 49.6213 62.0074L48.6273 23.9918Z" fill="url(#a30)"/>
+      <path d="M48.6273 23.9918C48.4433 16.9565 48.3514 13.4388 49.3514 10.6312C50.9152 6.24117 54.3152 2.75106 58.6629 1.07311C61.4434 0 64.9623 0 72 0C79.1102 0 85.2633 12.5109 89.4089 29.9356C91.3095 37.9241 92.2597 41.9184 89.8575 44.9592C87.4553 48 83.095 48 74.3746 48H65C55.6524 48 51.1922 50.0237 49.6213 62.0074L48.6273 23.9918Z" fill="url(#a31)"/>
+      <path d="M56 76C56 64.9543 64.9543 56 76 56C87.0457 56 96 64.9543 96 76C96 87.0457 87.0457 96 76 96C64.9543 96 56 87.0457 56 76Z" fill="url(#a32)"/>
+      <path d="M56 76C56 64.9543 64.9543 56 76 56C87.0457 56 96 64.9543 96 76C96 87.0457 87.0457 96 76 96C64.9543 96 56 87.0457 56 76Z" fill="url(#a33)"/>
+      <path d="M48 0C25.3343 0 6.89691 31.7119 1.56146 72.064C0.172668 82.5675 -0.52173 87.8192 3.06341 91.9096C6.64855 96 12.4324 96 24 96C35.1353 96 40.703 96 44.1613 92.7703C47.6197 89.5406 48.0198 83.6982 48.8198 72.0133C51.4763 33.214 60.3542 0 72 0H48Z" fill="url(#a34)"/>
+      <path d="M48 0C25.3343 0 6.89691 31.7119 1.56146 72.064C0.172668 82.5675 -0.52173 87.8192 3.06341 91.9096C6.64855 96 12.4324 96 24 96C35.1353 96 40.703 96 44.1613 92.7703C47.6197 89.5406 48.0198 83.6982 48.8198 72.0133C51.4763 33.214 60.3542 0 72 0H48Z" fill="url(#a35)"/>
+    </symbol>
+  </defs>
+
+  <rect width="1400" height="760" fill="#FFFFFF"/>
+
+  <!-- HEADER -->
+  <rect x="40" y="22" width="4" height="46" rx="2" fill="#F26F21"/>
+  <text x="58" y="45" font-size="26" font-weight="700" fill="#2A3B4E">Agent Preflight</text>
+  <text x="58" y="65" font-size="12.5" fill="#6B7785">One design-time control point for every Microsoft agent platform: <tspan font-weight="700" fill="#2A3B4E">governance, security, cost and compliance</tspan>. Read-only, no deployed traffic, no token spend, and it runs before the agent is registered.</text>
+
+  <!-- SECTION LABELS -->
+  <text x="40" y="96" font-size="10" font-weight="700" letter-spacing="1.4" fill="#9AA4B0">1 · AGENT ESTATE</text>
+  <text x="320" y="96" font-size="10" font-weight="700" letter-spacing="1.4" fill="#9AA4B0">2 · INVENTORY AND RESOLUTION</text>
+  <text x="552" y="96" font-size="10" font-weight="700" letter-spacing="1.4" fill="#9AA4B0">3 · ANALYSIS  (deterministic)</text>
+  <text x="1012" y="96" font-size="10" font-weight="700" letter-spacing="1.4" fill="#9AA4B0">4 · OUTPUT</text>
+
+  <!-- ANALYSIS ZONE -->
+  <rect x="552" y="102" width="440" height="476" rx="12" fill="#F5F7F9" stroke="#E3E7EC"/>
+
+  <!-- 1. AGENT ESTATE -->
+  <rect x="40" y="110" width="250" height="330" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <text x="58" y="137" font-size="13.5" font-weight="700" fill="#2A3B4E">Agent estate</text>
+  <text x="58" y="154" font-size="10" fill="#8A96A3">Pluggable collectors · read-only</text>
+  <line x1="58" y1="164" x2="272" y2="164" stroke="#EDEFF2"/>
+
+  <use href="#ico-foundry" x="56" y="173" width="20" height="20"/>
+  <text x="86" y="186" font-size="11.5" fill="#2A3B4E">Foundry Agent Service</text>
+  <text x="86" y="199" font-size="9.3" fill="#8A96A3">Prompt and hosted agents, toolboxes</text>
+
+  <use href="#ico-cstudio" x="56" y="227" width="20" height="20"/>
+  <text x="86" y="240" font-size="11.5" fill="#2A3B4E">Copilot Studio</text>
+  <text x="86" y="253" font-size="9.3" fill="#8A96A3">Topics, knowledge, actions, channels</text>
+
+  <use href="#ico-m365copilot" x="56" y="281" width="20" height="20"/>
+  <text x="86" y="294" font-size="11.5" fill="#2A3B4E">M365 declarative agents</text>
+  <text x="86" y="307" font-size="9.3" fill="#8A96A3">Manifest 1.8 and API plugin manifests</text>
+
+  <use href="#ico-code" x="57" y="336" width="18" height="18" color="#2A3B4E"/>
+  <text x="86" y="348" font-size="11.5" fill="#2A3B4E">Agent Framework</text>
+  <text x="86" y="361" font-size="9.3" fill="#8A96A3">Code-first, tools registered at build</text>
+
+  <use href="#ico-agent365" x="56" y="389" width="20" height="20"/>
+  <text x="86" y="402" font-size="11.5" fill="#2A3B4E">Agent 365 / Entra Agent ID</text>
+  <text x="86" y="415" font-size="9.3" fill="#8A96A3">Roster, ownership, blueprints</text>
+
+  <!-- POLICY AS CODE -->
+  <rect x="40" y="458" width="250" height="100" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-settings" x="58" y="472" width="17" height="17" color="#2A3B4E"/>
+  <text x="82" y="485" font-size="12.5" font-weight="700" fill="#2A3B4E">Policy as code</text>
+  <text x="58" y="507" font-size="9.8" fill="#6B7785">Allowed regions, models, auth modes.</text>
+  <text x="58" y="520" font-size="9.8" fill="#6B7785">Mandatory human gates.</text>
+  <text x="58" y="533" font-size="9.8" fill="#6B7785">Budget thresholds per interaction.</text>
+  <text x="58" y="546" font-size="9.8" fill="#6B7785">Packs: Swiss and EU, finserv, public sector.</text>
+
+  <!-- RESOLVER -->
+  <rect x="320" y="110" width="210" height="48" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-search" x="338" y="125" width="16" height="16" color="#2A3B4E"/>
+  <text x="362" y="137" font-size="12.5" font-weight="700" fill="#2A3B4E">Resolver</text>
+  <text x="422" y="137" font-size="9.3" fill="#8A96A3">transitive, cross-platform</text>
+
+  <!-- TOOL CLASSIFICATION -->
+  <rect x="320" y="168" width="210" height="100" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-puzzle" x="338" y="181" width="16" height="16" color="#2A3B4E"/>
+  <text x="362" y="193" font-size="12" font-weight="700" fill="#2A3B4E">Tool classification</text>
+  <text x="338" y="214" font-size="9.2" fill="#63707E">0 · Policy override</text>
+  <text x="338" y="230" font-size="9.2" fill="#63707E">1 · First-party registry</text>
+  <text x="338" y="246" font-size="9.2" fill="#63707E">2 · Protocol: MCP, OpenAPI</text>
+  <text x="338" y="262" font-size="9.2" font-weight="700" fill="#C4551A">3 · Unknown, fail closed</text>
+
+  <!-- EDGE RESOLUTION -->
+  <rect x="320" y="278" width="210" height="100" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-org" x="338" y="291" width="16" height="16" color="#2A3B4E"/>
+  <text x="362" y="303" font-size="12" font-weight="700" fill="#2A3B4E">Edge resolution</text>
+  <text x="338" y="324" font-size="9.2" fill="#63707E">Identity match · proven</text>
+  <text x="338" y="340" font-size="9.2" fill="#63707E">Endpoint match · matched</text>
+  <text x="338" y="356" font-size="9.2" fill="#63707E">Probe, opt-in · probed</text>
+  <text x="338" y="372" font-size="8.8" font-weight="700" fill="#C4551A">Confidence gates severity</text>
+
+  <!-- AGENTBOM -->
+  <rect x="320" y="388" width="210" height="182" rx="10" fill="#2A3B4E" filter="url(#sh)"/>
+  <use href="#ico-archive" x="338" y="404" width="19" height="19" color="#FFFFFF"/>
+  <text x="366" y="420" font-size="15" font-weight="700" fill="#FFFFFF">AgentBOM</text>
+  <text x="338" y="439" font-size="9.3" fill="#AEBCCA">Schema v0.1 · signed · reproducible</text>
+  <line x1="338" y1="448" x2="512" y2="448" stroke="#46586B"/>
+  <text x="338" y="465" font-size="9.6" fill="#D6DEE6">Models and deployments</text>
+  <text x="338" y="481" font-size="9.6" fill="#D6DEE6">Tools, classification, auth</text>
+  <text x="338" y="497" font-size="9.6" fill="#D6DEE6">Knowledge, storage, residency</text>
+  <text x="338" y="513" font-size="9.6" fill="#D6DEE6">Edges with confidence</text>
+  <text x="338" y="529" font-size="9.6" fill="#D6DEE6">Guards and human gates</text>
+  <text x="338" y="545" font-size="9.6" fill="#D6DEE6">Token and cost profile</text>
+  <text x="338" y="563" font-size="9" font-weight="700" fill="#F9A97A">Extends CycloneDX / SPDX AI BOM</text>
+
+  <!-- ATTACK PATH -->
+  <rect x="564" y="112" width="200" height="112" rx="9" fill="#FFFFFF" stroke="#F26F21" stroke-width="1.6" filter="url(#sh)"/>
+  <rect x="564" y="112" width="200" height="4" rx="2" fill="#F26F21"/>
+  <use href="#ico-route" x="582" y="130" width="19" height="19" color="#F26F21"/>
+  <text x="608" y="144" font-size="12.5" font-weight="700" fill="#2A3B4E">Attack path analysis</text>
+  <text x="582" y="170" font-size="9.8" fill="#63707E">Untrusted input to irreversible</text>
+  <text x="582" y="183" font-size="9.8" fill="#63707E">action, across the tool and</text>
+  <text x="582" y="196" font-size="9.8" fill="#63707E">A2A graph, and across</text>
+  <text x="582" y="209" font-size="9.8" font-weight="700" fill="#C4551A">platforms. No gate = critical.</text>
+
+  <!-- PRIVILEGE CLOSURE -->
+  <rect x="780" y="112" width="200" height="112" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-key" x="798" y="130" width="19" height="19" color="#2A3B4E"/>
+  <text x="824" y="144" font-size="12.5" font-weight="700" fill="#2A3B4E">Privilege closure</text>
+  <text x="798" y="170" font-size="9.8" fill="#63707E">Identity plus OBO passthrough</text>
+  <text x="798" y="183" font-size="9.8" fill="#63707E">plus every downstream agent</text>
+  <text x="798" y="196" font-size="9.8" fill="#63707E">it can reach. Effective</text>
+  <text x="798" y="209" font-size="9.8" fill="#63707E">privilege, not declared.</text>
+
+  <!-- RULE ENGINE -->
+  <rect x="564" y="234" width="200" height="112" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-checklist" x="582" y="252" width="19" height="19" color="#2A3B4E"/>
+  <text x="608" y="266" font-size="12.5" font-weight="700" fill="#2A3B4E">Rule engine</text>
+  <text x="582" y="292" font-size="9.8" fill="#63707E">Deterministic, so the gate</text>
+  <text x="582" y="305" font-size="9.8" fill="#63707E">answers the same twice.</text>
+  <text x="582" y="318" font-size="9.8" fill="#63707E">Every rule cites a CAF or</text>
+  <text x="582" y="331" font-size="9.8" fill="#63707E">Zero Trust control.</text>
+
+  <!-- SUPPLY CHAIN -->
+  <rect x="780" y="234" width="200" height="112" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-shield" x="798" y="252" width="19" height="19" color="#2A3B4E"/>
+  <text x="824" y="266" font-size="12.5" font-weight="700" fill="#2A3B4E">Supply chain</text>
+  <text x="798" y="292" font-size="9.8" fill="#63707E">MCP rug-pull detection by</text>
+  <text x="798" y="305" font-size="9.8" fill="#63707E">pinned manifest hash.</text>
+  <text x="798" y="318" font-size="9.8" fill="#63707E">Toolbox drift, provenance,</text>
+  <text x="798" y="331" font-size="9.8" fill="#63707E">injection payloads.</text>
+
+  <!-- COST ANALYSIS -->
+  <rect x="564" y="356" width="416" height="104" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <rect x="564" y="356" width="4" height="104" rx="2" fill="#F26F21"/>
+  <use href="#ico-gauge" x="582" y="374" width="19" height="19" color="#F26F21"/>
+  <text x="608" y="388" font-size="12.5" font-weight="700" fill="#2A3B4E">Cost analysis</text>
+  <text x="964" y="388" font-size="9.3" font-weight="700" letter-spacing="0.8" text-anchor="end" fill="#8A96A3">BEFORE ANY TOKEN IS SPENT</text>
+  <g font-size="9.5" fill="#2A3B4E">
+    <rect x="582" y="398" width="72" height="20" rx="10" fill="#FDF5EF" stroke="#F5C9A8"/><text x="596" y="412">Prompt tax</text>
+    <rect x="662" y="398" width="96" height="20" rx="10" fill="#FDF5EF" stroke="#F5C9A8"/><text x="676" y="412">Tool surface tax</text>
+    <rect x="766" y="398" width="68" height="20" rx="10" fill="#FDF5EF" stroke="#F5C9A8"/><text x="780" y="412">Grounding</text>
+    <rect x="842" y="398" width="78" height="20" rx="10" fill="#FDF5EF" stroke="#F5C9A8"/><text x="856" y="412">A2A fan-out</text>
+  </g>
+  <text x="582" y="436" font-size="9.8" fill="#63707E">Right-sizing, missing token caps, allocation tags, monthly forecast.</text>
+  <text x="582" y="450" font-size="9.8" font-weight="700" fill="#C4551A">Cost regression posted on the pull request: +34% per interaction.</text>
+
+  <!-- REVIEW BOARD -->
+  <rect x="564" y="470" width="416" height="96" rx="10" fill="#F0F3F6" stroke="#2A3B4E" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <use href="#ico-people" x="582" y="486" width="17" height="17" color="#2A3B4E"/>
+  <text x="606" y="499" font-size="12.5" font-weight="700" fill="#2A3B4E">Agent review board</text>
+  <text x="964" y="499" font-size="9.3" font-weight="700" letter-spacing="0.8" text-anchor="end" fill="#8A96A3">JUDGMENT LAYER</text>
+  <text x="582" y="517" font-size="9.8" fill="#63707E">Connected agents in Foundry. Only the calls no rule can make.</text>
+  <g font-size="9.5" fill="#2A3B4E">
+    <rect x="582" y="526" width="70" height="20" rx="10" fill="#FFFFFF" stroke="#D8DEE5"/><text x="596" y="540">Security</text>
+    <rect x="660" y="526" width="54" height="20" rx="10" fill="#FFFFFF" stroke="#D8DEE5"/><text x="674" y="540">Cost</text>
+    <rect x="722" y="526" width="88" height="20" rx="10" fill="#FFFFFF" stroke="#D8DEE5"/><text x="736" y="540">Accessibility</text>
+    <rect x="818" y="526" width="76" height="20" rx="10" fill="#FFFFFF" stroke="#D8DEE5"/><text x="832" y="540">Residency</text>
+  </g>
+  <text x="582" y="559" font-size="9.2" font-style="italic" fill="#8A96A3">May not contradict a deterministic finding.</text>
+
+  <!-- SARIF -->
+  <rect x="1012" y="110" width="348" height="96" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-warning" x="1030" y="128" width="18" height="18" color="#F26F21"/>
+  <text x="1056" y="141" font-size="12.5" font-weight="700" fill="#2A3B4E">SARIF report</text>
+  <text x="1030" y="167" font-size="9.8" fill="#63707E">Ingested natively by GitHub code scanning, so findings</text>
+  <text x="1030" y="181" font-size="9.8" fill="#63707E">land in the pull request next to the cost delta.</text>
+
+  <!-- DOSSIER -->
+  <rect x="1012" y="218" width="348" height="270" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-document" x="1030" y="236" width="18" height="18" color="#2A3B4E"/>
+  <text x="1056" y="249" font-size="13" font-weight="700" fill="#2A3B4E">Governance dossier</text>
+  <text x="1030" y="269" font-size="9.5" fill="#6B7785">Renders template v1.0. Every field traces to a BOM</text>
+  <text x="1030" y="282" font-size="9.5" fill="#6B7785">field or a rule result. Nothing is invented.</text>
+  <line x1="1030" y1="292" x2="1342" y2="292" stroke="#EDEFF2"/>
+  <g font-size="9.2" fill="#3A4A5C">
+    <text x="1030" y="308">1   Identification</text>
+    <text x="1030" y="324">2   Purpose and intended use</text>
+    <text x="1030" y="340">3   Out of scope uses</text>
+    <text x="1030" y="356">4   Architecture and trust graph</text>
+    <text x="1030" y="372">5   Composition inventory</text>
+    <text x="1030" y="388">6   Identity and permissions</text>
+    <text x="1030" y="404">7   Data, residency, retention</text>
+    <text x="1196" y="308">8    Attack surface analysis</text>
+    <text x="1196" y="324">9    Responsible AI</text>
+    <text x="1196" y="340">10  Cost and capacity</text>
+    <text x="1196" y="356">11  Findings and remediation</text>
+    <text x="1196" y="372">12  Change log, certification</text>
+    <text x="1196" y="388">A    Control mapping matrix</text>
+    <text x="1196" y="404">B    Full rule results</text>
+  </g>
+  <text x="1030" y="428" font-size="9.3" font-weight="700" fill="#C4551A">Packs: Microsoft RAI · EU AI Act · internal review</text>
+  <text x="1030" y="448" font-size="9.2" fill="#8A96A3">Section 9 mirrors the Microsoft Transparency Note.</text>
+  <text x="1030" y="462" font-size="9.2" fill="#8A96A3">Underivable fields print as "requires human input".</text>
+
+  <!-- CERTIFICATION -->
+  <rect x="1012" y="500" width="348" height="88" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
+  <use href="#ico-version" x="1030" y="518" width="18" height="18" color="#2A3B4E"/>
+  <text x="1056" y="531" font-size="12.5" font-weight="700" fill="#2A3B4E">Certification record</text>
+  <text x="1030" y="557" font-size="9.8" fill="#63707E">Certifies a BOM hash. Any composition change voids it</text>
+  <text x="1030" y="571" font-size="9.8" fill="#63707E">automatically. Feeds the Agent 365 registry sync path.</text>
+
+  <!-- ARROWS -->
+  <path d="M290,134 L314,134" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <path d="M425,158 L425,162" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <path d="M425,268 L425,272" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <path d="M425,378 L425,382" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <path d="M530,420 L546,420" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <path d="M992,290 L1006,290" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <path d="M290,520 L302,520 L302,590 L700,590 L700,582" stroke="#8A96A3" stroke-width="1.6" fill="none" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+  <path d="M530,516 L556,516" stroke="#8A96A3" stroke-width="1.6" fill="none" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+  <path d="M1186,588 L1186,604" stroke="#F26F21" stroke-width="1.8" fill="none" marker-end="url(#aho)"/>
+
+  <!-- PIPELINE GATE -->
+  <rect x="40" y="610" width="1320" height="72" rx="10" fill="#FDF5EF" stroke="#F26F21" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <use href="#ico-refresh" x="64" y="632" width="20" height="20" color="#F26F21"/>
+  <text x="96" y="640" font-size="13" font-weight="700" fill="#2A3B4E">Pipeline gate</text>
+  <text x="96" y="659" font-size="10.5" fill="#5A6875">GitHub Action or Azure DevOps task. The AgentBOM diff and the cost delta are posted on the pull request the way a dependency diff is.</text>
+  <text x="96" y="673" font-size="10.5" fill="#5A6875">A baseline file accepts existing findings, so only new ones break the build. A budget threshold breach fails it too.</text>
+
+  <!-- FOOTER -->
+  <g font-size="10" fill="#5A6875">
+    <rect x="40" y="704" width="146" height="24" rx="12" fill="#F5F7F9" stroke="#E3E7EC"/><text x="56" y="719">Read-only, no writes</text>
+    <rect x="194" y="704" width="186" height="24" rx="12" fill="#F5F7F9" stroke="#E3E7EC"/><text x="210" y="719">No deployed traffic needed</text>
+    <rect x="388" y="704" width="232" height="24" rx="12" fill="#F5F7F9" stroke="#E3E7EC"/><text x="404" y="719">Zero tokens on the deterministic pass</text>
+    <rect x="628" y="704" width="228" height="24" rx="12" fill="#F5F7F9" stroke="#E3E7EC"/><text x="644" y="719">Runs before the agent is registered</text>
+  </g>
+  <line x1="884" y1="716" x2="910" y2="716" stroke="#8A96A3" stroke-width="1.6"/>
+  <text x="916" y="720" font-size="9.5" fill="#8A96A3">deterministic</text>
+  <line x1="998" y1="716" x2="1024" y2="716" stroke="#8A96A3" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <text x="1030" y="720" font-size="9.5" fill="#8A96A3">model-assisted</text>
+  <text x="1360" y="720" font-size="9.5" text-anchor="end" fill="#8A96A3">Rules cite CAF and Zero Trust controls</text>
+</svg>
