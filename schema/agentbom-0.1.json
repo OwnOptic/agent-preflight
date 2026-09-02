@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/OwnOptic/agent-preflight/schema/agentbom-0.1.json",
+  "title": "AgentBOM",
+  "description": "Bill of materials for a Microsoft agent. Every analyzer reads this and nothing else.",
+  "type": "object",
+  "required": ["bomFormat", "specVersion", "generated", "generator", "agent"],
+  "additionalProperties": false,
+  "properties": {
+    "bomFormat": { "const": "AgentBOM" },
+    "specVersion": { "const": "0.1" },
+    "serialNumber": { "type": "string", "pattern": "^urn:uuid:" },
+    "generated": { "type": "string", "format": "date-time" },
+    "generator": {
+      "type": "object",
+      "required": ["tool", "version", "collector"],
+      "properties": {
+        "tool": { "type": "string" },
+        "version": { "type": "string" },
+        "collector": { "type": "string", "description": "name@version of the collector that produced this" }
+      }
+    },
+    "agent": { "$ref": "#/$defs/agent" },
+    "models": { "type": "array", "items": { "$ref": "#/$defs/model" } },
+    "tools": { "type": "array", "items": { "$ref": "#/$defs/tool" } },
+    "knowledge": { "type": "array", "items": { "$ref": "#/$defs/knowledge" } },
+    "storage": { "type": "array", "items": { "$ref": "#/$defs/storage" } },
+    "guards": { "$ref": "#/$defs/guards" },
+    "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } },
+    "economics": { "$ref": "#/$defs/economics" },
+    "residency": {
+      "type": "object",
+      "properties": {
+        "declared": { "type": ["string", "null"] },
+        "observed": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "tags": { "type": "object", "additionalProperties": { "type": ["string", "null"] } },
+    "signature": {
+      "type": ["object", "null"],
+      "properties": { "alg": { "type": "string" }, "value": { "type": "string" } }
+    }
+  },
+
+  "$defs": {
+    "platform": {
+      "enum": ["foundry", "copilot-studio", "m365-declarative", "agent-framework", "external"]
+    },
+    "authMode": {
+      "description": "none is unauthenticated. Absent auth on a reachable tool is a Critical finding, not a null.",
+      "enum": ["none", "key", "managed-identity", "obo", "unknown"]
+    },
+    "confidence": {
+      "description": "proven beats matched beats probed. A path is only Critical when every edge is proven or matched.",
+      "enum": ["proven", "matched", "probed", "suspected"]
+    },
+
+    "agent": {
+      "type": "object",
+      "required": ["id", "platform", "identity"],
+      "properties": {
+        "id": { "type": "string" },
+        "platform": { "$ref": "#/$defs/platform" },
+        "name": { "type": ["string", "null"] },
+        "environment": { "type": ["string", "null"], "description": "subscription/rg/project, or environment id" },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "kind": { "enum": ["entra-agent", "app-registration", "shared", "none", "unknown"] },
+            "objectId": { "type": ["string", "null"] },
+            "appId": { "type": ["string", "null"] },
+            "blueprint": { "type": ["string", "null"] },
+            "mode": { "enum": ["obo", "autonomous", "unknown"] },
+            "owner": { "type": ["string", "null"] },
+            "sponsor": { "type": ["string", "null"] }
+          }
+        },
+        "instructions": {
+          "type": "object",
+          "properties": {
+            "hash": { "type": ["string", "null"] },
+            "tokens": { "type": ["integer", "null"] },
+            "capChars": { "type": ["integer", "null"] }
+          }
+        }
+      }
+    },
+
+    "model": {
+      "type": "object",
+      "required": ["deployment", "model"],
+      "properties": {
+        "deployment": { "type": "string" },
+        "model": { "type": "string" },
+        "version": { "type": ["string", "null"] },
+        "sku": { "type": ["string", "null"] },
+        "region": { "type": ["string", "null"] },
+        "capacity": { "type": ["integer", "null"] },
+        "contextWindow": { "type": ["integer", "null"] },
+        "status": { "enum": ["current", "deprecated", "retired", "unknown"] }
+      }
+    },
+
+    "tool": {
+      "type": "object",
+      "required": ["id", "kind", "name", "classification"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "enum": ["mcp", "openapi", "builtin", "connector", "function", "code-interpreter", "a2a"] },
+        "name": { "type": "string" },
+        "descriptionTokens": { "type": ["integer", "null"] },
+        "source": {
+          "type": "object",
+          "properties": {
+            "server": { "type": ["string", "null"] },
+            "manifestHash": { "type": ["string", "null"], "description": "pinned at approval; a change is SC-01" },
+            "trusted": { "type": "boolean", "default": false },
+            "toolbox": { "type": ["string", "null"] },
+            "pinned": { "type": ["boolean", "null"] },
+            "httpMethod": { "type": ["string", "null"] },
+            "builtinId": { "type": ["string", "null"] }
+          }
+        },
+        "auth": {
+          "type": "object",
+          "properties": {
+            "mode": { "$ref": "#/$defs/authMode" },
+            "scopes": { "type": "array", "items": { "type": "string" } },
+            "secretRef": { "type": ["string", "null"], "description": "kv:// reference, or 'inline' which is ID-03" }
+          }
+        },
+        "annotations": {
+          "type": ["object", "null"],
+          "description": "MCP ToolAnnotations. readOnlyHint defaults to false per spec, so absent means assumed mutating.",
+          "properties": {
+            "readOnlyHint": { "type": "boolean", "default": false },
+            "destructiveHint": { "type": ["boolean", "null"] },
+            "idempotentHint": { "type": ["boolean", "null"] },
+            "openWorldHint": { "type": ["boolean", "null"] }
+          }
+        },
+        "classification": { "$ref": "#/$defs/classification" }
+      }
+    },
+
+    "classification": {
+      "type": "object",
+      "required": ["untrustedInput", "irreversibleAction", "source"],
+      "properties": {
+        "untrustedInput": { "type": "boolean" },
+        "irreversibleAction": { "type": "boolean" },
+        "source": { "enum": ["policy", "registry", "protocol", "failclosed"] },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "rationale": { "type": ["string", "null"] }
+      }
+    },
+
+    "knowledge": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "enum": ["ai-search", "sharepoint", "files", "fabric", "bing", "web", "other"] },
+        "region": { "type": ["string", "null"] },
+        "citationsRequired": { "type": ["boolean", "null"] },
+        "chunkTokens": { "type": ["integer", "null"] },
+        "chunksPerTurn": { "type": ["integer", "null"] }
+      }
+    },
+
+    "storage": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["thread", "memory", "vector", "logs"] },
+        "resource": { "type": ["string", "null"] },
+        "region": { "type": ["string", "null"] },
+        "retentionDays": { "type": ["integer", "null"], "description": "null means no policy, which is DR-03" },
+        "sanitised": { "type": ["boolean", "null"] }
+      }
+    },
+
+    "guards": {
+      "type": "object",
+      "description": "null on any field means absent and therefore a finding, distinct from a value of zero.",
+      "properties": {
+        "contentFilter": { "enum": ["default", "custom", "none", "unknown"] },
+        "promptShields": { "type": ["boolean", "null"] },
+        "humanInTheLoop": { "type": ["boolean", "null"] },
+        "tokenCap": { "type": ["integer", "null"] },
+        "rateLimit": { "type": ["integer", "null"] },
+        "maxTurns": { "type": ["integer", "null"] },
+        "historySummarisation": { "type": ["boolean", "null"] }
+      }
+    },
+
+    "edge": {
+      "type": "object",
+      "required": ["from", "to", "via", "signal", "confidence"],
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "via": { "enum": ["connected-agent", "a2a", "http-action", "openapi", "mcp", "connector"] },
+        "endpoint": { "type": ["string", "null"] },
+        "auth": { "$ref": "#/$defs/authMode" },
+        "crossPlatform": { "type": "boolean" },
+        "crossRegion": { "type": "boolean" },
+        "crossTenant": { "type": "boolean" },
+        "signal": { "enum": ["identity", "endpoint", "probe"] },
+        "confidence": { "$ref": "#/$defs/confidence" }
+      }
+    },
+
+    "economics": {
+      "type": "object",
+      "properties": {
+        "instructionTokens": { "type": ["integer", "null"] },
+        "toolDescriptionTokens": { "type": ["integer", "null"] },
+        "groundingTokensPerTurn": { "type": ["integer", "null"] },
+        "fanoutFactor": { "type": ["number", "null"] },
+        "estimatedCostPerInteraction": {
+          "type": ["object", "null"],
+          "properties": {
+            "value": { "type": "number" },
+            "currency": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
