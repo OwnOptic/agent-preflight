@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Contract router",
+  "description_for_human": "Hands an enquiry to the contract routing agent.",
+  "namespace": "contractRouter",
+  "functions": [
+    {
+      "name": "routeEnquiry",
+      "description": "Send an enquiry to the contract router for handling.",
+      "capabilities": {
+        "response_semantics": {
+          "data_path": "$.reply"
+        }
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "OpenApi",
+      "auth": {
+        "type": "None"
+      },
+      "spec": {
+        "url": "openapi-contract-router.yaml"
+      },
+      "run_for_functions": [
+        "routeEnquiry"
+      ]
+    }
+  ]
+}

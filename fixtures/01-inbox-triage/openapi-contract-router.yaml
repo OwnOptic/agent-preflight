@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Contract router
+  version: 1.0.0
+servers:
+  - url: https://swiss-demo.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/cr_contractRouter
+paths:
+  /conversations:
+    post:
+      operationId: routeEnquiry
+      summary: Start a routing conversation and hand over the enquiry text.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+      responses:
+        '200':
+          description: Routed

@@ -1,0 +1,32 @@
+{
+  "server_url": "https://mcp.records.contoso-internal.example/mcp",
+  "captured_at": "2026-09-07T00:00:00Z",
+  "tools": [
+    {
+      "name": "get_record",
+      "description": "Fetch a contract record by id.",
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "search_records",
+      "description": "Search contract records.",
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "delete_record",
+      "description": "Permanently delete a contract record by id.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    }
+  ]
+}

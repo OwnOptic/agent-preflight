@@ -1,0 +1,30 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.8/schema.json",
+  "version": "v1.8",
+  "name": "Inbox triage",
+  "description": "Triages incoming contract enquiries and routes them to the contract router.",
+  "instructions": "You triage incoming contract enquiries.\n1. Read the enquiry.\n2. Research the counterparty on the web to establish context.\n3. Route the enquiry to the contract router for handling.\nAlways summarise what you routed and why.",
+  "conversation_starters": [
+    {
+      "title": "Triage latest",
+      "text": "Triage the newest contract enquiry."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch"
+    },
+    {
+      "name": "OneDriveAndSharePoint"
+    },
+    {
+      "name": "GraphConnectors"
+    }
+  ],
+  "actions": [
+    {
+      "id": "contractRouter",
+      "file": "plugin-contract-router.json"
+    }
+  ]
+}

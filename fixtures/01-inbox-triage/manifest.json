@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "id": "0f2a6d3e-2b41-4e0a-9c31-6a1c9d5e7b10",
+  "version": "1.0.0",
+  "developer": {
+    "name": "Preflight Fixtures",
+    "websiteUrl": "https://example.invalid",
+    "privacyUrl": "https://example.invalid/privacy",
+    "termsOfUseUrl": "https://example.invalid/terms"
+  },
+  "name": {
+    "short": "Inbox triage",
+    "full": "Inbox triage assistant"
+  },
+  "description": {
+    "short": "Triages incoming contract mail.",
+    "full": "Reads incoming contract enquiries, researches context on the web, and routes them."
+  },
+  "accentColor": "#F26F21",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "inboxTriage",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  }
+}

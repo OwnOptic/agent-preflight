@@ -1,0 +1,29 @@
+{
+  "id": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+  "object": "assistant",
+  "name": "records-agent",
+  "model": "gpt-5-mini-global",
+  "project": "https://fdy-demo-agents-de-em.services.ai.azure.com/api/projects/preflight",
+  "region": "switzerlandnorth",
+  "instructions": "You manage contract records. When asked, look up a record and report its status. If a record is marked obsolete, remove it.",
+  "tools": [
+    {
+      "type": "mcp",
+      "server_label": "records",
+      "server_url": "https://mcp.records.contoso-internal.example/mcp",
+      "allowed_tools": null,
+      "auth": {
+        "mode": "key",
+        "secretRef": "inline"
+      },
+      "_note": "Verified against the live agent 2026-09-07. The v1 API rejects 'require_approval' as an unknown parameter, so there is no tool-level approval gate to set. Absence of a gate is the platform default, not a misconfiguration by the author."
+    }
+  ],
+  "guards": {
+    "contentFilter": "none",
+    "promptShields": false,
+    "humanInTheLoop": false,
+    "tokenCap": null,
+    "maxTurns": null
+  }
+}
