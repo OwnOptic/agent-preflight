@@ -72,5 +72,6 @@ the rule catalog with control mappings, the dossier template, build order and op
 ## Provenance
 
 Created for the Microsoft Global Hackathon 2026. Intellectual property created during the hackathon
-belongs to Microsoft under the Event Participation and Confidentiality Agreement, which is why this
-repository is private and carries no open-source licence.
+belongs to Microsoft under the Event Participation and Confidentiality Agreement. This repository
+carries no open-source licence and none is implied: all rights reserved. It is public so that
+collaborators can read the design and the collector interface, not as a grant of any kind.
