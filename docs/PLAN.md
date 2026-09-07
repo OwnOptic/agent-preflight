@@ -1,164 +1,123 @@
 # Implementation plan
 
-Hackathon week is 14 to 18 September 2026. It is not a clear week.
+Rewritten 2026-09-07 against the real rules, read from Innovation Studio rather than assumed.
 
-| Commitment | When | Leaves free |
+## What the event actually requires
+
+**The only deliverable is a video of two minutes or less.** A project is eligible for Executive
+Challenge judging only if the project page has a Description and a video is uploaded by the
+deadline. No deck, no repo, no write-up is required. The repo is optional evidence.
+
+| When | What |
+|---|---|
+| Mon 14 Sep | Hacking begins |
+| Tue 15 Sep | Continues |
+| **Wed 16 Sep, close of business** | Official hacking ends. Teams may keep working |
+| Thu 17 - Fri 18 Sep | Science fairs and demos |
+| **Mon 21 Sep, 23:59 Pacific** | **Video upload and submission deadline** |
+
+Build window is Monday to Wednesday. The weekend is for the video. Elliot's Agent-a-thon
+(Thu 17, 13:15-16:30) and M365 Con keynote (Fri 18, 08:00) now fall on science-fair days rather
+than on build time.
+
+**Executive Challenge: Hack to Make Agents Trustworthy**, sponsored by Sarah Bird. Exactly one
+Executive Challenge per project; selecting "Other" removes the project from judging entirely.
+
+**Submissions are machine-sorted before a human sees them.** AI is used to classify submissions
+against challenge goals and route them to reviewers with matching expertise. The description is
+read by a classifier first, so wording that echoes the challenge earns the right reviewer.
+
+**Disclose AI-assisted authoring.** The event encourages it and asks that major tools be named.
+
+## The judging rubric
+
+Every one of these must be visible in a two-minute video. Anything implicit is unscored.
+
+| Category | What it asks | Where the video earns it |
 |---|---|---|
-| Frontier Transformation Week | 14 to 17 Sep, up to 3.5h/day | afternoons |
-| Global Agent-a-thon, moderating L2 | Thu 17 Sep, 13:15 to 16:30 | Thursday morning |
-| M365 Con D-A-CH keynote | Fri 18 Sep, 08:00 to 08:45 | Friday from 09:30 |
+| Inspiration | Energy, novelty, fresh perspective | The cross-platform path nobody can currently see |
+| Business Value | Monetary or non-monetary value to Microsoft | Agents blocked before they ship; the composition metadata feeds Agent 365 |
+| Customer Focus | Clear target audience, compelling for them | Named out loud: the engineer shipping an agent, and the reviewer who has to approve it |
+| Feasibility | Viable pathway to implementation | Deterministic, SARIF, runs in CI, complements a control plane Microsoft is already building |
+| Make Something | Built, not proposed | A working CLI failing a real build on a real finding |
 
-Five usable half-days, roughly two and a half effective days. The plan is built to that, not to
-what the capability list describes.
+## Phase 0 - before Monday 14
 
-## The rule that governs everything below
+| # | Task | Done when |
+|---|---|---|
+| 0.1 | ~~Innovation Studio access~~ | Done. Registered, project creation open |
+| 0.2 | **Create a Foundry project** on `fdy-demo-agents-de-em` | Verified 2026-09-07: `projects` still returns `[]`. Agent Service is not set up. This blocks the Foundry collector and the fixtures |
+| 0.3 | **Build the three fixtures** | `fixtures/` holds three agents whose endpoints chain, per `fixtures/README.md` |
+| 0.4 | `policy.example.yaml` | Loads into `Policy`, fixture MCP server deliberately absent from the trusted list |
+| 0.5 | Fill `classify/registry.py` | Every Foundry built-in has an entry with a rationale |
+| 0.6 | **Publish the project page** with Title, Tagline, Description, Executive Challenge, Topic Challenges | Description is an eligibility requirement, not a nicety. Do it now, edit later |
 
-**Every slot ends with something demoable.** Vertical slices, never horizontal layers. If the week
-collapses after slot 3, there is still a demo. If it collapses after slot 1, there is still a
-working tool that does one useful thing.
+## Build, Monday 14 to Wednesday 16
 
-Each slot below names a **cut line**: the thing to drop first if time runs out.
+Vertical slices. Every slot ends with something demoable, and each names what to drop first.
 
----
+**Mon 14 - first BOM.** The M365 declarative collector: parse `declarativeAgent.json`, follow the
+API plugin manifests and their OpenAPI documents, emit one `Tool` per operation with `httpMethod`
+set. Wire in the classifier. `preflight collect <path>` prints canonical JSON, validated against
+the schema in a test. Files on disk, no licence, no tenant, so the whole pipeline runs on day one.
+*Cut: skip OpenAPI following, treat the plugin as one opaque tool.*
 
-## Phase 0 · Before the week (now to 13 September)
+**Tue 15 - three platforms.** Copilot Studio from an exported unmanaged solution on disk. Foundry
+via `azure-ai-projects` against the project from 0.2. `preflight scan <dir>` runs every available
+collector.
+*Cut: Foundry from a saved API response rather than live.*
 
-This is the phase that decides whether the week works. None of it is coding.
+**Wed 16 - the demo.** Edge resolution: index published inbound endpoints, normalise outbound URLs,
+intersect. Identity match first, endpoint match second, no probe. Attack path reachability with
+severity gated on confidence. Print the path as a readable chain.
+*Cut: none. Without this there is no video. Protect it by moving Foundry work earlier if Monday
+runs long.*
 
-| # | Task | Why it blocks | Done when |
-|---|---|---|---|
-| 0.1 | **Get into Innovation Studio** | Nothing else matters without it | Registered, profile tagged `MVP26`, role Hackers, project created |
-| 0.2 | **Create a Foundry project** on `fdy-demo-agents-de-em` | Verified 2026-09-02: `projects` returns `[]`. Model deployments exist, Agent Service does not. Also settles whether Agent Service is available in switzerlandnorth | A project exists and one agent can be created in it |
-| 0.3 | **Build the three fixtures** | They define what the tool must detect, so they come before the code that detects it | `fixtures/` holds three agents whose endpoints chain, per `fixtures/README.md` |
-| 0.4 | **Write `policy.example.yaml`** | Every `pol` rule reads it, and the trusted-server list gates the classifier | Loads into `Policy`, with the fixture MCP server deliberately absent from the trusted list |
-| 0.5 | **Fill `classify/registry.py`** | Tier 1 is a table, not code. Cheap, and it can be done in gaps | Every Foundry built-in tool has an entry with a rationale |
+Then, if Wednesday allows: the `def` rules from AP, ID, TS and MA, SARIF output, and a GitHub
+Action that fails a build. That is what makes "Make Something" and "Feasibility" concrete on
+camera.
 
-Do not skip 0.3. Building fixtures after the analyzer is how you end up with a tool that only
-detects what you happened to build.
+## The video, Thursday 17 to Monday 21
 
----
+Two minutes. Every second is scored. Rehearse it; do not narrate live.
 
-## Slot 1 · Monday 14 PM — first BOM
+| Time | Beat | Rubric |
+|---|---|---|
+| 0:00-0:20 | Three agents, three platforms, each reviewed and approved separately. Name the customer out loud: the engineer shipping the agent, and the reviewer who has to sign it off | Customer Focus |
+| 0:20-0:35 | `preflight scan`. Deterministic, no traffic, no tokens, two seconds | Make Something |
+| 0:35-1:05 | One critical. Print the path. Then open each platform's own tooling and show each reports clean. The defect exists only in the composition | Inspiration |
+| 1:05-1:25 | Why it can be trusted: deterministic, every finding cites a CAF or Zero Trust control, confidence gates severity | Feasibility |
+| 1:25-1:45 | SARIF failing a pull request. The dossier | Make Something |
+| 1:45-2:00 | It runs before registration and feeds Agent 365 rather than competing. An agent stopped before it ships is the value | Business Value |
 
-**Target: `preflight collect` produces a schema-valid AgentBOM.**
-
-Start with the M365 declarative collector. It reads files from disk, needs no licence, no tenant
-and no network, so it reaches a real BOM faster than anything else, and it exercises the whole
-pipeline end to end on day one.
-
-- `collectors/m365_declarative.py`: parse `declarativeAgent.json`, follow every referenced API
-  plugin manifest, follow each plugin's OpenAPI document, emit one `Tool` per operation with
-  `httpMethod` populated
-- Wire the classifier in: every tool comes out with a `classification` and a `source`
-- `cli.py`: `preflight collect <path>` prints canonical JSON
-- Validate the output against `schema/agentbom-0.1.json` in a test
-
-**Demoable:** a real agent, a real BOM, every tool classified with its reasoning attached.
-**Cut line:** skip OpenAPI following, emit the plugin as a single opaque tool.
-
----
-
-## Slot 2 · Tuesday 15 PM — three platforms
-
-**Target: three BOMs from three platforms, one schema.**
-
-- `collectors/copilot_studio.py`: read an exported unmanaged solution from disk. Prefer the export
-  over live Dataverse: offline, versionable, no environment needed mid-demo
-- `collectors/foundry.py`: `azure-ai-projects` against the project from 0.2. Agents, toolboxes,
-  connections, connected agents, content filters
-- `preflight scan <dir>` runs every available collector and writes one BOM per agent
-
-**Demoable:** one command, one directory, three platforms, three BOMs.
-**Cut line:** Foundry from a saved API response rather than live. The BOM is what matters, not
-where it came from.
-
----
-
-## Slot 3 · Wednesday 16 PM — the demo
-
-**Target: the critical path prints. This is the slot that decides the week.**
-
-- `resolve/edges.py`: index every published inbound endpoint across all BOMs, normalise every
-  outbound URL, intersect. Identity match first, endpoint match second. Probe stays unimplemented
-- `analyze/paths.py`: build the graph, mark untrusted-input sources and irreversible-action sinks,
-  find reachability, drop any path that crosses a declared human gate
-- Severity gating: **critical only when every edge on the path is proven or matched**
-- Print the path as a readable chain, not a JSON blob
-
-**Demoable:** the whole pitch. Three approved agents, one critical finding, the path printed.
-**Cut line:** none. If this slot does not land, the project has no demo. Protect it by moving
-slot 2's Foundry work earlier if slot 1 runs long.
-
----
-
-## Slot 4 · Thursday 17 AM — findings that land somewhere
-
-**Target: findings in a pull request.**
-
-- `rules/`: the `def` rules from AP, ID, TS and MA. One module per domain, one function per rule,
-  each returning a finding with its id, severity and control reference
-- `report/sarif.py`: SARIF 2.1.0 output, rule ids from the catalog become SARIF rule ids
-- `.github/workflows/preflight.yml`: run on PR, upload SARIF via `github/codeql-action/upload-sarif`
-- Baseline file, so existing findings can be accepted and only new ones fail the build
-
-**Demoable:** open a PR that adds a tool to a fixture, watch the check fail with the finding
-annotated on the diff.
-**Cut line:** drop the baseline file. Drop the Azure DevOps task entirely, it adds nothing to the
-demo.
-
----
-
-## Slot 5 · Friday 18 from 09:30 — cost, dossier, submit
-
-**Target: submitted, with the demo recorded.**
-
-- `analyze/cost.py`: prompt tax and tool surface tax only. Both are token counts already in the
-  BOM, so this is arithmetic rather than integration
-- Cost delta posted as a PR comment
-- `report/dossier.py`: render the template. Sections 1, 4, 5, 8 and 11 are fully derivable from the
-  BOM and the findings; everything else prints *requires human input*
-- **Record the three-minute demo** and attach it to the Innovation Studio project
-
-**Cut line:** the dossier. Cost is cheaper to finish and lands harder in a room. If only one of the
-two happens, make it cost.
-
----
+Record Thursday or Friday so the weekend is contingency, not the plan. Upload well before Monday
+23:59 Pacific, which is Tuesday 08:59 in Lausanne, so **the practical deadline is Monday evening.**
 
 ## Where extra hands go
 
-Anyone who joins can take one of these without touching the core. Each is self-contained and each
-has a clear interface already in the repo.
-
-| Piece | Interface | Why it is separable |
+| Piece | Interface | Note |
 |---|---|---|
-| A new platform collector | `collectors/base.py` `Collector` protocol | Analyzers read the BOM, never the platform |
-| The Agent 365 collector | Same | **Needs Microsoft E7 or the Agent 365 add-on. The MVP tenant is E5, so this cannot be built or tested here.** An internal contributor can |
+| A new platform collector | `collectors/base.py` | Analyzers read the BOM, never the platform |
+| The Agent 365 collector | Same | Needs Microsoft E7 or the Agent 365 add-on. The MVP tenant is E5, so this cannot be built or tested here. An internal contributor can |
 | Tier 1 registry entries | `classify/registry.py` | A table with rationales |
 | Policy packs | `policy.py` | Swiss and EU residency, financial services, public sector |
-| A review board specialist | not yet scaffolded | Reads the BOM, produces findings, cannot contradict a deterministic one |
-| MCP annotation contributions | upstream | Servers in `microsoft/mcp` and `Azure/azure-mcp` that ship no `ToolAnnotations` |
 
----
+## Definition of done
 
-## Definition of done for the week
+1. A video of two minutes or less, uploaded before Monday 21 Sep 23:59 Pacific
+2. The project page carries a Description and the Executive Challenge is set
+3. `preflight scan fixtures/` finds the cross-platform critical path
+4. A pull request shows the finding as a SARIF annotation
+5. AI-assisted authoring disclosed on the project page
 
-1. `preflight scan fixtures/` finds the cross-platform critical path, printed as a chain
-2. A pull request shows the finding as a SARIF annotation on the diff
-3. Every finding cites a rule id and a named control
-4. The three-minute demo is recorded and attached to the project
-5. The repo README explains the gap in four paragraphs to someone who has never seen it
+Items 1 and 2 are eligibility. Everything else is score.
 
-Everything else in `capabilities.md` is roadmap, and the project description should say so rather
-than let anyone assume it ships by Friday.
-
----
-
-## Known risks
+## Risks
 
 | Risk | Mitigation |
 |---|---|
-| No Innovation Studio access | Phase 0.1. Nothing else matters until it is resolved |
-| Agent Service unavailable in switzerlandnorth | Phase 0.2 settles it. Fallback is a project in a supported region, which costs the Swiss residency angle in the demo narrative |
-| Azure credit exhausted mid-week | `rg-agentlens` already deleted. Check the balance in the portal, the subscription has a spending limit and will disable rather than bill |
-| Slot 3 slips | It is the demo. Move Foundry collection earlier and cut slot 2's live integration instead |
-| Scope creep from `capabilities.md` | The capability list is the vision. This file is the commitment |
+| No Foundry project | Phase 0.2, and it also settles whether Agent Service exists in switzerlandnorth |
+| Azure credit exhausted | `rg-agentlens` deleted. Check the balance in the portal |
+| Wednesday slips | It is the video's content. Move Foundry earlier and cut Tuesday's live integration |
+| Two minutes is short | Rehearse. The single biggest risk is trying to show two findings instead of one |
+| Confidentiality | Innovation Studio content is Microsoft Confidential. Nothing from it goes into the public repo, the website, or a post |
