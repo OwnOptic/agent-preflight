@@ -3,7 +3,7 @@ name = "agent-preflight"
 version = "0.1.0"
 description = "Design-time governance for Microsoft agents"
 requires-python = ">=3.11"
-dependencies = ["pydantic>=2.7", "jsonschema>=4.22", "typer>=0.12"]
+dependencies = ["pydantic>=2.7", "jsonschema>=4.22", "pyyaml>=6.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "ruff>=0.5"]
@@ -11,6 +11,9 @@ dev = ["pytest>=8", "ruff>=0.5"]
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[project.scripts]
+preflight = "preflight.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/preflight"]

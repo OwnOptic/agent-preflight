@@ -29,4 +29,10 @@ FIRST_PARTY: dict[str, Entry] = {
     "image_generation": Entry(False, False, "Produces content, reaches nothing."),
     "azure_function": Entry(False, True, "Arbitrary code with side effects."),
     "logic_app": Entry(False, True, "Connector actions, assumed state-changing."),
+    "web_search": Entry(True, False, "Open web content, attacker-influenceable."),
+    "graph_connectors": Entry(True, False, "Indexed third-party content, authored by people."),
+    "email": Entry(True, False, "Inbound mail is the classic untrusted channel."),
+    "teams_messages": Entry(True, False, "Message content is user-authored."),
+    "people": Entry(False, False, "Directory lookup."),
+    "dataverse": Entry(False, False, "Structured query over governed data."),
 }

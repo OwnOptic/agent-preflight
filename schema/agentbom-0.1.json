@@ -9,7 +9,7 @@
   "properties": {
     "bomFormat": { "const": "AgentBOM" },
     "specVersion": { "const": "0.1" },
-    "serialNumber": { "type": "string", "pattern": "^urn:uuid:" },
+    "serialNumber": { "type": ["string", "null"], "pattern": "^urn:uuid:" },
     "generated": { "type": "string", "format": "date-time" },
     "generator": {
       "type": "object",
