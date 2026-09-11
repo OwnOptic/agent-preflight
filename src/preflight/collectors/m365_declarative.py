@@ -3,8 +3,8 @@
 Reads: ``declarativeAgent.json`` (schema 1.8) plus every API plugin manifest it references and each
 plugin's OpenAPI document.
 
-Access: files on disk. No licence, no tenant, no network. That is why this is the first collector:
-the whole pipeline runs end to end on day one without touching Azure.
+Access: files on disk. No licence, no tenant, no network. That is why this was the first collector:
+the whole pipeline runs end to end without touching Azure.
 
 What it does not do: classify tools, or resolve where an outbound URL points. Both need the whole
 estate and run afterwards. This collector records the OpenAPI server URL verbatim so
@@ -48,7 +48,21 @@ CAPABILITY_IDS = {
     "GraphicArt": "image_generation",
 }
 
-_AUTH_MODES = {"none": "none", "apikeyplugumvault": "key", "oauthplugumvault": "obo"}
+#: Words that show the instructions actually call for a capability. Deliberately simple and
+#: deterministic: TS-06 asks "was this ever asked for", not "is it used well".
+_KEYWORDS = {
+    "WebSearch": ("web", "internet", "online"),
+    "OneDriveAndSharePoint": ("sharepoint", "onedrive", "document", "file"),
+    "GraphConnectors": ("connector", "external system"),
+    "Email": ("email", "mail", "inbox"),
+    "TeamsMessages": ("teams", "chat", "message"),
+    "People": ("people", "colleague", "person"),
+    "Dataverse": ("dataverse", "table"),
+    "CodeInterpreter": ("code", "calculate", "analys", "analyz"),
+    "GraphicArt": ("image", "picture", "draw"),
+}
+
+_AUTH_MODES = {"none": "none", "apikeypluginvault": "key", "oauthpluginvault": "obo"}
 
 
 class M365DeclarativeCollector:
@@ -65,32 +79,20 @@ class M365DeclarativeCollector:
                 doc = json.loads(da.read_text(encoding="utf-8"))
             except Exception:
                 continue
-            yield AgentRef(
-                id=str(da.parent.name),
-                platform=self.platform,
-                name=doc.get("name"),
-                scope=Scope(path=str(da.parent)),
-            )
+            yield AgentRef(id=str(da.parent.name), platform=self.platform, name=doc.get("name"),
+                           scope=Scope(path=str(da.parent)))
 
     def collect(self, ref: AgentRef) -> AgentBOM:
         base = Path(ref.scope.path if ref.scope and ref.scope.path else ".")
-        doc = json.loads((base / "declarativeAgent.json").read_text(encoding="utf-8"))
+        source = base / "declarativeAgent.json"
+        doc = json.loads(source.read_text(encoding="utf-8"))
 
         instructions = doc.get("instructions") or ""
         tools: list[Tool] = []
-        tools.extend(self._capability_tools(doc))
+        tools.extend(self._capability_tools(doc, instructions))
         tools.extend(self._action_tools(base, doc))
 
         overrides = doc.get("behavior_overrides") or {}
-        guards = Guards(
-            # A declarative agent has no content filter of its own; it inherits the tenant's.
-            contentFilter="unknown",
-            promptShields=None,
-            # No approval mechanism exists in the manifest, so this is absent rather than false.
-            humanInTheLoop=None,
-            historySummarisation=None,
-        )
-
         return AgentBOM(
             generated=datetime.now(timezone.utc),
             generator=Generator(collector=self.version),
@@ -98,7 +100,11 @@ class M365DeclarativeCollector:
                 id=doc.get("id") or ref.id,
                 platform=self.platform,
                 name=doc.get("name"),
-                environment=str(base),
+                description=doc.get("description"),
+                # Runs inside M365 Copilot as the signed-in user. It publishes no endpoint of its own.
+                endpoints=[],
+                inboundAuth="obo",
+                sourceFile=str(source),
                 identity=Identity(kind="none", mode="obo"),
                 instructions=Instructions(
                     hash="sha256:" + hashlib.sha256(instructions.encode("utf-8")).hexdigest(),
@@ -107,62 +113,52 @@ class M365DeclarativeCollector:
                 ),
             ),
             tools=tools,
-            guards=guards,
+            # A declarative agent has no content filter or approval mechanism of its own; it
+            # inherits the tenant's. Absent, therefore unknown, not false.
+            guards=Guards(),
             tags={
                 "disclaimer": (doc.get("disclaimer") or {}).get("text"),
                 "discourageModelKnowledge": _s(
-                    (overrides.get("special_instructions") or {}).get(
-                        "discourage_model_knowledge"
-                    )
+                    (overrides.get("special_instructions") or {}).get("discourage_model_knowledge")
                 ),
                 "actionCount": str(len(doc.get("actions") or [])),
             },
         )
 
-    # -- capabilities -------------------------------------------------------------------
-
-    def _capability_tools(self, doc: dict[str, Any]) -> list[Tool]:
+    def _capability_tools(self, doc: dict[str, Any], instructions: str) -> list[Tool]:
+        text = instructions.lower()
         out = []
         for cap in doc.get("capabilities") or []:
             name = cap.get("name") if isinstance(cap, dict) else str(cap)
             if not name:
                 continue
+            words = _KEYWORDS.get(name)
             out.append(
                 Tool(
                     id=f"cap:{name}",
                     kind="builtin",
                     name=name,
+                    referencedInInstructions=any(w in text for w in words) if words else None,
                     source=ToolSource(builtinId=CAPABILITY_IDS.get(name)),
                     auth=ToolAuth(mode="obo"),
                 )
             )
         return out
 
-    # -- actions ------------------------------------------------------------------------
-
     def _action_tools(self, base: Path, doc: dict[str, Any]) -> list[Tool]:
         out: list[Tool] = []
         for action in doc.get("actions") or []:
             pfile = base / (action.get("file") or "")
             if not pfile.is_file():
-                # An action pointing at a manifest we cannot read is itself worth recording.
-                out.append(
-                    Tool(
-                        id=f"action:{action.get('id', '?')}",
-                        kind="openapi",
-                        name=str(action.get("id") or "unknown"),
-                        source=ToolSource(server=None),
-                    )
-                )
+                out.append(Tool(id=f"action:{action.get('id', '?')}", kind="openapi",
+                                name=str(action.get("id") or "unknown")))
                 continue
             out.extend(self._plugin_tools(pfile, action.get("id") or pfile.stem))
         return out
 
     def _plugin_tools(self, pfile: Path, action_id: str) -> list[Tool]:
         plugin = json.loads(pfile.read_text(encoding="utf-8"))
-        descriptions = {
-            f.get("name"): f.get("description", "") for f in plugin.get("functions") or []
-        }
+        descriptions = {f.get("name"): f.get("description", "") for f in plugin.get("functions") or []}
         manifest_hash = "sha256:" + hashlib.sha256(pfile.read_bytes()).hexdigest()
 
         out: list[Tool] = []
@@ -173,37 +169,16 @@ class M365DeclarativeCollector:
             spec_ref = (runtime.get("spec") or {}).get("url") or ""
             spec_path = (pfile.parent / spec_ref) if spec_ref and "://" not in spec_ref else None
             if spec_path is None or not spec_path.is_file():
-                out.append(
-                    Tool(
-                        id=f"action:{action_id}",
-                        kind="openapi",
-                        name=action_id,
-                        source=ToolSource(server=spec_ref or None, manifestHash=manifest_hash),
-                        auth=ToolAuth(mode=auth),
-                    )
-                )
+                out.append(Tool(id=f"action:{action_id}", kind="openapi", name=action_id,
+                                source=ToolSource(server=spec_ref or None, manifestHash=manifest_hash),
+                                auth=ToolAuth(mode=auth)))
                 continue
-            out.extend(
-                self._openapi_tools(
-                    spec_path,
-                    action_id,
-                    auth,
-                    manifest_hash,
-                    runtime.get("run_for_functions") or [],
-                    descriptions,
-                )
-            )
+            out.extend(self._openapi_tools(spec_path, action_id, auth, manifest_hash,
+                                           runtime.get("run_for_functions") or [], descriptions))
         return out
 
-    def _openapi_tools(
-        self,
-        spec_path: Path,
-        action_id: str,
-        auth: str,
-        manifest_hash: str,
-        run_for: list[str],
-        descriptions: dict[str, str],
-    ) -> list[Tool]:
+    def _openapi_tools(self, spec_path: Path, action_id: str, auth: str, manifest_hash: str,
+                       run_for: list[str], descriptions: dict[str, str]) -> list[Tool]:
         spec = yaml.safe_load(spec_path.read_text(encoding="utf-8")) or {}
         servers = [s.get("url") for s in spec.get("servers") or [] if s.get("url")]
         server = servers[0] if servers else None
@@ -226,7 +201,6 @@ class M365DeclarativeCollector:
                         name=op_id,
                         descriptionTokens=_approx_tokens(desc),
                         source=ToolSource(
-                            # The full outbound URL. resolve/ matches this against the estate.
                             server=(server.rstrip("/") + path) if server else None,
                             manifestHash=manifest_hash,
                             httpMethod=method.upper(),

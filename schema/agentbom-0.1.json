@@ -9,7 +9,11 @@
   "properties": {
     "bomFormat": { "const": "AgentBOM" },
     "specVersion": { "const": "0.1" },
-    "serialNumber": { "type": ["string", "null"], "pattern": "^urn:uuid:" },
+    "serialNumber": {
+      "type": ["string", "null"],
+      "pattern": "^urn:uuid:",
+      "description": "Derived from the composition hash, not random: the same composition always has the same serial."
+    },
     "generated": { "type": "string", "format": "date-time" },
     "generator": {
       "type": "object",
@@ -47,7 +51,7 @@
       "enum": ["foundry", "copilot-studio", "m365-declarative", "agent-framework", "external"]
     },
     "authMode": {
-      "description": "none is unauthenticated. Absent auth on a reachable tool is a Critical finding, not a null.",
+      "description": "none is unauthenticated. unknown means the definition does not say, which is not the same as none.",
       "enum": ["none", "key", "managed-identity", "obo", "unknown"]
     },
     "confidence": {
@@ -62,7 +66,18 @@
         "id": { "type": "string" },
         "platform": { "$ref": "#/$defs/platform" },
         "name": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] },
         "environment": { "type": ["string", "null"], "description": "subscription/rg/project, or environment id" },
+        "endpoints": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Published inbound endpoints other agents can call. Edge resolution matches outbound URLs against these."
+        },
+        "inboundAuth": { "$ref": "#/$defs/authMode" },
+        "sourceFile": {
+          "type": ["string", "null"],
+          "description": "Definition file this BOM was read from. Excluded from the composition hash, since it depends on where the file sits, not on what it says."
+        },
         "identity": {
           "type": "object",
           "properties": {
@@ -109,6 +124,14 @@
         "kind": { "enum": ["mcp", "openapi", "builtin", "connector", "function", "code-interpreter", "a2a"] },
         "name": { "type": "string" },
         "descriptionTokens": { "type": ["integer", "null"] },
+        "approval": {
+          "type": ["boolean", "null"],
+          "description": "Tool-level human approval gate. true blocks an attack path. null means the platform offers no gate here."
+        },
+        "referencedInInstructions": {
+          "type": ["boolean", "null"],
+          "description": "Whether the instructions ever call for this capability. false with a granted capability is TS-06."
+        },
         "source": {
           "type": "object",
           "properties": {
@@ -117,6 +140,10 @@
             "trusted": { "type": "boolean", "default": false },
             "toolbox": { "type": ["string", "null"] },
             "pinned": { "type": ["boolean", "null"] },
+            "allowlist": {
+              "type": ["boolean", "null"],
+              "description": "true when the connection restricts which tools are exposed; false is TS-01"
+            },
             "httpMethod": { "type": ["string", "null"] },
             "builtinId": { "type": ["string", "null"] }
           }
@@ -182,7 +209,7 @@
 
     "guards": {
       "type": "object",
-      "description": "null on any field means absent and therefore a finding, distinct from a value of zero.",
+      "description": "null on any field means the definition does not say. Only an explicit none or false is a finding.",
       "properties": {
         "contentFilter": { "enum": ["default", "custom", "none", "unknown"] },
         "promptShields": { "type": ["boolean", "null"] },
@@ -200,6 +227,7 @@
       "properties": {
         "from": { "type": "string" },
         "to": { "type": "string" },
+        "tool": { "type": ["string", "null"], "description": "id of the tool that carries this edge" },
         "via": { "enum": ["connected-agent", "a2a", "http-action", "openapi", "mcp", "connector"] },
         "endpoint": { "type": ["string", "null"] },
         "auth": { "$ref": "#/$defs/authMode" },
@@ -213,6 +241,7 @@
 
     "economics": {
       "type": "object",
+      "description": "Derived from the composition and the price table in policy. Excluded from the composition hash.",
       "properties": {
         "instructionTokens": { "type": ["integer", "null"] },
         "toolDescriptionTokens": { "type": ["integer", "null"] },

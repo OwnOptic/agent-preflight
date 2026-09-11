@@ -1,0 +1,39 @@
+# Agent Preflight policy.
+#
+# The tool ships defaults; this file is where an organisation states its own. Every rule marked
+# `pol` in docs/capabilities.md reads from here, and so does the classifier's trusted-server list.
+
+# Declared data residency. Deployments, connections and stores outside it are DR-01.
+residency: CH
+allowed_regions:
+  - switzerlandnorth
+  - switzerlandwest
+  - switzerland
+
+allowed_models:
+  - gpt-5-mini
+  - gpt-5-mini-global
+  - model-router
+  - text-embedding-3-small
+
+# Auth modes acceptable on a connection. Anything else is reported.
+required_auth_modes:
+  - obo
+  - managed-identity
+
+# MCP servers whose annotations may be relied on. Annotations from any other server can only make a
+# classification worse, never better (MCP spec: clients MUST treat them as untrusted otherwise).
+#
+# The fixture records server is deliberately NOT listed, so the classifier fails closed on it.
+trusted_mcp_servers: []
+
+# Cost. Prices are per million input tokens in `currency`. Left empty on purpose: fill them from the
+# Azure pricing page for your region rather than trusting a number someone wrote into a repo. With
+# no prices, cost is reported in tokens, which is still enough to see a regression.
+currency: CHF
+prices_per_million_input_tokens: {}
+budget_per_interaction: null
+max_cost_delta_pct: 20
+
+# Explicit classifications, by tool id or tool name. Always wins over every other tier.
+tool_overrides: {}

@@ -30,6 +30,14 @@ def test_annotations_from_untrusted_server_cannot_improve_a_classification():
     assert c.source == "failclosed"
 
 
+def test_untrusted_server_declaring_its_own_tool_destructive_is_believed():
+    """A worsening annotation is accepted from any server: nobody overstates their own danger."""
+    c = classify(mcp(readOnlyHint=False, destructiveHint=True), Policy.default())
+    assert (c.untrustedInput, c.irreversibleAction) == (True, True)
+    assert c.source == "protocol"
+    assert c.confidence == "high"
+
+
 def test_annotations_from_trusted_server_are_authoritative():
     policy = Policy(trusted_mcp_servers={SERVER})
     c = classify(mcp(readOnlyHint=True, openWorldHint=False), policy)

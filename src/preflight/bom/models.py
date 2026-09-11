@@ -1,9 +1,9 @@
 """AgentBOM data model, mirroring schema/agentbom-0.1.json.
 
-The schema is the contract; these models are the convenient view of it. A test validates a
-generated BOM against the JSON Schema so the two cannot drift silently.
+The schema is the contract; these models are the convenient view of it. A test validates generated
+BOMs against the JSON Schema so the two cannot drift silently.
 
-``None`` means absent and therefore a finding. It is never a substitute for zero or false.
+``None`` means the definition does not say. It is never a substitute for zero or false.
 """
 
 from __future__ import annotations
@@ -42,6 +42,7 @@ class ToolSource(BaseModel):
     trusted: bool = False
     toolbox: str | None = None
     pinned: bool | None = None
+    allowlist: bool | None = None
     httpMethod: str | None = None
     builtinId: str | None = None
 
@@ -57,6 +58,8 @@ class Tool(BaseModel):
     kind: ToolKind
     name: str
     descriptionTokens: int | None = None
+    approval: bool | None = None
+    referencedInInstructions: bool | None = None
     source: ToolSource = Field(default_factory=ToolSource)
     auth: ToolAuth = Field(default_factory=ToolAuth)
     annotations: Annotations | None = None
@@ -83,7 +86,11 @@ class Agent(BaseModel):
     id: str
     platform: Platform
     name: str | None = None
+    description: str | None = None
     environment: str | None = None
+    endpoints: list[str] = Field(default_factory=list)
+    inboundAuth: AuthMode = "unknown"
+    sourceFile: str | None = None
     identity: Identity = Field(default_factory=Identity)
     instructions: Instructions = Field(default_factory=Instructions)
 
@@ -129,6 +136,7 @@ class Guards(BaseModel):
 class Edge(BaseModel):
     from_: str = Field(alias="from")
     to: str
+    tool: str | None = None
     via: Literal["connected-agent", "a2a", "http-action", "openapi", "mcp", "connector"]
     endpoint: str | None = None
     auth: AuthMode = "unknown"

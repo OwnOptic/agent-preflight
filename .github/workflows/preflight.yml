@@ -1,0 +1,54 @@
+name: preflight
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: pip install -e ".[dev]"
+
+      - name: Test
+        run: pytest -q
+
+      # The fixtures are deliberately bad, so their current findings are accepted in the baseline.
+      # A pull request that introduces a new critical finding fails this step, and so does one that
+      # changes an MCP tool manifest after it was pinned (SC-01, checked against the lock).
+      - name: Scan agents
+        run: >
+          preflight scan fixtures
+          --policy policy.example.yaml
+          --baseline preflight.baseline.json
+          --lock preflight.lock.json
+          --sarif preflight.sarif
+          --dossier dossier
+          --fail-on critical
+
+      - name: Keep the dossiers
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: governance-dossiers
+          path: dossier/
+
+      - name: Upload SARIF to code scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: preflight.sarif
+          category: agent-preflight

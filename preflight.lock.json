@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "servers": {
+    "https://mcp.records.contoso-internal.example/mcp": "sha256:97fb4eedabc11f58a6e7061e35b6c3850d8c9720579766f909043b26d23d0fac"
+  }
+}

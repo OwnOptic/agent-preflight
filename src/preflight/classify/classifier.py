@@ -16,7 +16,9 @@ from us:
 
 * The spec says clients MUST treat tool annotations as untrusted unless they come from a trusted
   server. So annotations from an untrusted server may only ever *worsen* a classification. A
-  hostile server cannot annotate its way past the gate.
+  hostile server cannot annotate its way past the gate. The corollary matters just as much: when an
+  untrusted server declares its own tool destructive, that is accepted, because no server gains
+  anything by overstating its own danger.
 * ``readOnlyHint`` defaults to ``false``. An unannotated tool is already presumed to modify its
   environment by the protocol's own default, so tier 3 is the spec's position, not ours.
 """
@@ -106,9 +108,20 @@ def _from_mcp(tool: Tool, policy: Policy) -> Classification | None:
     trusted = tool.source.trusted or server in policy.trusted_mcp_servers
 
     if not trusted:
-        # MCP spec: annotations from an untrusted server MUST NOT be relied on. They are kept
-        # on the tool for the report, but they may only worsen a classification, never improve
-        # it, so the fail-closed position stands.
+        if ann.destructiveHint:
+            # Worsening annotation: accepted from any server. It still cannot vouch for its own
+            # input being closed-world, so untrustedInput stays at the worst case too.
+            return Classification(
+                untrustedInput=True,
+                irreversibleAction=True,
+                source="protocol",
+                confidence="high",
+                rationale=(
+                    f"Server {server!r} is not on the trusted list, so its annotations cannot reduce "
+                    "risk, but it declares this tool destructive, and an annotation that worsens a "
+                    "classification is accepted from any server."
+                ),
+            )
         return Classification(
             untrustedInput=True,
             irreversibleAction=True,
@@ -125,15 +138,9 @@ def _from_mcp(tool: Tool, policy: Policy) -> Classification | None:
     destructive = bool(ann.destructiveHint)
     open_world = bool(ann.openWorldHint)
 
-    irreversible = destructive or not read_only
-    if irreversible and ann.idempotentHint:
-        # Idempotent lowers the blast radius. It does not clear the classification, it is
-        # consumed later when ranking path severity.
-        pass
-
     return Classification(
         untrustedInput=open_world,
-        irreversibleAction=irreversible,
+        irreversibleAction=destructive or not read_only,
         source="protocol",
         confidence="high",
         rationale=(
@@ -151,10 +158,10 @@ def _from_http(tool: Tool) -> Classification | None:
     mutating = method in _MUTATING
     return Classification(
         # A response body from an external host is attacker-influenced content, whatever the
-        # method. Only a tool reaching a host inside the estate escapes this, and that is a
-        # policy override rather than something the method can tell us.
+        # method. Only a tool reaching a host inside the estate escapes this, and that is a policy
+        # override rather than something the method can tell us.
         untrustedInput=True,
-        irreversibleAction=method in _IRREVERSIBLE or mutating,
+        irreversibleAction=mutating,
         source="protocol",
         confidence="high" if method in _IRREVERSIBLE else "medium",
         rationale=f"HTTP {method}: {'state-changing' if mutating else 'read'} operation.",
