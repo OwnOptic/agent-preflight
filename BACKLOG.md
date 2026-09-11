@@ -53,8 +53,10 @@ exist where the platform can see them.
       collector must produce the same BOM from the real export.
 - [ ] `policy.example.yaml` loading into `Policy`, fixture MCP server deliberately absent from
       `trusted_mcp_servers` so the classifier fails closed on it
-- [ ] Check the remaining Azure credit in the portal. The consumption API returns `pretaxCost: None`
-      for this offer, so it cannot be read from the CLI
+- [x] Azure credit checked: CHF 130 remaining, CHF 0.23 spent this cycle. The `mvp-billing-guard`
+      budget was reset from 150 to CHF 130 on 2026-09-11, so every alert fires before the spending
+      limit blocks the subscription. Spend is readable from the budget API (`currentSpend`) even
+      though the consumption API returns `pretaxCost: None` for this offer
 
 ## P1 - Monday 14, first BOM
 
