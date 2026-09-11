@@ -229,32 +229,32 @@
 
   <use href="#ico-foundry" x="56" y="173" width="20" height="20"/>
   <text x="86" y="186" font-size="11.5" fill="#2A3B4E">Foundry Agent Service</text>
-  <text x="86" y="199" font-size="9.3" fill="#8A96A3">Prompt and hosted agents, toolboxes</text>
+  <text x="86" y="199" font-size="9.3" fill="#8A96A3">Files and live, read-only · verified</text>
 
   <use href="#ico-cstudio" x="56" y="227" width="20" height="20"/>
   <text x="86" y="240" font-size="11.5" fill="#2A3B4E">Copilot Studio</text>
-  <text x="86" y="253" font-size="9.3" fill="#8A96A3">Topics, knowledge, actions, channels</text>
+  <text x="86" y="253" font-size="9.3" fill="#8A96A3">Export on disk · stand-in format today</text>
 
   <use href="#ico-m365copilot" x="56" y="281" width="20" height="20"/>
   <text x="86" y="294" font-size="11.5" fill="#2A3B4E">M365 declarative agents</text>
-  <text x="86" y="307" font-size="9.3" fill="#8A96A3">Manifest 1.8 and API plugin manifests</text>
+  <text x="86" y="307" font-size="9.3" fill="#8A96A3">Manifest 1.8, API plugins, OpenAPI</text>
 
   <use href="#ico-code" x="57" y="336" width="18" height="18" color="#2A3B4E"/>
   <text x="86" y="348" font-size="11.5" fill="#2A3B4E">Agent Framework</text>
-  <text x="86" y="361" font-size="9.3" fill="#8A96A3">Code-first, tools registered at build</text>
+  <text x="86" y="361" font-size="9.3" fill="#C4551A" font-style="italic">Code-first · roadmap</text>
 
   <use href="#ico-agent365" x="56" y="389" width="20" height="20"/>
   <text x="86" y="402" font-size="11.5" fill="#2A3B4E">Agent 365 / Entra Agent ID</text>
-  <text x="86" y="415" font-size="9.3" fill="#8A96A3">Roster, ownership, blueprints</text>
+  <text x="86" y="415" font-size="9.3" fill="#C4551A" font-style="italic">Roster, ownership · needs licence</text>
 
   <!-- POLICY AS CODE -->
   <rect x="40" y="458" width="250" height="100" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
   <use href="#ico-settings" x="58" y="472" width="17" height="17" color="#2A3B4E"/>
   <text x="82" y="485" font-size="12.5" font-weight="700" fill="#2A3B4E">Policy as code</text>
-  <text x="58" y="507" font-size="9.8" fill="#6B7785">Allowed regions, models, auth modes.</text>
-  <text x="58" y="520" font-size="9.8" fill="#6B7785">Mandatory human gates.</text>
-  <text x="58" y="533" font-size="9.8" fill="#6B7785">Budget thresholds per interaction.</text>
-  <text x="58" y="546" font-size="9.8" fill="#6B7785">Packs: Swiss and EU, finserv, public sector.</text>
+  <text x="58" y="507" font-size="9.8" fill="#6B7785">Trusted MCP servers, tool overrides, prices.</text>
+  <text x="58" y="520" font-size="9.8" fill="#8A96A3" font-style="italic">Regions, models, auth modes · roadmap</text>
+  <text x="58" y="533" font-size="9.8" fill="#8A96A3" font-style="italic">Budget thresholds · roadmap</text>
+  <text x="58" y="546" font-size="9.8" fill="#8A96A3" font-style="italic">Packs: Swiss, EU, finserv · roadmap</text>
 
   <!-- RESOLVER -->
   <rect x="320" y="110" width="210" height="48" rx="10" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
@@ -277,14 +277,14 @@
   <text x="362" y="303" font-size="12" font-weight="700" fill="#2A3B4E">Edge resolution</text>
   <text x="338" y="324" font-size="9.2" fill="#63707E">Identity match · proven</text>
   <text x="338" y="340" font-size="9.2" fill="#63707E">Endpoint match · matched</text>
-  <text x="338" y="356" font-size="9.2" fill="#63707E">Probe, opt-in · probed</text>
+  <text x="338" y="356" font-size="9.2" fill="#8A96A3" font-style="italic">Probe · roadmap, makes traffic</text>
   <text x="338" y="372" font-size="8.8" font-weight="700" fill="#C4551A">Confidence gates severity</text>
 
   <!-- AGENTBOM -->
   <rect x="320" y="388" width="210" height="182" rx="10" fill="#2A3B4E" filter="url(#sh)"/>
   <use href="#ico-archive" x="338" y="404" width="19" height="19" color="#FFFFFF"/>
   <text x="366" y="420" font-size="15" font-weight="700" fill="#FFFFFF">AgentBOM</text>
-  <text x="338" y="439" font-size="9.3" fill="#AEBCCA">Schema v0.1 · signed · reproducible</text>
+  <text x="338" y="439" font-size="9.3" fill="#AEBCCA">Schema v0.1 · deterministic identity</text>
   <line x1="338" y1="448" x2="512" y2="448" stroke="#46586B"/>
   <text x="338" y="465" font-size="9.6" fill="#D6DEE6">Models and deployments</text>
   <text x="338" y="481" font-size="9.6" fill="#D6DEE6">Tools, classification, auth</text>
@@ -292,7 +292,7 @@
   <text x="338" y="513" font-size="9.6" fill="#D6DEE6">Edges with confidence</text>
   <text x="338" y="529" font-size="9.6" fill="#D6DEE6">Guards and human gates</text>
   <text x="338" y="545" font-size="9.6" fill="#D6DEE6">Token and cost profile</text>
-  <text x="338" y="563" font-size="9" font-weight="700" fill="#F9A97A">Extends CycloneDX / SPDX AI BOM</text>
+  <text x="338" y="563" font-size="9" font-weight="700" fill="#F9A97A">Standard alignment: open question</text>
 
   <!-- ATTACK PATH -->
   <rect x="564" y="112" width="200" height="112" rx="9" fill="#FFFFFF" stroke="#F26F21" stroke-width="1.6" filter="url(#sh)"/>
@@ -328,8 +328,8 @@
   <text x="824" y="266" font-size="12.5" font-weight="700" fill="#2A3B4E">Supply chain</text>
   <text x="798" y="292" font-size="9.8" fill="#63707E">MCP rug-pull detection by</text>
   <text x="798" y="305" font-size="9.8" fill="#63707E">pinned manifest hash.</text>
-  <text x="798" y="318" font-size="9.8" fill="#63707E">Toolbox drift, provenance,</text>
-  <text x="798" y="331" font-size="9.8" fill="#63707E">injection payloads.</text>
+  <text x="798" y="318" font-size="9.8" fill="#63707E">Built: SC-01 pin check, SC-05.</text>
+  <text x="798" y="331" font-size="9.8" fill="#8A96A3" font-style="italic">Next: drift, injection scan.</text>
 
   <!-- COST ANALYSIS -->
   <rect x="564" y="356" width="416" height="104" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
@@ -343,14 +343,14 @@
     <rect x="766" y="398" width="68" height="20" rx="10" fill="#FDF5EF" stroke="#F5C9A8"/><text x="780" y="412">Grounding</text>
     <rect x="842" y="398" width="78" height="20" rx="10" fill="#FDF5EF" stroke="#F5C9A8"/><text x="856" y="412">A2A fan-out</text>
   </g>
-  <text x="582" y="436" font-size="9.8" fill="#63707E">Right-sizing, missing token caps, allocation tags, monthly forecast.</text>
-  <text x="582" y="450" font-size="9.8" font-weight="700" fill="#C4551A">Cost regression posted on the pull request: +34% per interaction.</text>
+  <text x="582" y="436" font-size="9.8" fill="#63707E">Priced from the definition, including fan-out through delegation.</text>
+  <text x="582" y="450" font-size="9.8" font-weight="700" fill="#C4551A">In tokens today, in money once the policy carries prices.</text>
 
   <!-- REVIEW BOARD -->
   <rect x="564" y="470" width="416" height="96" rx="10" fill="#F0F3F6" stroke="#2A3B4E" stroke-width="1.4" stroke-dasharray="5 4"/>
   <use href="#ico-people" x="582" y="486" width="17" height="17" color="#2A3B4E"/>
   <text x="606" y="499" font-size="12.5" font-weight="700" fill="#2A3B4E">Agent review board</text>
-  <text x="964" y="499" font-size="9.3" font-weight="700" letter-spacing="0.8" text-anchor="end" fill="#8A96A3">JUDGMENT LAYER</text>
+  <text x="964" y="499" font-size="9.3" font-weight="700" letter-spacing="0.8" text-anchor="end" fill="#8A96A3">JUDGMENT LAYER · ROADMAP</text>
   <text x="582" y="517" font-size="9.8" fill="#63707E">Connected agents in Foundry. Only the calls no rule can make.</text>
   <g font-size="9.5" fill="#2A3B4E">
     <rect x="582" y="526" width="70" height="20" rx="10" fill="#FFFFFF" stroke="#D8DEE5"/><text x="596" y="540">Security</text>
@@ -365,7 +365,7 @@
   <use href="#ico-warning" x="1030" y="128" width="18" height="18" color="#F26F21"/>
   <text x="1056" y="141" font-size="12.5" font-weight="700" fill="#2A3B4E">SARIF report</text>
   <text x="1030" y="167" font-size="9.8" fill="#63707E">Ingested natively by GitHub code scanning, so findings</text>
-  <text x="1030" y="181" font-size="9.8" fill="#63707E">land in the pull request next to the cost delta.</text>
+  <text x="1030" y="181" font-size="9.8" fill="#63707E">land in the pull request as annotations.</text>
 
   <!-- DOSSIER -->
   <rect x="1012" y="218" width="348" height="270" rx="9" fill="#FFFFFF" stroke="#E3E7EC" filter="url(#sh)"/>
@@ -390,8 +390,8 @@
     <text x="1196" y="388">A    Control mapping matrix</text>
     <text x="1196" y="404">B    Full rule results</text>
   </g>
-  <text x="1030" y="428" font-size="9.3" font-weight="700" fill="#C4551A">Packs: Microsoft RAI · EU AI Act · internal review</text>
-  <text x="1030" y="448" font-size="9.2" fill="#8A96A3">Section 9 mirrors the Microsoft Transparency Note.</text>
+  <text x="1030" y="428" font-size="9.3" font-weight="700" fill="#C4551A">Template v1.0 built · packs on the roadmap</text>
+  <text x="1030" y="448" font-size="9.2" fill="#8A96A3">One per agent, kept as a CI artifact.</text>
   <text x="1030" y="462" font-size="9.2" fill="#8A96A3">Underivable fields print as "requires human input".</text>
 
   <!-- CERTIFICATION -->
@@ -399,7 +399,7 @@
   <use href="#ico-version" x="1030" y="518" width="18" height="18" color="#2A3B4E"/>
   <text x="1056" y="531" font-size="12.5" font-weight="700" fill="#2A3B4E">Certification record</text>
   <text x="1030" y="557" font-size="9.8" fill="#63707E">Certifies a BOM hash. Any composition change voids it</text>
-  <text x="1030" y="571" font-size="9.8" fill="#63707E">automatically. Feeds the Agent 365 registry sync path.</text>
+  <text x="1030" y="571" font-size="9.8" fill="#63707E">automatically, so an old approval cannot cover a new agent.</text>
 
   <!-- ARROWS -->
   <path d="M290,134 L314,134" stroke="#8A96A3" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
@@ -416,8 +416,8 @@
   <rect x="40" y="610" width="1320" height="72" rx="10" fill="#FDF5EF" stroke="#F26F21" stroke-width="1.4" stroke-dasharray="6 4"/>
   <use href="#ico-refresh" x="64" y="632" width="20" height="20" color="#F26F21"/>
   <text x="96" y="640" font-size="13" font-weight="700" fill="#2A3B4E">Pipeline gate</text>
-  <text x="96" y="659" font-size="10.5" fill="#5A6875">GitHub Action or Azure DevOps task. The AgentBOM diff and the cost delta are posted on the pull request the way a dependency diff is.</text>
-  <text x="96" y="673" font-size="10.5" fill="#5A6875">A baseline file accepts existing findings, so only new ones break the build. A budget threshold breach fails it too.</text>
+  <text x="96" y="659" font-size="10.5" fill="#5A6875">GitHub Action: tests, scan, SARIF to code scanning, dossiers kept as an artifact. Verified with a control that must pass and one that must fail.</text>
+  <text x="96" y="673" font-size="10.5" fill="#5A6875">A baseline accepts existing findings. A new critical finding, or an MCP manifest that no longer matches its pin, fails the pull request.</text>
 
   <!-- FOOTER -->
   <g font-size="10" fill="#5A6875">
@@ -430,5 +430,5 @@
   <text x="916" y="720" font-size="9.5" fill="#8A96A3">deterministic</text>
   <line x1="998" y1="716" x2="1024" y2="716" stroke="#8A96A3" stroke-width="1.6" stroke-dasharray="4 3"/>
   <text x="1030" y="720" font-size="9.5" fill="#8A96A3">model-assisted</text>
-  <text x="1360" y="720" font-size="9.5" text-anchor="end" fill="#8A96A3">Rules cite CAF and Zero Trust controls</text>
+  <text x="1360" y="720" font-size="9.5" text-anchor="end" fill="#8A96A3">29 tests · live-verified on Foundry · italic = roadmap</text>
 </svg>

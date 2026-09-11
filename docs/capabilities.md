@@ -5,6 +5,11 @@ token spend on the deterministic pass, and it runs before the agent is registere
 
 One control point for **governance, security, cost and compliance**.
 
+> **Status, 2026-09-11.** The engine is built: collectors for M365 declarative agents, Copilot Studio
+> and Foundry (files and live), edge resolution, attack paths, privilege closure, cost, 15 of the
+> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 29 tests. This document
+> remains the full specification; the README's Status table separates built from roadmap.
+
 ---
 
 ## 1. Positioning
@@ -223,7 +228,7 @@ dossier appendix B, so a reviewer can audit why a path was flagged rather than t
 
 | ID | Rule | Sev | Control | Needs |
 |---|---|---|---|---|
-| SC-05 | MCP server exposes tools with no annotations, so every one falls to the fail-closed tier | Medium | ZT · communication governance | def |
+| SC-05 | MCP tools fall to the fail-closed tier: they carry no annotations, or the server is not on the trusted list | Medium | ZT · communication governance | def |
 | SC-06 | Annotations accepted from a server not on the trusted list | Medium | ZT · communication governance | def |
 | TS-08 | Mutating OpenAPI operation reachable with no human gate | High | ZT · communication governance | def |
 
@@ -277,6 +282,12 @@ Copilot Studio agent whose action calls a Foundry agent with an unauthenticated 
 platform's own tooling sees one hop and reports it clean.
 
 Nearly free once the BOM exists. It is graph reachability over data already collected.
+
+Two modelling rules, implemented in `analyze/paths.py`. A tool whose call resolves to another agent in
+the estate is an **edge**, followed transitively, not a sink; only an irreversible tool acting outside
+the estate is a sink. And severity needs evidence at both ends: **Critical** requires every edge
+proven or matched **and** the sink's irreversibility declared rather than assumed. A sink that is
+irreversible only because the classifier failed closed produces a **High**, labelled possible path.
 
 ### 3.2 Effective privilege closure
 

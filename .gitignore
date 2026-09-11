@@ -1,3 +1,7 @@
+# Anything carrying non-public event material stays local.
+*.private.md
+dossier/
+preflight.sarif
 __pycache__/
 *.pyc
 .venv/
