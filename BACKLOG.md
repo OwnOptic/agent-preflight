@@ -13,13 +13,15 @@ and a live scan of the real Foundry project reproduces the same critical path.
 
 | Fixture | On disk | In its platform |
 |---|---|---|
-| 01 Inbox triage, M365 declarative | yes | **no**, never sideloaded |
+| 01 Inbox triage, M365 declarative | yes | **yes**, uploaded to the org app catalog from `dist/fixture-01-inbox-triage.zip` |
 | 02 Contract router, Copilot Studio | yes, hand-authored stand-in | **no**, never built in Copilot Studio |
 | 03 Records agent, Foundry | yes | **yes**, `asst_Y3XUjyknLU4ZzR732qhPDe7F` with MCP tool `records` |
 
 ## Next
 
-- [ ] **Sideload fixture 01** while the demo tenant still has Teams, and capture it
+- [x] **Sideload fixture 01**: `python scripts/package_fixture01.py` builds the package from a copy
+      (adds icons and real developer URLs; the fixture and baseline are untouched), uploaded 2026-09-11.
+      Capturing it running in Copilot is part of the item below
 - [ ] **Build fixture 02 in Copilot Studio** (Sandbox environment), export the unmanaged solution,
       replace the stand-in, and make the collector read the real export into the same BOM
 - [ ] **Capture each platform's own view** of its agent, for the demo
