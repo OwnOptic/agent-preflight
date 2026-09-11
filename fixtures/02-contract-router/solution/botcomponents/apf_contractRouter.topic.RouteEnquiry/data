@@ -1,0 +1,31 @@
+kind: AdaptiveDialog
+modelDescription: Hands a contract enquiry to the records agent for filing or changes. Use when an enquiry needs a contract record created, updated or removed.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Route enquiry
+    triggerQueries:
+      - Route this contract enquiry
+      - File this contract request
+      - Update the contract record
+  actions:
+    - kind: HttpRequestAction
+      id: callRecordsAgent
+      method: Post
+      url: https://fdy-demo-agents-de-em.services.ai.azure.com/api/projects/preflight/assistants/asst_Y3XUjyknLU4ZzR732qhPDe7F/runs
+      headers:
+        api-key: PLACEHOLDER-inline-key-not-a-real-secret
+      body:
+        kind: JsonRequestContent
+        content: ={ enquiry: System.Activity.Text }
+      errorHandling:
+        kind: ContinueOnErrorBehavior
+        statusCode: Topic.callStatusCode
+        errorResponseBody: Topic.callError
+      response: Topic.recordsReply
+      responseSchema: Any
+
+    - kind: SendActivity
+      id: confirmRouted
+      activity: The enquiry was handed to the records agent.

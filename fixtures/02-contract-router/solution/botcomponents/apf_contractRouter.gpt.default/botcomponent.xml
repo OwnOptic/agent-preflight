@@ -1,0 +1,10 @@
+<botcomponent schemaname="apf_contractRouter.gpt.default">
+  <componenttype>15</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Contract router</name>
+  <parentbotid>
+    <schemaname>apf_contractRouter</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

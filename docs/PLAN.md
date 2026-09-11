@@ -20,11 +20,10 @@ and pulling forward the parts of the roadmap that strengthen it.
 
 ## Next, in order
 
-1. **Put fixtures 01 and 02 into their platforms.** The analyzer needs only the files, but a demo
-   that opens each platform's own tooling needs all three agents to exist where the platform can see
-   them. Fixture 01 has to be sideloaded while the demo tenant still has Teams.
-2. **Read a real Copilot Studio export.** Build fixture 02 in Copilot Studio, export the unmanaged
-   solution, and make the collector read it into the same BOM the stand-in produces today.
+1. ~~Put fixtures 01 and 02 into their platforms.~~ Done: 01 is in the tenant's app catalog and
+   visible in Microsoft 365 Copilot, 02 is a real Copilot Studio agent. Publishing 02 is still open.
+2. ~~Read a real Copilot Studio export.~~ Done: the collector reads the unmanaged solution export,
+   and the chain reproduces from it unchanged.
 3. **A demo pull request.** A branch that adds a destructive tool, or rewrites the MCP manifest, so
    CI fails with the finding annotated on the diff. Leave it unmerged; it is the demo.
 4. **Record the demo.**
@@ -56,6 +55,6 @@ Each piece is self-contained behind an interface that already exists.
 | Risk | Mitigation |
 |---|---|
 | The az default context points at an unrelated subscription | The live collector always passes `--subscription` |
-| The stand-in Copilot Studio format drifts from a real export | Next step 2 replaces it |
+| Copilot Studio YAML is not strict YAML (unquoted Power Fx) | The collector quotes `=` values before parsing, and lists any component it still cannot read |
 | The live Foundry API does not expose guards or connection secrets | Rules treat silence as unknown, never as absent, so live scans report fewer findings rather than wrong ones |
 | Demo tenant loses Teams | Sideload and capture fixture 01 before it does |

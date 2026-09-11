@@ -7,7 +7,7 @@ One control point for **governance, security, cost and compliance**.
 
 > **Status, 2026-09-11.** The engine is built: collectors for M365 declarative agents, Copilot Studio
 > and Foundry (files and live), edge resolution, attack paths, privilege closure, cost, 15 of the
-> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 29 tests. This document
+> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 30 tests. This document
 > remains the full specification; the README's Status table separates built from roadmap.
 
 ---
@@ -598,10 +598,10 @@ with any of them in isolation. That is the entire point.
 | # | Agent | Platform | What is wrong with it, on its own |
 |---|---|---|---|
 | 1 | **Inbox triage** | M365 declarative | Has `WebSearch` capability plus an API plugin action. Reasonable. The plugin is a `POST` to an internal endpoint |
-| 2 | **Contract router** | Copilot Studio | Published agent with an HTTP action calling an internal service, authenticated by key. Reasonable |
+| 2 | **Contract router** | Copilot Studio | No end-user sign-in, and a topic whose HTTP request calls an internal service, authenticated by key. Reasonable |
 | 3 | **Records agent** | Foundry | A toolbox with an MCP server carrying `destructiveHint: true`, connected with key auth, no allowlist, no human gate. Reviewed and signed off six weeks ago |
 
-The composed defect nobody reviewed: agent 1's plugin endpoint is agent 2's Direct Line endpoint,
+The composed defect nobody reviewed: agent 1's plugin endpoint is agent 2's connection URL,
 and agent 2's HTTP action is agent 3's project endpoint. Untrusted web content reaches a destructive
 tool through three agents and two platform boundaries.
 

@@ -1,0 +1,10 @@
+<botcomponent schemaname="apf_contractRouter.topic.StartOver">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Start Over</name>
+  <parentbotid>
+    <schemaname>apf_contractRouter</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

@@ -21,7 +21,7 @@ anywhere on the path**, and on the last hop there is no mechanism for one.
 
 | Edge | Signal | Confidence |
 |---|---|---|
-| 01 to 02 | `openapi-contract-router.yaml` server URL equals fixture 02's published Direct Line endpoint | matched |
+| 01 to 02 | `openapi-contract-router.yaml` calls fixture 02's own connection URL, recorded in its `environment.json` | matched |
 | 02 to 03 | `callRecordsAgent` URL starts with fixture 03's endpoint, project plus agent id | matched |
 
 Both are **matched**, not probed, and `delete_record` is declared destructive by its own server, so
@@ -40,7 +40,7 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 
 ## Every expected finding
 
-19 findings in total.
+18 findings in total.
 
 | Agent | Rule | Count | Why |
 |---|---|---|---|
@@ -48,9 +48,8 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 | 01 Inbox triage | TS-06 | 2 | `OneDriveAndSharePoint` and `GraphConnectors` granted, never called for in the instructions |
 | 01 Inbox triage | RA-07 | 1 | No disclaimer |
 | 01 Inbox triage | ID-08 | 1 | Declares no irreversible action, reaches three through delegation |
-| 02 Contract router | ID-01 | 1 | Direct Line endpoint published with `NoAuthentication` |
-| 02 Contract router | ID-03 | 1 | `secretRef: inline` on the HTTP action |
-| 02 Contract router | RA-04 | 1 | Generative answers over SharePoint with `citationsRequired: false` |
+| 02 Contract router | ID-01 | 1 | `authenticationmode` 1 in `bot.xml`: no end-user authentication |
+| 02 Contract router | ID-03 | 1 | `api-key` header written into the `Route enquiry` topic |
 | 02 Contract router | MA-08 | 1 | Cross-platform call to fixture 03 authenticated by key |
 | 02 Contract router | ID-08 | 1 | Reaches three irreversible actions it does not hold |
 | 03 records-agent | AP-02 | 3 | One Critical to `delete_record`, two High possible paths to the assumed sinks |
@@ -60,6 +59,10 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 | 03 records-agent | RA-03 | 1 | `promptShields: false` |
 | 03 records-agent | SC-05 | 1 | Two tools fall to fail-closed because the server is not trusted |
 | 03 records-agent | CO-03 | 1 | No token cap, no max turns |
+
+Fixture 02 used to be a hand-written stand-in that also produced RA-04, citations not required. The
+real Copilot Studio export has no setting that forces citations, so the collector records that as
+unknown and the rule stays silent. The finding was an artefact of the stand-in, not of the agent.
 
 ## What each agent looks like on its own
 

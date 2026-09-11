@@ -123,7 +123,7 @@ cannot be derived prints *requires human input*.
 | Four-tier classification, edge resolution by identity and endpoint | Probe tier for edge resolution |
 | Attack paths, privilege closure, cost, 15 rules | The remaining catalog rules |
 | SARIF, dossier, certification, MCP pinning, baselines, GitHub Action | Review board, auto-remediation, estate intelligence |
-| 29 tests | |
+| 30 tests | |
 
 Full specification: [docs/capabilities.md](docs/capabilities.md). Plan:
 [docs/PLAN.md](docs/PLAN.md). Backlog: [BACKLOG.md](BACKLOG.md).

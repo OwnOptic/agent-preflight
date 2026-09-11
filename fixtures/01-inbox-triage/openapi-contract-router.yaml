@@ -3,7 +3,7 @@ info:
   title: Contract router
   version: 1.0.0
 servers:
-  - url: https://swiss-demo.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/cr_contractRouter
+  - url: https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter
 paths:
   /conversations:
     post:

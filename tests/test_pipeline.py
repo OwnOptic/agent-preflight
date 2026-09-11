@@ -24,7 +24,7 @@ FIXTURES = ROOT / "fixtures"
 SCHEMA = json.loads((ROOT / "schema" / "agentbom-0.1.json").read_text(encoding="utf-8"))
 
 A1 = "01-inbox-triage"
-A2 = "cr_contractRouter"
+A2 = "apf_contractRouter"
 A3 = "asst_Y3XUjyknLU4ZzR732qhPDe7F"
 
 
@@ -74,7 +74,7 @@ def test_findings_match_chain_md(result):
     assert got == Counter({
         ("AP-02", A3): 3, ("CO-03", A3): 1, ("ID-03", A3): 1, ("RA-01", A3): 1,
         ("RA-03", A3): 1, ("SC-05", A3): 1, ("TS-01", A3): 1,
-        ("ID-01", A2): 1, ("ID-03", A2): 1, ("ID-08", A2): 1, ("MA-08", A2): 1, ("RA-04", A2): 1,
+        ("ID-01", A2): 1, ("ID-03", A2): 1, ("ID-08", A2): 1, ("MA-08", A2): 1,
         ("ID-01", A1): 1, ("ID-08", A1): 1, ("RA-07", A1): 1, ("TS-06", A1): 2,
     })
 

@@ -57,7 +57,7 @@ def test_post_operation_is_irreversible_from_protocol(bom):
 def test_outbound_url_is_captured_whole(bom):
     """resolve/ matches this string against the estate, so it must survive intact."""
     t = next(t for t in bom.tools if t.name == "routeEnquiry")
-    assert t.source.server.endswith("/bots/cr_contractRouter/conversations")
+    assert t.source.server.endswith("/bots/apf_contractRouter/conversations")
     assert t.source.server.startswith("https://")
 
 

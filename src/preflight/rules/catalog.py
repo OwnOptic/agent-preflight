@@ -126,8 +126,11 @@ def id_01(bom: AgentBOM, ctx: Context) -> list[Finding]:
             out.append(_mk("ID-01", bom, f"`{t.name}` calls {_host(t.source.server) or 'its target'} with no authentication.",
                            subject=t.id))
     if bom.agent.inboundAuth == "none" and bom.agent.endpoints:
-        out.append(_mk("ID-01", bom, f"Published endpoint accepts unauthenticated callers: {bom.agent.endpoints[0]}",
-                       subject="inbound"))
+        # Fires before publication too: catching this at design time is the point.
+        text = (f"Configured for unauthenticated callers; once published, {bom.agent.endpoints[0]} accepts anyone."
+                if bom.tags.get("published") == "False" else
+                f"Published endpoint accepts unauthenticated callers: {bom.agent.endpoints[0]}")
+        out.append(_mk("ID-01", bom, text, subject="inbound"))
     return out
 
 

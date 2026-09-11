@@ -5,8 +5,8 @@ in `docs/PLAN.private.md`, which is not in git.
 
 ## Where it stands
 
-**The analysis engine is built.** 29 tests pass, including in a clean virtualenv installed the way
-CI installs it. `preflight scan fixtures` produces exactly the 19 findings in `fixtures/CHAIN.md`,
+**The analysis engine is built.** 30 tests pass, including in a clean virtualenv installed the way
+CI installs it. `preflight scan fixtures` produces exactly the 18 findings in `fixtures/CHAIN.md`,
 and a live scan of the real Foundry project reproduces the same critical path.
 
 ### Which fixtures exist where
@@ -14,7 +14,7 @@ and a live scan of the real Foundry project reproduces the same critical path.
 | Fixture | On disk | In its platform |
 |---|---|---|
 | 01 Inbox triage, M365 declarative | yes | **yes**, uploaded to the org app catalog from `dist/fixture-01-inbox-triage.zip` |
-| 02 Contract router, Copilot Studio | yes, hand-authored stand-in | **no**, never built in Copilot Studio |
+| 02 Contract router, Copilot Studio | yes, a real unmanaged solution export | **yes**, `apf_contractRouter` in the Sandbox environment, **not yet published** |
 | 03 Records agent, Foundry | yes | **yes**, `asst_Y3XUjyknLU4ZzR732qhPDe7F` with MCP tool `records` |
 
 ## Next
@@ -22,8 +22,13 @@ and a live scan of the real Foundry project reproduces the same critical path.
 - [x] **Sideload fixture 01**: `python scripts/package_fixture01.py` builds the package from a copy
       (adds icons and real developer URLs; the fixture and baseline are untouched), uploaded 2026-09-11.
       Capturing it running in Copilot is part of the item below
-- [ ] **Build fixture 02 in Copilot Studio** (Sandbox environment), export the unmanaged solution,
-      replace the stand-in, and make the collector read the real export into the same BOM
+- [x] **Build fixture 02 in Copilot Studio**: built through the Dataverse API (`PvaProvision`, topic
+      YAML), exported, and the collector now reads the real export. The chain reproduces unchanged.
+      One finding fewer (18): RA-04 came from a field the stand-in invented; Copilot Studio has no
+      forced-citations setting. `scripts/export_fixture02.py` refreshes the export
+- [ ] **Decide whether to publish fixture 02.** Unpublished, ID-01 reads "once published". Publishing
+      makes an unauthenticated agent reachable; its HTTP call carries a placeholder key, so it cannot
+      reach Foundry
 - [ ] **Capture each platform's own view** of its agent, for the demo
 - [ ] **Demo pull request**: a branch adding a destructive tool or rewriting the MCP manifest, so CI
       fails with the finding on the diff. Leave it unmerged
@@ -35,7 +40,7 @@ and a live scan of the real Foundry project reproduces the same critical path.
 - [x] AgentBOM schema v0.1, drift-guarded pydantic models, canonical serialisation
 - [x] Identity derived from the composition hash, not random
 - [x] Tool classifier, four tiers; untrusted MCP servers can only worsen a classification
-- [x] Collectors: M365 declarative, Copilot Studio (stand-in format), Foundry from files and live
+- [x] Collectors: M365 declarative, Copilot Studio (real unmanaged solution export), Foundry from files and live
 - [x] Cross-platform edge resolution, identity then endpoint
 - [x] Attack path analysis, severity gated on edge evidence and sink evidence
 - [x] Effective privilege closure (ID-08)

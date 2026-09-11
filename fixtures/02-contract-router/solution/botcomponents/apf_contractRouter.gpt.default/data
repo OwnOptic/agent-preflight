@@ -1,0 +1,9 @@
+kind: GptComponentMetadata
+instructions: |-
+  You receive contract enquiries routed from the inbox triage agent.
+  Answer questions about contracts from the contracts knowledge.
+  When an enquiry needs a records change, use the Route enquiry topic to hand it to the records agent.
+gptCapabilities: {}
+aISettings:
+  model:
+    modelNameHint: GPT55Chat
