@@ -1,7 +1,13 @@
 """SARIF 2.1.0, so GitHub code scanning ingests findings natively and they land in the pull request.
 
-Rule ids from the catalog become SARIF rule ids. ``security-severity`` drives how GitHub ranks them.
-Fingerprints are stable across runs, so a finding accepted once stays accepted.
+Rule ids from the catalog become SARIF rule ids. Fingerprints are stable across runs, so a finding
+accepted once stays accepted.
+
+One subtlety. GitHub reads ``security-severity`` from the rule descriptor, never from the result. A
+finding the evidence gate downgraded (a possible path, reported High rather than Critical) would
+therefore show in code scanning at its rule's default severity, and the gate would vanish in the one
+place a reviewer looks. So a finding whose severity differs from its rule's default is emitted under
+its own descriptor, ``<rule>/<severity>``, carrying the severity Preflight actually assigned.
 """
 
 from __future__ import annotations
@@ -28,37 +34,47 @@ def relative(location: str | None, base: str | Path | None = None) -> str | None
     return rel.replace("\\", "/")
 
 
+def sarif_rule_id(f: Finding) -> str:
+    return f.rule if f.severity == RULES[f.rule].severity else f"{f.rule}/{f.severity}"
+
+
 def to_sarif(findings: list[Finding], *, version: str, base: str | Path | None = None) -> dict:
-    used = sorted({f.rule for f in findings})
-    index = {rid: i for i, rid in enumerate(used)}
+    ids = sorted({sarif_rule_id(f) for f in findings})
+    index = {rid: i for i, rid in enumerate(ids)}
+
     rules = []
-    for rid in used:
-        r = RULES[rid]
+    for rid in ids:
+        catalog_id, _, downgraded = rid.partition("/")
+        r = RULES[catalog_id]
+        sev = downgraded or r.severity
+        title = r.title if not downgraded else f"{r.title} (reported {sev}: evidence below the {r.severity} bar)"
         rules.append({
             "id": rid,
-            "name": rid.replace("-", ""),
-            "shortDescription": {"text": r.title},
-            "fullDescription": {"text": f"{r.title}. Control: {r.control}."},
+            "name": rid.replace("-", "").replace("/", "_"),
+            "shortDescription": {"text": title},
+            "fullDescription": {"text": f"{title}. Control: {r.control}."},
             "helpUri": f"{REPO}/blob/main/docs/capabilities.md#4-rule-catalog",
-            "defaultConfiguration": {"level": LEVEL[r.severity]},
+            "defaultConfiguration": {"level": LEVEL[sev]},
             "properties": {
-                "security-severity": SECURITY_SEVERITY[r.severity],
+                "security-severity": SECURITY_SEVERITY[sev],
+                "catalogRule": catalog_id,
                 "tags": ["security", "agent-governance", r.control],
             },
         })
 
     results = []
     for f in findings:
+        rid = sarif_rule_id(f)
         text = f.message + ("\n\n" + "\n".join(f.chain) if f.chain else "")
         res = {
-            "ruleId": f.rule,
-            "ruleIndex": index[f.rule],
+            "ruleId": rid,
+            "ruleIndex": index[rid],
             "level": LEVEL[f.severity],
             "message": {"text": text},
             "partialFingerprints": {"preflight/v1": f.fingerprint},
             "baselineState": "unchanged" if f.baselined else "new",
-            "properties": {"severity": f.severity, "agent": f.agent, "agentName": f.agent_name,
-                           "platform": f.platform, "control": f.control},
+            "properties": {"severity": f.severity, "catalogRule": f.rule, "agent": f.agent,
+                           "agentName": f.agent_name, "platform": f.platform, "control": f.control},
         }
         uri = relative(f.location, base)
         if uri:

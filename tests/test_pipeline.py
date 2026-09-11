@@ -131,3 +131,17 @@ def test_sarif_is_well_formed(result):
         assert not res["locations"][0]["physicalLocation"]["artifactLocation"]["uri"].startswith("/")
     critical = [r for r in run["results"] if r["properties"]["severity"] == "critical" and r["ruleId"] == "AP-02"]
     assert len(critical) == 1 and "delete_record" in critical[0]["message"]["text"]
+
+
+def test_code_scanning_sees_the_severity_the_evidence_gate_assigned(result):
+    """GitHub reads security-severity per rule, not per result. A possible path must not show as
+    critical there, or the evidence gate vanishes in the place a reviewer actually looks."""
+    s = to_sarif(result.findings, version="test", base=ROOT)
+    run = s["runs"][0]
+    rules = {r["id"]: r for r in run["tool"]["driver"]["rules"]}
+    assert rules["AP-02"]["properties"]["security-severity"] == "9.5"
+    assert rules["AP-02/high"]["properties"]["security-severity"] == "7.5"
+    assert rules["AP-02/high"]["properties"]["catalogRule"] == "AP-02"
+    possible = [r for r in run["results"] if r["ruleId"] == "AP-02/high"]
+    assert len(possible) == 2
+    assert {r["properties"]["catalogRule"] for r in run["results"]} >= {"AP-02"}
