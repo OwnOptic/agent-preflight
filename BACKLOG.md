@@ -74,11 +74,12 @@ This is the real gap, and none of it is hard.
 | Standards alignment, CycloneDX or SPDX | Open question, unverified, and not claimed anywhere in writing |
 | Review board, trust graph in the dossier, what-if, auto-remediation | Roadmap |
 
-**Honest summary.** The engine is real and the chain it finds is real, reproduced from three agents
-that all exist in their platforms. What it is not yet is a product someone else can point at their
-own tenant without reading the source: one day of collector work, one day of documentation and
-packs, and a day of tests would close that. The rule catalog is a quarter built, and that is the
-gap that scales with time rather than effort.
+**Honest summary, 2026-09-12.** The engine is real and the chain it finds is real, reproduced from
+three agents that all exist in their platforms and, for two of them, read live rather than from
+files. Tier B is closed apart from reading declarative agents out of the tenant app catalog, which
+needs a Graph scope the CLI token does not carry. What is left is breadth, not soundness: half the
+rule catalog, two collectors, and the probe tier. Breadth scales with time rather than with
+cleverness, which is the good kind of gap to be left with.
 
 ## Built
 
