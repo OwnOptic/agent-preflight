@@ -19,7 +19,7 @@ from preflight.bom.models import AgentBOM
 from preflight.certify import status as cert_status
 from preflight.classify import classify
 from preflight.collectors.base import Scope
-from preflight.collectors.copilot_studio import CopilotStudioCollector
+from preflight.collectors.copilot_studio import CopilotStudioCollector, CopilotStudioLiveCollector
 from preflight.collectors.foundry import FoundryCollector, FoundryLiveCollector
 from preflight.collectors.m365_declarative import M365DeclarativeCollector
 from preflight.findings import Finding
@@ -41,8 +41,14 @@ class Result:
 
 
 def collectors_for(*, live_foundry: str | None = None, subscription: str | None = None,
-                   region: str | None = None, mcp_manifests: list | None = None) -> list:
-    out = [M365DeclarativeCollector(), CopilotStudioCollector()]
+                   region: str | None = None, mcp_manifests: list | None = None,
+                   live_copilot_studio: str | None = None, cs_environment_id: str | None = None) -> list:
+    out = [M365DeclarativeCollector()]
+    out.append(
+        CopilotStudioLiveCollector(live_copilot_studio, subscription=subscription, region=region,
+                                   environment_id=cs_environment_id)
+        if live_copilot_studio else CopilotStudioCollector()
+    )
     if live_foundry:
         out.append(FoundryLiveCollector(live_foundry, subscription=subscription, region=region,
                                         manifest_dirs=mcp_manifests))
@@ -53,7 +59,8 @@ def collectors_for(*, live_foundry: str | None = None, subscription: str | None 
 
 def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str | None = None,
             subscription: str | None = None, region: str | None = None,
-            mcp_manifests: list | None = None, lock: dict[str, str] | None = None,
+            mcp_manifests: list | None = None, live_copilot_studio: str | None = None,
+            cs_environment_id: str | None = None, lock: dict[str, str] | None = None,
             certification: dict | None = None, baseline: set[str] | None = None) -> Result:
     policy = policy or Policy.default()
     boms: list[AgentBOM] = []
@@ -61,7 +68,8 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
 
     scope = Scope(path=str(path), project=live_foundry)
     for c in collectors_for(live_foundry=live_foundry, subscription=subscription, region=region,
-                            mcp_manifests=mcp_manifests):
+                            mcp_manifests=mcp_manifests, live_copilot_studio=live_copilot_studio,
+                            cs_environment_id=cs_environment_id):
         ok, why = c.available()
         if not ok:
             skipped.append((c.platform, why))

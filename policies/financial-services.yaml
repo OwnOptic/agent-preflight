@@ -1,0 +1,25 @@
+# Financial services.
+#
+# Stricter than a residency pack: identity and cost are constrained too. Keys are refused as an
+# authentication mode, so any tool holding one is a finding rather than a note.
+
+residency: eu
+allowed_regions:
+  - westeurope
+  - northeurope
+  - switzerlandnorth
+
+# Managed identity or on-behalf-of only. A key means nobody can tell which agent called.
+required_auth_modes:
+  - managed-identity
+  - obo
+
+currency: EUR
+
+# Per interaction, in the currency above. Set from a measured run, not from hope.
+budget_per_interaction: 0.05
+max_cost_delta_pct: 10
+
+trusted_mcp_servers: []
+
+prices_per_million_input_tokens: {}

@@ -1,0 +1,22 @@
+# EU data boundary.
+#
+# The regions Microsoft counts inside the EU Data Boundary. Swiss regions are deliberately absent:
+# Switzerland is not in the EU boundary, and treating it as if it were is the mistake this file
+# exists to prevent.
+
+residency: eu
+allowed_regions:
+  - westeurope
+  - northeurope
+  - francecentral
+  - germanywestcentral
+  - swedencentral
+  - italynorth
+  - polandcentral
+  - spaincentral
+
+currency: EUR
+
+trusted_mcp_servers: []
+
+prices_per_million_input_tokens: {}

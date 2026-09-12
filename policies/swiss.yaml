@@ -1,0 +1,18 @@
+# Swiss data boundary.
+#
+# Keeps every model deployment, knowledge source and store inside Switzerland. Prices are left
+# empty on purpose: fill them from the Azure pricing page for your agreement rather than trusting a
+# number written into a file that nobody rechecks.
+
+residency: switzerland
+allowed_regions:
+  - switzerlandnorth
+  - switzerlandwest
+  - switzerland
+
+currency: CHF
+
+# Anything not listed here is not trusted, so a read-only claim from it is ignored.
+trusted_mcp_servers: []
+
+prices_per_million_input_tokens: {}

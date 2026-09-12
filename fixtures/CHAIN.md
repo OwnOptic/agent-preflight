@@ -40,13 +40,14 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 
 ## Every expected finding
 
-18 findings in total.
+21 findings in total.
 
 | Agent | Rule | Count | Why |
 |---|---|---|---|
 | 01 Inbox triage | ID-01 | 1 | `routeEnquiry` calls fixture 02 with no authentication |
 | 01 Inbox triage | TS-06 | 2 | `OneDriveAndSharePoint` and `GraphConnectors` granted, never called for in the instructions |
 | 01 Inbox triage | RA-07 | 1 | No disclaimer |
+| 01 Inbox triage | RA-08 | 1 | Grounding capabilities attached while `discourage_model_knowledge` is unset |
 | 01 Inbox triage | ID-08 | 1 | Declares no irreversible action, reaches three through delegation |
 | 02 Contract router | ID-01 | 1 | `authenticationmode` 1 in `bot.xml`: no end-user authentication |
 | 02 Contract router | ID-03 | 1 | `api-key` header written into the `Route enquiry` topic |
@@ -57,7 +58,9 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 | 03 records-agent | TS-01 | 1 | MCP server attached with `allowed_tools: null` |
 | 03 records-agent | RA-01 | 1 | `contentFilter: none` |
 | 03 records-agent | RA-03 | 1 | `promptShields: false` |
+| 03 records-agent | RA-05 | 1 | `humanInTheLoop: false` while three irreversible actions are attached |
 | 03 records-agent | SC-05 | 1 | Two tools fall to fail-closed because the server is not trusted |
+| 03 records-agent | SC-06 | 1 | `delete_record`'s classification rests on annotations from an untrusted server |
 | 03 records-agent | CO-03 | 1 | No token cap, no max turns |
 
 Fixture 02 used to be a hand-written stand-in that also produced RA-04, citations not required. The

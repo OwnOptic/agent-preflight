@@ -118,12 +118,12 @@ cannot be derived prints *requires human input*.
 
 | Built | Roadmap |
 |---|---|
-| Collectors: M365 declarative agents, Copilot Studio (unmanaged solution export), Foundry from files and live | Agent Framework collector; Agent 365 collector, which needs an Agent 365 or E7 licence |
-| AgentBOM schema v0.1, identity derived from the composition hash | Live Dataverse reads, so an export is not needed |
+| Collectors: M365 declarative agents, Copilot Studio (export or live Dataverse), Foundry from files and live | Agent Framework collector; Agent 365 collector, which needs an Agent 365 or E7 licence |
+| AgentBOM schema v0.1, identity derived from the composition hash | M365 declarative agents read from the tenant app catalog, not only from files |
 | Four-tier classification, edge resolution by identity and endpoint | Probe tier for edge resolution |
-| Attack paths, privilege closure, cost, 15 rules | The remaining catalog rules |
+| Attack paths, privilege closure, cost, 32 of the 62 catalog rules | The remaining 30 rules, model lifecycle first |
 | SARIF, dossier, certification, MCP pinning, baselines, GitHub Action | Review board, auto-remediation, estate intelligence |
-| 30 tests | |
+| 45 tests, Swiss, EU and financial-services policy packs, [usage guide](docs/USAGE.md) | |
 
 Full specification: [docs/capabilities.md](docs/capabilities.md). Plan:
 [docs/PLAN.md](docs/PLAN.md). Backlog: [BACKLOG.md](BACKLOG.md).

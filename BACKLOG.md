@@ -5,8 +5,8 @@ in `docs/PLAN.private.md`, which is not in git.
 
 ## Where it stands
 
-**The analysis engine is built.** 30 tests pass, including in a clean virtualenv installed the way
-CI installs it. `preflight scan fixtures` produces exactly the 18 findings in `fixtures/CHAIN.md`,
+**The analysis engine is built.** 45 tests pass, including in a clean virtualenv installed the way
+CI installs it. `preflight scan fixtures` produces exactly the 21 findings in `fixtures/CHAIN.md`,
 and a live scan of the real Foundry project reproduces the same critical path.
 
 ### Which fixtures exist where
@@ -57,17 +57,17 @@ This is the real gap, and none of it is hard.
 
 | Gap | Why it matters | Size |
 |---|---|---|
-| Copilot Studio needs a manual solution export | Dataverse can be read live, as the fixture build proved; without it, a user must export by hand first | a day |
+| ~~Copilot Studio needs a manual solution export~~ | Done: `--live-copilot-studio` reads the environment over the Dataverse Web API. Verified against the real Sandbox environment: the live read produces the same 21 findings and the same three-platform critical path as the export | |
 | M365 declarative agents are read from files only | Real estates keep them in the tenant app catalog; Graph exposes it, but the read needs `AppCatalog.Read.All` | a day |
-| No getting-started for someone else's estate | Today the README shows fixtures, not "point it at my agent" | half a day |
-| Policy packs are an empty promise | `policy.example.yaml` exists; Swiss, EU and financial-services packs do not | a day |
-| No tests on `analyze/cost.py`, `analyze/privilege.py`, `collectors/copilot_studio.py`, `report/dossier.py`, `cli.py` | Five of 24 modules carry no direct test; the pipeline test covers them only in passing | a day |
+| ~~No getting-started for someone else's estate~~ | Done: `docs/USAGE.md`, including what Preflight will not tell you | |
+| ~~Policy packs are an empty promise~~ | Done: `policies/swiss.yaml`, `eu.yaml`, `financial-services.yaml`. Verified with two controls: the EU pack flags the Swiss regions, the Swiss pack stays silent | |
+| ~~Five modules carry no direct test~~ | Done: `tests/test_units.py` covers cost, privilege, the Copilot Studio collector, the dossier and the CLI exit codes | |
 
 ### C. The specification, in full
 
 | Gap | Where it stands |
 |---|---|
-| **15 of the 62 specified rules are implemented** | Missing by family: CO 8, MA 7, TS 6, DR 5, ID 5, ML 5, RA 4, SC 4, AP 3. ML (model lifecycle) has nothing at all |
+| **32 of the 62 specified rules are implemented** | Missing by family: ML 5, ID 4, MA 4, CO 4, DR 3, SC 3, TS 3, AP 2, RA 2. ML (model lifecycle) has nothing at all, and needs a model catalog to be worth anything |
 | Agent Framework collector | Stub. Code-first, so it likely needs an exporter upstream |
 | Agent 365 collector | Stub, and licence-blocked. See Blocked |
 | Probe tier for edge resolution | Not built, and deliberately so: it makes network calls |
@@ -90,8 +90,11 @@ gap that scales with time rather than effort.
 - [x] Attack path analysis, severity gated on edge evidence and sink evidence
 - [x] Effective privilege closure (ID-08)
 - [x] Cost in tokens, with money when the policy carries prices
-- [x] Rule engine, 15 rules: AP-01, AP-02, ID-01, ID-03, ID-08, TS-01, TS-06, MA-08, RA-01, RA-03,
-      RA-04, RA-07, SC-01, SC-05, CO-03
+- [x] Rule engine, 32 of the 62 catalog rules: AP-01, AP-02, AP-04, ID-01, ID-02, ID-03, ID-08,
+      TS-01, TS-04, TS-05, TS-06, TS-08, MA-02, MA-04, MA-07, MA-08, DR-01, DR-05, RA-01, RA-03,
+      RA-04, RA-05, RA-07, RA-08, SC-01, SC-05, SC-06, CO-01, CO-03, CO-06, CO-07, CO-09
+- [x] Policy packs: Swiss, EU and financial services, in `policies/`
+- [x] `docs/USAGE.md`: how to point it at someone else's estate
 - [x] SARIF 2.1.0 for code scanning
 - [x] Governance dossier, template v1.0, nothing invented
 - [x] Certification that voids on any composition change

@@ -7,7 +7,7 @@ One control point for **governance, security, cost and compliance**.
 
 > **Status, 2026-09-11.** The engine is built: collectors for M365 declarative agents, Copilot Studio
 > and Foundry (files and live), edge resolution, attack paths, privilege closure, cost, 15 of the
-> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 30 tests. This document
+> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 45 tests. This document
 > remains the full specification; the README's Status table separates built from roadmap.
 
 ---

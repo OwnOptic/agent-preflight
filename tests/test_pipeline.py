@@ -73,9 +73,9 @@ def test_findings_match_chain_md(result):
     got = Counter((f.rule, f.agent) for f in result.findings)
     assert got == Counter({
         ("AP-02", A3): 3, ("CO-03", A3): 1, ("ID-03", A3): 1, ("RA-01", A3): 1,
-        ("RA-03", A3): 1, ("SC-05", A3): 1, ("TS-01", A3): 1,
+        ("RA-03", A3): 1, ("RA-05", A3): 1, ("SC-05", A3): 1, ("SC-06", A3): 1, ("TS-01", A3): 1,
         ("ID-01", A2): 1, ("ID-03", A2): 1, ("ID-08", A2): 1, ("MA-08", A2): 1,
-        ("ID-01", A1): 1, ("ID-08", A1): 1, ("RA-07", A1): 1, ("TS-06", A1): 2,
+        ("ID-01", A1): 1, ("ID-08", A1): 1, ("RA-07", A1): 1, ("RA-08", A1): 1, ("TS-06", A1): 2,
     })
 
 

@@ -36,6 +36,10 @@ def _common(sp: argparse.ArgumentParser) -> None:
     sp.add_argument("--region", help="region of the live Foundry project")
     sp.add_argument("--mcp-manifests", action="append", default=[], metavar="DIR",
                     help="directory of captured MCP tools/list manifests")
+    sp.add_argument("--live-copilot-studio", metavar="ORG_URL",
+                    help="read Copilot Studio agents live from this Dataverse org, instead of an export")
+    sp.add_argument("--cs-environment-id", metavar="GUID",
+                    help="Power Platform environment id, so the live agent's connection URL can be derived")
 
 
 def _read_json(path: Path) -> dict:
@@ -81,7 +85,8 @@ def main(argv: list[str] | None = None) -> int:
     args = p.parse_args(argv)
     policy = Policy.load(args.policy) if args.policy else Policy.default()
     kwargs = dict(live_foundry=args.live_foundry, subscription=args.subscription, region=args.region,
-                  mcp_manifests=args.mcp_manifests)
+                  mcp_manifests=args.mcp_manifests, live_copilot_studio=args.live_copilot_studio,
+                  cs_environment_id=args.cs_environment_id)
 
     if args.cmd == "scan":
         lock = load_lock(args.lock) if args.lock and args.lock.exists() else None
