@@ -47,7 +47,7 @@ self-contained contribution.
 |---|---|---|---|
 | Foundry Agent Service | Foundry SDK: prompt and hosted agents, toolboxes, connections | toolbox pinning, MCP auth mode, A2A graph, content filters | **W1** |
 | Copilot Studio | solution export and Dataverse: topics, knowledge, actions, channels, auth | auth mode, published channels, connector DLP posture, generative answers scope | **W1** |
-| M365 declarative agents | `declarativeAgent.json` (schema 1.8) and the API plugin manifests it references | capabilities versus instructions, `discourage_model_knowledge`, disclaimer, OpenAPI surface, actions cap of 10 | stub |
+| M365 declarative agents | `declarativeAgent.json` (schema 1.8) and the API plugin manifests it references | capabilities versus instructions, `discourage_model_knowledge`, disclaimer, OpenAPI surface, actions cap of 10 | **W1** |
 | Microsoft Agent Framework | code-first: tools registered at build, OpenTelemetry semantics | tool registration surface, no declarative gate exists today | stub |
 | Agent 365 / Entra Agent ID | registry roster, ownership, blueprints, OBO versus autonomous | orphaned agents, no sponsor, interactive versus autonomous mismatch | stub |
 

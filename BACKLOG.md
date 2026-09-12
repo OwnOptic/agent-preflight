@@ -35,6 +35,51 @@ and a live scan of the real Foundry project reproduces the same critical path.
 - [ ] Record the demo
 - [ ] Complete the project page (checklist in the private plan)
 
+## What "fully functional" still needs
+
+Audited 2026-09-12 against the working tree, not against intentions. Three tiers, because they are
+three different finish lines.
+
+### A. Demo complete (the hackathon)
+
+Everything analytical is built. What remains is evidence, not engine.
+
+| Gap | Size |
+|---|---|
+| Publish fixture 02, or accept that ID-01 reads "once published" | a decision |
+| Capture each platform's own view of its agent | an hour |
+| Demo pull request that fails CI on the diff | an hour |
+| The video, and the project page | a day |
+
+### B. Usable by another team, on their own agents
+
+This is the real gap, and none of it is hard.
+
+| Gap | Why it matters | Size |
+|---|---|---|
+| Copilot Studio needs a manual solution export | Dataverse can be read live, as the fixture build proved; without it, a user must export by hand first | a day |
+| M365 declarative agents are read from files only | Real estates keep them in the tenant app catalog; Graph exposes it, but the read needs `AppCatalog.Read.All` | a day |
+| No getting-started for someone else's estate | Today the README shows fixtures, not "point it at my agent" | half a day |
+| Policy packs are an empty promise | `policy.example.yaml` exists; Swiss, EU and financial-services packs do not | a day |
+| No tests on `analyze/cost.py`, `analyze/privilege.py`, `collectors/copilot_studio.py`, `report/dossier.py`, `cli.py` | Five of 24 modules carry no direct test; the pipeline test covers them only in passing | a day |
+
+### C. The specification, in full
+
+| Gap | Where it stands |
+|---|---|
+| **15 of the 62 specified rules are implemented** | Missing by family: CO 8, MA 7, TS 6, DR 5, ID 5, ML 5, RA 4, SC 4, AP 3. ML (model lifecycle) has nothing at all |
+| Agent Framework collector | Stub. Code-first, so it likely needs an exporter upstream |
+| Agent 365 collector | Stub, and licence-blocked. See Blocked |
+| Probe tier for edge resolution | Not built, and deliberately so: it makes network calls |
+| Standards alignment, CycloneDX or SPDX | Open question, unverified, and not claimed anywhere in writing |
+| Review board, trust graph in the dossier, what-if, auto-remediation | Roadmap |
+
+**Honest summary.** The engine is real and the chain it finds is real, reproduced from three agents
+that all exist in their platforms. What it is not yet is a product someone else can point at their
+own tenant without reading the source: one day of collector work, one day of documentation and
+packs, and a day of tests would close that. The rule catalog is a quarter built, and that is the
+gap that scales with time rather than effort.
+
 ## Built
 
 - [x] AgentBOM schema v0.1, drift-guarded pydantic models, canonical serialisation
