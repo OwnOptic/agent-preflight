@@ -29,11 +29,18 @@ and a live scan of the real Foundry project reproduces the same critical path.
 - [x] **Publish fixture 02**, 2026-09-14. ID-01 now reads "Published endpoint accepts unauthenticated
       callers" because it genuinely does. Its HTTP call carries a placeholder key, so the published
       agent cannot reach Foundry
-- [ ] **Capture each platform's own view** of its agent, for the demo
-- [ ] **Demo pull request**: a branch adding a destructive tool or rewriting the MCP manifest, so CI
-      fails with the finding on the diff. Leave it unmerged
-- [ ] Record the demo
-- [ ] Complete the project page (checklist in the private plan)
+- [x] **Capture each platform's own view**: Microsoft 365 Copilot agent store and agent card,
+      Copilot Studio agent list and overview. Foundry is shown as a live scan instead of a portal
+      screenshot, which is the stronger evidence anyway. Captures in `dist/captures/` (gitignored:
+      they show chat history)
+- [x] **Demo pull request**: [#1](https://github.com/OwnOptic/agent-preflight/pull/1). An approved
+      MCP server rewrites one tool description to instruct the model. CI fails in 23 seconds on
+      SC-01 and SC-02. Left unmerged on purpose
+- [x] **Record the demo**: `dist/agent-preflight-demo.mp4`, 1:56, narrated, 1920x1080. Built from
+      real command output, the dossier's own trust graph and the tenant's own UIs
+- [ ] **Project page**: video uploaded and processed, page reads "Ready to submit" and auto-submits
+      at the deadline. Left to do: paste the description addition from the private plan, which
+      carries the required AI-assisted authoring disclosure, then submit
 
 ## What "fully functional" still needs
 
