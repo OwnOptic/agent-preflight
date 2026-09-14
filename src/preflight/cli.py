@@ -26,7 +26,9 @@ from preflight.report.cyclonedx import to_cyclonedx
 from preflight.report.dossier import render_agent
 from preflight.report.sarif import relative, to_sarif
 from preflight.report.text import render
+from preflight.report.trustgraph import to_svg
 from preflight.supply import load_lock, pin
+from preflight.whatif import Change, what_if
 
 
 def _common(sp: argparse.ArgumentParser) -> None:
@@ -78,6 +80,12 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--fail-on", default="critical", choices=["critical", "high", "medium", "low", "none"])
     s.add_argument("--json", action="store_true", help="print findings as JSON instead of the report")
 
+    w = sub.add_parser("whatif", help="ask what one change would do, in memory, without writing anything")
+    _common(w)
+    w.add_argument("--approve", action="append", default=[], metavar="TOOL", help="put a human gate on this tool")
+    w.add_argument("--trust-server", action="append", default=[], metavar="HOST", help="treat this MCP server as trusted")
+    w.add_argument("--remove-tool", action="append", default=[], metavar="TOOL", help="take this tool off its agent")
+
     for name, helptext in [("collect", "print AgentBOMs as JSON"), ("pin", "pin MCP tool manifests"),
                            ("certify", "certify the current composition"),
                            ("baseline", "accept current findings")]:
@@ -114,8 +122,10 @@ def main(argv: list[str] | None = None) -> int:
             _write(args.sarif, json.dumps(to_sarif(result.findings, version=__version__), indent=2))
         if args.dossier:
             for b in result.boms:
-                _write(args.dossier / f"{b.agent.platform}--{b.agent.id}.md",
-                       render_agent(b, result, version=__version__))
+                stem = f"{b.agent.platform}--{b.agent.id}"
+                _write(args.dossier / f"{stem}.svg", to_svg(result.boms, focus=b.agent.id))
+                _write(args.dossier / f"{stem}.md",
+                       render_agent(b, result, version=__version__, graph=f"{stem}.svg"))
         if args.cyclonedx:
             for b in result.boms:
                 _write(args.cyclonedx / f"{b.agent.platform}--{b.agent.id}.cdx.json",
@@ -132,6 +142,12 @@ def main(argv: list[str] | None = None) -> int:
 
         failing = [f for f in result.findings if not f.baselined and at_or_above(f.severity, args.fail_on)]
         return 1 if failing else 0
+
+    if args.cmd == "whatif":
+        change = Change(approve=set(args.approve), trust_servers=set(args.trust_server),
+                        remove_tools=set(args.remove_tool))
+        print(what_if(args.path, policy, change, **kwargs).render())
+        return 0
 
     result = analyze(args.path, policy, **kwargs)
     if args.cmd == "collect":

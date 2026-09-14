@@ -8,6 +8,7 @@ after both. Paths and privilege need the resolved edges. Rules read everything.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -71,7 +72,8 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
             mcp_manifests: list | None = None, live_copilot_studio: str | None = None,
             cs_environment_id: str | None = None, agent365: bool = False, probe: bool = False,
             lock: dict[str, str] | None = None,
-            certification: dict | None = None, baseline: set[str] | None = None) -> Result:
+            certification: dict | None = None, baseline: set[str] | None = None,
+            hook: Callable[[list[AgentBOM]], None] | None = None) -> Result:
     policy = policy or Policy.default()
     boms: list[AgentBOM] = []
     skipped: list[tuple[str, str]] = []
@@ -87,6 +89,10 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
         for ref in c.discover(scope):
             boms.append(c.collect(ref))
     boms.sort(key=lambda b: (b.agent.platform, b.agent.id))
+    # The only place anything may alter a collected composition, and only in memory: `preflight
+    # whatif` uses it to ask what a change would do. Nothing is written back to any platform.
+    if hook is not None:
+        hook(boms)
 
     for b in boms:
         for t in b.tools:

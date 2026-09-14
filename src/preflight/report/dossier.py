@@ -24,7 +24,7 @@ def _flag(b: bool | None) -> str:
     return "yes" if b else ("no" if b is False else "unknown")
 
 
-def render_agent(b: AgentBOM, result, *, version: str) -> str:
+def render_agent(b: AgentBOM, result, *, version: str, graph: str | None = None) -> str:
     aid = b.agent.id
     pv = result.privilege[aid]
     findings = [f for f in result.findings if f.agent == aid]
@@ -70,6 +70,12 @@ def render_agent(b: AgentBOM, result, *, version: str) -> str:
 
     w("## 4. Architecture and trust graph")
     w("")
+    if graph:
+        w(f"![Trust graph]({graph})")
+        w("")
+        w("*Drawn from this BOM. A dashed edge was learned by probe rather than matched, and the "
+          "orange labels are irreversible actions with no human gate declared.*")
+        w("")
     w("**Calls**")
     w("")
     if b.edges:
