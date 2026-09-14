@@ -15,9 +15,10 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from collections.abc import Iterable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 import yaml
 
@@ -94,7 +95,7 @@ class M365DeclarativeCollector:
 
         overrides = doc.get("behavior_overrides") or {}
         return AgentBOM(
-            generated=datetime.now(timezone.utc),
+            generated=datetime.now(UTC),
             generator=Generator(collector=self.version),
             agent=Agent(
                 id=doc.get("id") or ref.id,

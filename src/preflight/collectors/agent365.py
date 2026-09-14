@@ -30,8 +30,9 @@ import shutil
 import subprocess
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
-from typing import Any, Iterable
+from collections.abc import Iterable
+from datetime import UTC, datetime
+from typing import Any
 
 from preflight.bom.models import Agent, AgentBOM, Generator, Guards, Identity, Instructions
 from preflight.collectors.base import AgentRef, Scope
@@ -120,7 +121,7 @@ class Agent365Collector:
         p = next((x for x in self._fetch() or [] if str(x.get("id")) == ref.id), {})
         owner = p.get("owner") or p.get("publisher")
         return AgentBOM(
-            generated=datetime.now(timezone.utc),
+            generated=datetime.now(UTC),
             generator=Generator(collector=self.version),
             agent=Agent(
                 id=str(p.get("manifestId") or p.get("id") or ref.id),

@@ -38,9 +38,10 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
-from datetime import datetime, timezone
+from collections.abc import Iterable, Iterator
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable, Iterator
+from typing import Any
 
 import yaml
 
@@ -180,7 +181,7 @@ def build_bom(*, schema: str, name: str | None, auth_mode: int, cfg: dict, compo
     ai = cfg.get("aISettings") or {}
 
     return AgentBOM(
-        generated=datetime.now(timezone.utc),
+        generated=datetime.now(UTC),
         generator=Generator(collector=collector),
         agent=Agent(
             id=schema,

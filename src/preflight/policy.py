@@ -43,11 +43,11 @@ class Policy:
     tool_overrides: dict[str, ToolOverride] = field(default_factory=dict)
 
     @classmethod
-    def default(cls) -> "Policy":
+    def default(cls) -> Policy:
         return cls()
 
     @classmethod
-    def load(cls, path: str | Path) -> "Policy":
+    def load(cls, path: str | Path) -> Policy:
         p = Path(path)
         raw = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
         overrides = {

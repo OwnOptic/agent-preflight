@@ -7,7 +7,7 @@ claim it cannot evidence.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from preflight.bom.canonical import composition_hash
 from preflight.bom.models import AgentBOM
@@ -40,7 +40,7 @@ def render_agent(b: AgentBOM, result, *, version: str) -> str:
     w(f"# Governance dossier: {b.agent.name or aid}")
     w("")
     w(f"Template: Agent Governance Dossier v1.0 · Agent Preflight {version} · "
-      f"{datetime.now(timezone.utc).date().isoformat()}")
+      f"{datetime.now(UTC).date().isoformat()}")
     w("")
     w("> Every field is derived from the AgentBOM or a rule result. Fields that cannot be derived say "
       "*requires human input* rather than guess.")

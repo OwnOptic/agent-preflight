@@ -22,6 +22,7 @@ from preflight.certify import certify
 from preflight.findings import at_or_above
 from preflight.pipeline import analyze
 from preflight.policy import Policy
+from preflight.report.cyclonedx import to_cyclonedx
 from preflight.report.dossier import render_agent
 from preflight.report.sarif import relative, to_sarif
 from preflight.report.text import render
@@ -68,6 +69,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--out", type=Path, help="write one AgentBOM per agent here")
     s.add_argument("--sarif", type=Path, help="write SARIF 2.1.0 here")
     s.add_argument("--dossier", type=Path, help="write one governance dossier per agent here")
+    s.add_argument("--cyclonedx", type=Path, help="write one CycloneDX 1.6 document per agent here")
     s.add_argument("--baseline", type=Path, help="accepted findings; only new ones fail")
     s.add_argument("--lock", type=Path, help="pinned MCP manifests; a change is SC-01")
     s.add_argument("--cert", type=Path, help="certification record to check against")
@@ -111,6 +113,10 @@ def main(argv: list[str] | None = None) -> int:
             for b in result.boms:
                 _write(args.dossier / f"{b.agent.platform}--{b.agent.id}.md",
                        render_agent(b, result, version=__version__))
+        if args.cyclonedx:
+            for b in result.boms:
+                _write(args.cyclonedx / f"{b.agent.platform}--{b.agent.id}.cdx.json",
+                       json.dumps(to_cyclonedx(b, version=__version__), indent=2))
 
         if args.json:
             print(json.dumps([f.to_dict() for f in result.findings], indent=2))

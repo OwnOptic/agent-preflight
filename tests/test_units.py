@@ -8,7 +8,7 @@ exit codes mean what the README says they mean.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -39,7 +39,7 @@ FIXTURES = ROOT / "fixtures"
 
 def _bom(aid: str, platform: str = "foundry", **kw) -> AgentBOM:
     return AgentBOM(
-        generated=datetime.now(timezone.utc),
+        generated=datetime.now(UTC),
         generator=Generator(collector="test@0.0.0"),
         agent=Agent(id=aid, platform=platform, name=aid, **kw.pop("agent", {})),
         **kw,

@@ -13,13 +13,13 @@ from __future__ import annotations
 import re
 from collections import defaultdict
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from urllib.parse import urlsplit
 
 from preflight.analyze.paths import PathGroup
-from preflight.certify import tokens_per_interaction
 from preflight.analyze.privilege import Privilege
 from preflight.bom.models import AgentBOM
+from preflight.certify import tokens_per_interaction
 from preflight.findings import SEVERITY_ORDER, Finding
 from preflight.policy import Policy
 
@@ -647,8 +647,8 @@ def ml_05(bom: AgentBOM, ctx: Context) -> list[Finding]:
     except ValueError:
         return []
     if signed.tzinfo is None:
-        signed = signed.replace(tzinfo=timezone.utc)
-    age = (datetime.now(timezone.utc) - signed).days
+        signed = signed.replace(tzinfo=UTC)
+    age = (datetime.now(UTC) - signed).days
     if age <= days:
         return []
     return [_mk("ML-05", bom, f"Last certified {age} days ago, and the policy ({ctx.policy.origin}) requires review "

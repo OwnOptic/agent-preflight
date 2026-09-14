@@ -24,9 +24,9 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
-from datetime import datetime, timezone
+from collections.abc import Iterable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Iterable, Iterator
 
 from preflight.bom.models import (
     Agent,
@@ -175,7 +175,7 @@ class AgentFrameworkCollector:
     def _bom(self, aid: str, name: str | None, instructions: str, tools: list[Tool],
              model: str | None, source: str, *, partial: bool, unresolved: list[str]) -> AgentBOM:
         return AgentBOM(
-            generated=datetime.now(timezone.utc),
+            generated=datetime.now(UTC),
             generator=Generator(collector=self.version),
             agent=Agent(
                 id=aid,

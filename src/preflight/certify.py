@@ -11,10 +11,10 @@ without keeping a separate history.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
-from preflight.bom.models import AgentBOM
 from preflight.bom.canonical import composition_hash
+from preflight.bom.models import AgentBOM
 
 
 def tokens_per_interaction(b: AgentBOM) -> int | None:
@@ -29,7 +29,7 @@ def tokens_per_interaction(b: AgentBOM) -> int | None:
 def certify(boms: list[AgentBOM], by: str) -> dict:
     return {
         "version": 2,
-        "certifiedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "certifiedAt": datetime.now(UTC).isoformat(timespec="seconds"),
         "by": by,
         "agents": [
             {

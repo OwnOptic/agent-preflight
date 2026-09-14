@@ -28,9 +28,10 @@ import os
 import shutil
 import subprocess
 import urllib.request
-from datetime import datetime, timezone
+from collections.abc import Iterable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from preflight.bom.models import (
     Agent,
@@ -168,7 +169,7 @@ def build_bom(d: dict[str, Any], *, collector: str, manifests: dict[str, dict],
     agent_id = d.get("id") or "unknown"
 
     return AgentBOM(
-        generated=datetime.now(timezone.utc),
+        generated=datetime.now(UTC),
         generator=Generator(collector=collector),
         agent=Agent(
             id=agent_id,
