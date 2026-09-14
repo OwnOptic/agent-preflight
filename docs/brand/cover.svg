@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="apf-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E1B2A"/><stop offset="1" stop-color="#14243A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#apf-bg)"/>
+  <rect x="0" y="0" width="1920" height="9" fill="#F26F21"/>
+  <svg x="150" y="292" width="340" height="340" viewBox="0 0 340 340">
+    
+  
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M95.62 135.47 L150.08 224.45" stroke="#8FA6BF" stroke-width="17.27"/>
+    <path d="M150.08 224.45 L243.05 116.88" stroke="#F26F21" stroke-width="22.58"/>
+  </g>
+  <circle cx="95.62" cy="135.47" r="19.92" fill="#F5F7FA" stroke="#F5F7FA" stroke-width="11.95"/>
+  <circle cx="150.08" cy="224.45" r="19.92" fill="#F5F7FA" stroke="#F5F7FA" stroke-width="11.95"/>
+  <circle cx="243.05" cy="116.88" r="26.56" fill="#F26F21"/>
+
+  </svg>
+  <g font-family="Segoe UI, system-ui, sans-serif" fill="#F5F7FA">
+    <text x="566" y="447" font-size="108" font-weight="700" letter-spacing="-2.5">Agent <tspan fill="#F26F21">Preflight</tspan></text>
+    <text x="570" y="514" font-size="37" fill="#8FA6BF">Design-time governance for Microsoft agents</text>
+    <text x="570" y="596" font-size="31" fill="#F5F7FA">Finds the attack path that crosses three agents and three platforms,</text>
+    <text x="570" y="642" font-size="31" fill="#F5F7FA">before any of them ships.</text>
+    <text x="570" y="722" font-size="26" fill="#8FA6BF">No traffic &#183; no tokens &#183; nothing deployed &#183; runs before registration</text>
+  </g>
+</svg>

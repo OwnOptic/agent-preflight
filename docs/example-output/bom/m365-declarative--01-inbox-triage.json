@@ -1,0 +1,209 @@
+{
+  "agent": {
+    "description": "Triages incoming contract enquiries and routes them to the contract router.",
+    "endpoints": [],
+    "environment": null,
+    "id": "01-inbox-triage",
+    "identity": {
+      "appId": null,
+      "blueprint": null,
+      "kind": "none",
+      "mode": "obo",
+      "objectId": null,
+      "owner": null,
+      "sponsor": null
+    },
+    "inboundAuth": "obo",
+    "instructions": {
+      "capChars": 8000,
+      "hash": "sha256:3c362dce663bc18bd5139e36c89a2c20ba499accfa720a8b1b794b7b8ce22ed9",
+      "tokens": 56
+    },
+    "name": "Inbox triage",
+    "platform": "m365-declarative",
+    "sourceFile": "fixtures\\01-inbox-triage\\declarativeAgent.json"
+  },
+  "bomFormat": "AgentBOM",
+  "economics": {
+    "estimatedCostPerInteraction": null,
+    "fanoutFactor": 2.65,
+    "groundingTokensPerTurn": 0,
+    "instructionTokens": 56,
+    "toolDescriptionTokens": 13
+  },
+  "edges": [
+    {
+      "auth": "none",
+      "confidence": "matched",
+      "crossPlatform": true,
+      "crossRegion": false,
+      "crossTenant": false,
+      "endpoint": "https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter/conversations",
+      "from": "01-inbox-triage",
+      "signal": "endpoint",
+      "to": "apf_contractRouter",
+      "tool": "op:contractRouter/routeEnquiry",
+      "via": "openapi"
+    }
+  ],
+  "generated": "2026-09-14T16:53:07.075408Z",
+  "generator": {
+    "collector": "m365_declarative@0.1.0",
+    "tool": "preflight",
+    "version": "0.1.0"
+  },
+  "guards": {
+    "contentFilter": "unknown",
+    "historySummarisation": null,
+    "humanInTheLoop": null,
+    "maxTurns": null,
+    "promptShields": null,
+    "rateLimit": null,
+    "tokenCap": null
+  },
+  "knowledge": [],
+  "models": [],
+  "residency": {
+    "declared": null,
+    "observed": []
+  },
+  "serialNumber": "urn:uuid:c6fe4690-bcf7-5c00-8fb8-d0e95942ad86",
+  "signature": null,
+  "specVersion": "0.1",
+  "storage": [],
+  "tags": {
+    "actionCount": "1",
+    "disclaimer": null,
+    "discourageModelKnowledge": null
+  },
+  "tools": [
+    {
+      "annotations": null,
+      "approval": null,
+      "auth": {
+        "mode": "obo",
+        "scopes": [],
+        "secretRef": null
+      },
+      "classification": {
+        "confidence": "high",
+        "irreversibleAction": false,
+        "rationale": "Open web content, attacker-influenceable.",
+        "source": "registry",
+        "untrustedInput": true
+      },
+      "description": null,
+      "descriptionTokens": null,
+      "id": "cap:WebSearch",
+      "kind": "builtin",
+      "name": "WebSearch",
+      "referencedInInstructions": true,
+      "source": {
+        "allowlist": null,
+        "builtinId": "web_search",
+        "httpMethod": null,
+        "manifestHash": null,
+        "pinned": null,
+        "server": null,
+        "toolbox": null,
+        "trusted": false
+      }
+    },
+    {
+      "annotations": null,
+      "approval": null,
+      "auth": {
+        "mode": "obo",
+        "scopes": [],
+        "secretRef": null
+      },
+      "classification": {
+        "confidence": "high",
+        "irreversibleAction": false,
+        "rationale": "Tenant content, still authored by people.",
+        "source": "registry",
+        "untrustedInput": true
+      },
+      "description": null,
+      "descriptionTokens": null,
+      "id": "cap:OneDriveAndSharePoint",
+      "kind": "builtin",
+      "name": "OneDriveAndSharePoint",
+      "referencedInInstructions": false,
+      "source": {
+        "allowlist": null,
+        "builtinId": "sharepoint",
+        "httpMethod": null,
+        "manifestHash": null,
+        "pinned": null,
+        "server": null,
+        "toolbox": null,
+        "trusted": false
+      }
+    },
+    {
+      "annotations": null,
+      "approval": null,
+      "auth": {
+        "mode": "obo",
+        "scopes": [],
+        "secretRef": null
+      },
+      "classification": {
+        "confidence": "high",
+        "irreversibleAction": false,
+        "rationale": "Indexed third-party content, authored by people.",
+        "source": "registry",
+        "untrustedInput": true
+      },
+      "description": null,
+      "descriptionTokens": null,
+      "id": "cap:GraphConnectors",
+      "kind": "builtin",
+      "name": "GraphConnectors",
+      "referencedInInstructions": false,
+      "source": {
+        "allowlist": null,
+        "builtinId": "graph_connectors",
+        "httpMethod": null,
+        "manifestHash": null,
+        "pinned": null,
+        "server": null,
+        "toolbox": null,
+        "trusted": false
+      }
+    },
+    {
+      "annotations": null,
+      "approval": null,
+      "auth": {
+        "mode": "none",
+        "scopes": [],
+        "secretRef": null
+      },
+      "classification": {
+        "confidence": "medium",
+        "irreversibleAction": true,
+        "rationale": "HTTP POST: state-changing operation.",
+        "source": "protocol",
+        "untrustedInput": true
+      },
+      "description": "Send an enquiry to the contract router for handling.",
+      "descriptionTokens": 13,
+      "id": "op:contractRouter/routeEnquiry",
+      "kind": "openapi",
+      "name": "routeEnquiry",
+      "referencedInInstructions": null,
+      "source": {
+        "allowlist": null,
+        "builtinId": null,
+        "httpMethod": "POST",
+        "manifestHash": "sha256:38943d8830aeb16ca661c8ed38bf8cca99b42e5916438a4a8f17fdbaee9fe6a3",
+        "pinned": null,
+        "server": "https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter/conversations",
+        "toolbox": null,
+        "trusted": false
+      }
+    }
+  ]
+}

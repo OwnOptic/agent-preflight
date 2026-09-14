@@ -2,6 +2,11 @@
 *.private.md
 dossier/
 preflight.sarif
+# ...but the committed examples under docs/ are the point: they let someone read the output
+# without installing anything. These patterns match at any depth, so they need explicit rescue.
+!docs/example-output/dossier/
+!docs/example-output/dossier/**
+!docs/example-output/preflight.sarif
 __pycache__/
 *.pyc
 .venv/

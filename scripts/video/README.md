@@ -59,3 +59,16 @@ never printed. Voice is `en-GB-OllieMultilingualNeural` with `narration-professi
 `narrate.py` pads each line with silence to its segment's measured length and reports any line that
 overruns its slot, because an overrun silently pushes everything after it out of sync. Slot lengths
 come from `assemble.py`, which measures them rather than assuming the planned values.
+
+## Also here
+
+`gallery.py` and `shoot-gallery.mjs` build the still images in `docs/media/`, from the same
+recordings the video uses.
+
+`logo.py` and `shoot-logo.mjs` build the identity in `docs/brand/`. The SVG is the source; every PNG
+beside it is rendered from that SVG.
+
+`render-dossier.py` and `shoot-dossier.mjs` render a governance dossier as the document it is, so
+the output in `docs/example-output/dossier/` can be looked at rather than read as markdown. Only the
+subset of markdown the dossier actually emits is handled, and an unrecognised asset reference prints
+as a visible "missing asset" rather than disappearing.

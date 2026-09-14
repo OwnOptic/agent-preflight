@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1680 420" width="1680" height="420">
+  <rect width="1680" height="420" fill="#F5F7FA"/>
+  <svg x="54" y="54" width="310" height="310" viewBox="0 0 310 310">
+  
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M87.19 123.52 L136.84 204.65" stroke="#6E8399" stroke-width="15.74"/>
+    <path d="M136.84 204.65 L221.6 106.56" stroke="#F26F21" stroke-width="20.59"/>
+  </g>
+  <circle cx="87.19" cy="123.52" r="18.16" fill="#F5F7FA" stroke="#1B2C44" stroke-width="10.9"/>
+  <circle cx="136.84" cy="204.65" r="18.16" fill="#F5F7FA" stroke="#1B2C44" stroke-width="10.9"/>
+  <circle cx="221.6" cy="106.56" r="24.22" fill="#F26F21"/>
+</svg>
+  <g font-family="Segoe UI, system-ui, sans-serif">
+    <text x="448" y="210" font-size="126"
+          font-weight="700" letter-spacing="-1.5" fill="#1B2C44">Agent <tspan fill="#F26F21">Preflight</tspan></text>
+    <text x="452" y="302" font-size="53"
+          fill="#6E8399">Design-time governance for Microsoft agents</text>
+  </g>
+</svg>

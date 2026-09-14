@@ -1,0 +1,204 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-14T16:53:07Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "agent-preflight",
+          "version": "0.1.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "agent:asst_Y3XUjyknLU4ZzR732qhPDe7F",
+      "name": "records-agent",
+      "properties": [
+        {
+          "name": "preflight:agent.environment",
+          "value": "https://fdy-demo-agents-de-em.services.ai.azure.com/api/projects/preflight"
+        },
+        {
+          "name": "preflight:agent.id",
+          "value": "asst_Y3XUjyknLU4ZzR732qhPDe7F"
+        },
+        {
+          "name": "preflight:agent.inboundAuth",
+          "value": "unknown"
+        },
+        {
+          "name": "preflight:agent.platform",
+          "value": "foundry"
+        },
+        {
+          "name": "preflight:economics.tokensPerTurn",
+          "value": "56"
+        },
+        {
+          "name": "preflight:residency.observed",
+          "value": "switzerlandnorth"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "machine-learning-model",
+      "bom-ref": "model:gpt-5-mini-global",
+      "name": "gpt-5-mini-global",
+      "version": "unknown",
+      "properties": [
+        {
+          "name": "preflight:model.deployment",
+          "value": "gpt-5-mini-global"
+        },
+        {
+          "name": "preflight:model.region",
+          "value": "switzerlandnorth"
+        },
+        {
+          "name": "preflight:model.status",
+          "value": "unknown"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "bom-ref": "tool:mcp:records/get_record",
+      "name": "get_record",
+      "description": "Fetch a contract record by id.",
+      "endpoints": [
+        "https://mcp.records.contoso-internal.example/mcp"
+      ],
+      "authenticated": true,
+      "x-trust-boundary": true,
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "low"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "True"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "failclosed"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "key"
+        },
+        {
+          "name": "preflight:tool.auth.secretRef",
+          "value": "inline"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "mcp"
+        }
+      ]
+    },
+    {
+      "bom-ref": "tool:mcp:records/search_records",
+      "name": "search_records",
+      "description": "Search contract records.",
+      "endpoints": [
+        "https://mcp.records.contoso-internal.example/mcp"
+      ],
+      "authenticated": true,
+      "x-trust-boundary": true,
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "low"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "True"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "failclosed"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "key"
+        },
+        {
+          "name": "preflight:tool.auth.secretRef",
+          "value": "inline"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "mcp"
+        }
+      ]
+    },
+    {
+      "bom-ref": "tool:mcp:records/delete_record",
+      "name": "delete_record",
+      "description": "Permanently delete a contract record by id.",
+      "endpoints": [
+        "https://mcp.records.contoso-internal.example/mcp"
+      ],
+      "authenticated": true,
+      "x-trust-boundary": true,
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "high"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "True"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "protocol"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "key"
+        },
+        {
+          "name": "preflight:tool.auth.secretRef",
+          "value": "inline"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "mcp"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "agent:asst_Y3XUjyknLU4ZzR732qhPDe7F",
+      "dependsOn": [
+        "model:gpt-5-mini-global",
+        "tool:mcp:records/delete_record",
+        "tool:mcp:records/get_record",
+        "tool:mcp:records/search_records"
+      ]
+    }
+  ],
+  "serialNumber": "urn:uuid:77afde95-3c67-5d29-a299-047945aa7cbd"
+}

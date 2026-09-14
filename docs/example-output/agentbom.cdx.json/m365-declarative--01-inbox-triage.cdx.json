@@ -1,0 +1,190 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-14T16:53:07Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "agent-preflight",
+          "version": "0.1.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "agent:01-inbox-triage",
+      "name": "Inbox triage",
+      "description": "Triages incoming contract enquiries and routes them to the contract router.",
+      "properties": [
+        {
+          "name": "preflight:agent.id",
+          "value": "01-inbox-triage"
+        },
+        {
+          "name": "preflight:agent.inboundAuth",
+          "value": "obo"
+        },
+        {
+          "name": "preflight:agent.platform",
+          "value": "m365-declarative"
+        },
+        {
+          "name": "preflight:economics.tokensPerTurn",
+          "value": "69"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "application",
+      "bom-ref": "tool:cap:WebSearch",
+      "name": "WebSearch",
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "high"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "False"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "registry"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "obo"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "builtin"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "tool:cap:OneDriveAndSharePoint",
+      "name": "OneDriveAndSharePoint",
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "high"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "False"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "registry"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "obo"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "builtin"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "tool:cap:GraphConnectors",
+      "name": "GraphConnectors",
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "high"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "False"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "registry"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "obo"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "builtin"
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "bom-ref": "tool:op:contractRouter/routeEnquiry",
+      "name": "routeEnquiry",
+      "description": "Send an enquiry to the contract router for handling.",
+      "endpoints": [
+        "https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter/conversations"
+      ],
+      "authenticated": false,
+      "x-trust-boundary": true,
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "medium"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "True"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "protocol"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:edge.to",
+          "value": "apf_contractRouter"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "none"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "openapi"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "agent:01-inbox-triage",
+      "dependsOn": [
+        "tool:cap:GraphConnectors",
+        "tool:cap:OneDriveAndSharePoint",
+        "tool:cap:WebSearch",
+        "tool:op:contractRouter/routeEnquiry"
+      ]
+    }
+  ],
+  "serialNumber": "urn:uuid:c6fe4690-bcf7-5c00-8fb8-d0e95942ad86"
+}

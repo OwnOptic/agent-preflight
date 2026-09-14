@@ -1,0 +1,1146 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Agent Preflight",
+          "informationUri": "https://github.com/OwnOptic/agent-preflight",
+          "version": "0.1.0",
+          "rules": [
+            {
+              "id": "AP-02",
+              "name": "AP02",
+              "shortDescription": {
+                "text": "Attack path crosses a platform boundary with no human gate"
+              },
+              "fullDescription": {
+                "text": "Attack path crosses a platform boundary with no human gate. Control: ZT: communication governance."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "9.5",
+                "catalogRule": "AP-02",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: communication governance"
+                ]
+              }
+            },
+            {
+              "id": "AP-02/high",
+              "name": "AP02_high",
+              "shortDescription": {
+                "text": "Attack path crosses a platform boundary with no human gate (reported high: evidence below the critical bar)"
+              },
+              "fullDescription": {
+                "text": "Attack path crosses a platform boundary with no human gate (reported high: evidence below the critical bar). Control: ZT: communication governance."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "AP-02",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: communication governance"
+                ]
+              }
+            },
+            {
+              "id": "CO-03",
+              "name": "CO03",
+              "shortDescription": {
+                "text": "No token cap and no max-turn limit"
+              },
+              "fullDescription": {
+                "text": "No token cap and no max-turn limit. Control: CAF: track and allocate costs."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "CO-03",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "CAF: track and allocate costs"
+                ]
+              }
+            },
+            {
+              "id": "ID-01",
+              "name": "ID01",
+              "shortDescription": {
+                "text": "Unauthenticated call or published endpoint"
+              },
+              "fullDescription": {
+                "text": "Unauthenticated call or published endpoint. Control: ZT: agent identity and RBAC."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "9.5",
+                "catalogRule": "ID-01",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: agent identity and RBAC"
+                ]
+              }
+            },
+            {
+              "id": "ID-03",
+              "name": "ID03",
+              "shortDescription": {
+                "text": "Secret held inline rather than as a Key Vault reference"
+              },
+              "fullDescription": {
+                "text": "Secret held inline rather than as a Key Vault reference. Control: ZT: agent identity and RBAC."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "9.5",
+                "catalogRule": "ID-03",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: agent identity and RBAC"
+                ]
+              }
+            },
+            {
+              "id": "ID-04",
+              "name": "ID04",
+              "shortDescription": {
+                "text": "Key authentication where the policy requires a stronger mode"
+              },
+              "fullDescription": {
+                "text": "Key authentication where the policy requires a stronger mode. Control: ZT: agent identity and RBAC."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "ID-04",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: agent identity and RBAC"
+                ]
+              }
+            },
+            {
+              "id": "ID-08",
+              "name": "ID08",
+              "shortDescription": {
+                "text": "Effective privilege exceeds declared privilege through delegation"
+              },
+              "fullDescription": {
+                "text": "Effective privilege exceeds declared privilege through delegation. Control: ZT: agent identity and RBAC."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "ID-08",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: agent identity and RBAC"
+                ]
+              }
+            },
+            {
+              "id": "MA-08",
+              "name": "MA08",
+              "shortDescription": {
+                "text": "Cross-platform edge authenticated by key rather than a shared Entra identity"
+              },
+              "fullDescription": {
+                "text": "Cross-platform edge authenticated by key rather than a shared Entra identity. Control: ZT: agent identity and RBAC."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "MA-08",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: agent identity and RBAC"
+                ]
+              }
+            },
+            {
+              "id": "RA-01",
+              "name": "RA01",
+              "shortDescription": {
+                "text": "Content filter absent"
+              },
+              "fullDescription": {
+                "text": "Content filter absent. Control: CAF: prepare environment."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "9.5",
+                "catalogRule": "RA-01",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "CAF: prepare environment"
+                ]
+              }
+            },
+            {
+              "id": "RA-03",
+              "name": "RA03",
+              "shortDescription": {
+                "text": "Prompt shields disabled"
+              },
+              "fullDescription": {
+                "text": "Prompt shields disabled. Control: CAF: prepare environment."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "9.5",
+                "catalogRule": "RA-03",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "CAF: prepare environment"
+                ]
+              }
+            },
+            {
+              "id": "RA-05",
+              "name": "RA05",
+              "shortDescription": {
+                "text": "No human in the loop declared for an irreversible action"
+              },
+              "fullDescription": {
+                "text": "No human in the loop declared for an irreversible action. Control: ZT: communication governance."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "RA-05",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: communication governance"
+                ]
+              }
+            },
+            {
+              "id": "RA-07",
+              "name": "RA07",
+              "shortDescription": {
+                "text": "Declarative agent with no disclaimer"
+              },
+              "fullDescription": {
+                "text": "Declarative agent with no disclaimer. Control: CAF: prepare environment."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "security-severity": "2.0",
+                "catalogRule": "RA-07",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "CAF: prepare environment"
+                ]
+              }
+            },
+            {
+              "id": "RA-08",
+              "name": "RA08",
+              "shortDescription": {
+                "text": "Model knowledge left enabled on a grounded agent"
+              },
+              "fullDescription": {
+                "text": "Model knowledge left enabled on a grounded agent. Control: CAF: prepare environment."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "security-severity": "2.0",
+                "catalogRule": "RA-08",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "CAF: prepare environment"
+                ]
+              }
+            },
+            {
+              "id": "SC-05",
+              "name": "SC05",
+              "shortDescription": {
+                "text": "MCP tools fall to the fail-closed tier"
+              },
+              "fullDescription": {
+                "text": "MCP tools fall to the fail-closed tier. Control: ZT: communication governance."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "security-severity": "5.0",
+                "catalogRule": "SC-05",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: communication governance"
+                ]
+              }
+            },
+            {
+              "id": "SC-06",
+              "name": "SC06",
+              "shortDescription": {
+                "text": "Annotations accepted from a server that is not trusted"
+              },
+              "fullDescription": {
+                "text": "Annotations accepted from a server that is not trusted. Control: ZT: communication governance."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "security-severity": "5.0",
+                "catalogRule": "SC-06",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: communication governance"
+                ]
+              }
+            },
+            {
+              "id": "TS-01",
+              "name": "TS01",
+              "shortDescription": {
+                "text": "MCP endpoint attached without a tool allowlist"
+              },
+              "fullDescription": {
+                "text": "MCP endpoint attached without a tool allowlist. Control: ZT: communication governance."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "security-severity": "7.5",
+                "catalogRule": "TS-01",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: communication governance"
+                ]
+              }
+            },
+            {
+              "id": "TS-06",
+              "name": "TS06",
+              "shortDescription": {
+                "text": "Capability granted but never referenced in the instructions"
+              },
+              "fullDescription": {
+                "text": "Capability granted but never referenced in the instructions. Control: ZT: agent identity and RBAC."
+              },
+              "helpUri": "https://github.com/OwnOptic/agent-preflight/blob/main/docs/capabilities.md#4-rule-catalog",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "security-severity": "5.0",
+                "catalogRule": "TS-06",
+                "tags": [
+                  "security",
+                  "agent-governance",
+                  "ZT: agent identity and RBAC"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "AP-02",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "web content via WebSearch reaches `delete_record` (MCP, destructiveHint: true) across 3 platforms, with no human gate anywhere on the path. 5 source(s) reach this sink.\n\nweb content via WebSearch  [Inbox triage, m365-declarative]\n  -> POST routeEnquiry (matched, auth none)  -> [Contract router, copilot-studio]\n  -> POST callRecordsAgent (matched, auth key)  -> [records-agent, foundry]\n  -> delete_record  IRREVERSIBLE (MCP, destructiveHint: true)"
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:20ca4d3d6203da34715f21768ddd3a03"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "AP-02",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-01",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "`routeEnquiry` calls 668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com with no authentication."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:3e39efec5d8e25ce83da1c4f54a0d4ef"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "ID-01",
+            "agent": "01-inbox-triage",
+            "agentName": "Inbox triage",
+            "platform": "m365-declarative",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/01-inbox-triage/declarativeAgent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-01",
+          "ruleIndex": 3,
+          "level": "error",
+          "message": {
+            "text": "Published endpoint accepts unauthenticated callers: https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter/conversations?api-version=2022-03-01-preview"
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:75437cec90cacef9443e38d5b52ce4f5"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "ID-01",
+            "agent": "apf_contractRouter",
+            "agentName": "Contract router",
+            "platform": "copilot-studio",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/02-contract-router/solution/bots/apf_contractRouter/bot.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-03",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Credential for fdy-demo-agents-de-em.services.ai.azure.com is stored inline in the definition, not as a Key Vault reference."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:d0c66f96bd5fca59894aa8f29c96bafd"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "ID-03",
+            "agent": "apf_contractRouter",
+            "agentName": "Contract router",
+            "platform": "copilot-studio",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/02-contract-router/solution/bots/apf_contractRouter/bot.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-03",
+          "ruleIndex": 4,
+          "level": "error",
+          "message": {
+            "text": "Credential for mcp.records.contoso-internal.example is stored inline in the definition, not as a Key Vault reference."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:403230869fdc0203230e92aa9efce2bf"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "ID-03",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "RA-01",
+          "ruleIndex": 8,
+          "level": "error",
+          "message": {
+            "text": "No content filter is configured."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:172bb9a79ab5501ab7d2f025490225ba"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "RA-01",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "CAF: prepare environment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "RA-03",
+          "ruleIndex": 9,
+          "level": "error",
+          "message": {
+            "text": "Prompt shields are disabled, so jailbreak and indirect injection attempts are not screened."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:b96e4049d7caceed0a331701c76d8cd1"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "critical",
+            "catalogRule": "RA-03",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "CAF: prepare environment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "AP-02/high",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Possible path: web content via WebSearch reaches `get_record` (MCP, assumed: server not trusted) across 3 platforms, with no human gate anywhere on the path. 5 source(s) reach this sink. Reported one level lower because the sink's irreversibility is assumed, not declared.\n\nweb content via WebSearch  [Inbox triage, m365-declarative]\n  -> POST routeEnquiry (matched, auth none)  -> [Contract router, copilot-studio]\n  -> POST callRecordsAgent (matched, auth key)  -> [records-agent, foundry]\n  -> get_record  IRREVERSIBLE (MCP, assumed: server not trusted)"
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:105c5c44c4d946f5d2b1eadd578a0cd9"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "AP-02",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "AP-02/high",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "Possible path: web content via WebSearch reaches `search_records` (MCP, assumed: server not trusted) across 3 platforms, with no human gate anywhere on the path. 5 source(s) reach this sink. Reported one level lower because the sink's irreversibility is assumed, not declared.\n\nweb content via WebSearch  [Inbox triage, m365-declarative]\n  -> POST routeEnquiry (matched, auth none)  -> [Contract router, copilot-studio]\n  -> POST callRecordsAgent (matched, auth key)  -> [records-agent, foundry]\n  -> search_records  IRREVERSIBLE (MCP, assumed: server not trusted)"
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:cac91766f312034c5e5ccedcf8a80116"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "AP-02",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CO-03",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "No token cap and no max-turn limit, so a runaway loop has no ceiling."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:c93aaea36991a105353936785e724f97"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "CO-03",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "CAF: track and allocate costs"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-04",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Authenticates to fdy-demo-agents-de-em.services.ai.azure.com with a key, where the policy (policy.example.yaml) allows only managed-identity, obo. Affects 1 tool(s)."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:f7773ec3551f101b9fc72293536f086e"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "ID-04",
+            "agent": "apf_contractRouter",
+            "agentName": "Contract router",
+            "platform": "copilot-studio",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/02-contract-router/solution/bots/apf_contractRouter/bot.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-04",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "Authenticates to mcp.records.contoso-internal.example with a key, where the policy (policy.example.yaml) allows only managed-identity, obo. Affects 3 tool(s)."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:e4f009189b70ce9a839636d3dc3c2d38"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "ID-04",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-08",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Declares 0 irreversible action(s) but can reach 3 through delegation, including records-agent/delete_record, records-agent/get_record, records-agent/search_records. None of those appear in this agent's own definition."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:e73cbdafffb46b6d7fcea2d379b5bf09"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "ID-08",
+            "agent": "01-inbox-triage",
+            "agentName": "Inbox triage",
+            "platform": "m365-declarative",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/01-inbox-triage/declarativeAgent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "ID-08",
+          "ruleIndex": 6,
+          "level": "error",
+          "message": {
+            "text": "Declares 0 irreversible action(s) but can reach 3 through delegation, including records-agent/delete_record, records-agent/get_record, records-agent/search_records. None of those appear in this agent's own definition."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:b8c781428986cadefc861a34f7cf7425"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "ID-08",
+            "agent": "apf_contractRouter",
+            "agentName": "Contract router",
+            "platform": "copilot-studio",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/02-contract-router/solution/bots/apf_contractRouter/bot.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "MA-08",
+          "ruleIndex": 7,
+          "level": "error",
+          "message": {
+            "text": "Calls records-agent on another platform using a key, so the callee cannot tell which agent is calling or on whose behalf."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:2124d2fbc057afccc1e2ed56698717bc"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "MA-08",
+            "agent": "apf_contractRouter",
+            "agentName": "Contract router",
+            "platform": "copilot-studio",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/02-contract-router/solution/bots/apf_contractRouter/bot.xml"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "RA-05",
+          "ruleIndex": 10,
+          "level": "error",
+          "message": {
+            "text": "Human in the loop is switched off while 3 irreversible action(s) are attached: delete_record, get_record, search_records."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:cd4aa09fbaf9a3833a13459bfb9ce4f7"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "RA-05",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TS-01",
+          "ruleIndex": 15,
+          "level": "error",
+          "message": {
+            "text": "MCP server mcp.records.contoso-internal.example is attached with no tool allowlist, exposing all 3 of its tools: delete_record, get_record, search_records."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:b79f9a0aa5997a58236118227b8d9c4f"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "high",
+            "catalogRule": "TS-01",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SC-05",
+          "ruleIndex": 13,
+          "level": "warning",
+          "message": {
+            "text": "2 tool(s) from mcp.records.contoso-internal.example fall back to the worst case because they come from a server that is not on the trusted list, so their read-only claims cannot be relied on: get_record, search_records."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:225d5d0c52a2651d92555a05f8ee37d1"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "medium",
+            "catalogRule": "SC-05",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SC-06",
+          "ruleIndex": 14,
+          "level": "warning",
+          "message": {
+            "text": "The classification of delete_record rests on annotations from mcp.records.contoso-internal.example, which is not on the trusted list. They were accepted only because they make the classification worse."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:2e852e519535d9d0af4d364e1526fd47"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "medium",
+            "catalogRule": "SC-06",
+            "agent": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+            "agentName": "records-agent",
+            "platform": "foundry",
+            "control": "ZT: communication governance"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/03-records-agent/agent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TS-06",
+          "ruleIndex": 16,
+          "level": "warning",
+          "message": {
+            "text": "Capability `GraphConnectors` is granted but the instructions never call for it."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:9bca0746d1f146a05016954838909698"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "medium",
+            "catalogRule": "TS-06",
+            "agent": "01-inbox-triage",
+            "agentName": "Inbox triage",
+            "platform": "m365-declarative",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/01-inbox-triage/declarativeAgent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "TS-06",
+          "ruleIndex": 16,
+          "level": "warning",
+          "message": {
+            "text": "Capability `OneDriveAndSharePoint` is granted but the instructions never call for it."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:ab60c0739e32c121f17020e8e2843c26"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "medium",
+            "catalogRule": "TS-06",
+            "agent": "01-inbox-triage",
+            "agentName": "Inbox triage",
+            "platform": "m365-declarative",
+            "control": "ZT: agent identity and RBAC"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/01-inbox-triage/declarativeAgent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "RA-07",
+          "ruleIndex": 11,
+          "level": "note",
+          "message": {
+            "text": "No disclaimer is shown to users."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:c6a1ef9000e609e84b14838f7a474859"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "low",
+            "catalogRule": "RA-07",
+            "agent": "01-inbox-triage",
+            "agentName": "Inbox triage",
+            "platform": "m365-declarative",
+            "control": "CAF: prepare environment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/01-inbox-triage/declarativeAgent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "RA-08",
+          "ruleIndex": 12,
+          "level": "note",
+          "message": {
+            "text": "Grounding capabilities are attached but `discourage_model_knowledge` is unset, so the model may answer from training data and present it like grounded content."
+          },
+          "partialFingerprints": {
+            "preflight/v1": "sha256:f47c1cf4538e7fb97d632cebb0bf3214"
+          },
+          "baselineState": "new",
+          "properties": {
+            "severity": "low",
+            "catalogRule": "RA-08",
+            "agent": "01-inbox-triage",
+            "agentName": "Inbox triage",
+            "platform": "m365-declarative",
+            "control": "CAF: prepare environment"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "fixtures/01-inbox-triage/declarativeAgent.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

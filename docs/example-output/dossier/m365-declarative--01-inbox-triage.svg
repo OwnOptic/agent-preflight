@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="592" height="324" viewBox="0 0 592 324" font-family="Segoe UI, system-ui, sans-serif">
+<defs>
+<marker id="tg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8A96A3"/></marker>
+</defs>
+<rect width="592" height="324" fill="#FFFFFF"/>
+<path d="M128,80 C128,98 128,96 128,114" fill="none" stroke="#8A96A3" stroke-width="1.4" marker-end="url(#tg-arrow)"/>
+<text x="138" y="101" font-size="10" fill="#8A96A3">openapi, matched, auth none</text>
+<path d="M128,176 C128,194 128,192 128,210" fill="none" stroke="#8A96A3" stroke-width="1.4" marker-end="url(#tg-arrow)"/>
+<text x="138" y="197" font-size="10" fill="#8A96A3">http-action, matched, auth key</text>
+<rect x="18" y="18" width="220" height="62" rx="8" fill="#FFFFFF" stroke="#F26F21" stroke-width="2"/>
+<text x="32" y="42" font-size="12.5" font-weight="700" fill="#2A3B4E">Inbox triage</text>
+<text x="32" y="60" font-size="10" fill="#8A96A3">m365-declarative · inbound obo</text>
+<rect x="18" y="114" width="220" height="62" rx="8" fill="#FFFFFF" stroke="#C9D1D9" stroke-width="1"/>
+<text x="32" y="138" font-size="12.5" font-weight="700" fill="#2A3B4E">Contract router</text>
+<text x="32" y="156" font-size="10" fill="#8A96A3">copilot-studio · inbound none</text>
+<rect x="18" y="210" width="220" height="62" rx="8" fill="#FFFFFF" stroke="#C9D1D9" stroke-width="1"/>
+<text x="32" y="234" font-size="12.5" font-weight="700" fill="#2A3B4E">records-agent</text>
+<text x="32" y="252" font-size="10" fill="#8A96A3">foundry · inbound unknown</text>
+<text x="254" y="236" font-size="10.5" fill="#F26F21" font-weight="700">irreversible: delete_record, get_record, search_records</text>
+<text x="254" y="251" font-size="9.5" fill="#8A96A3">no human gate declared</text>
+</svg>

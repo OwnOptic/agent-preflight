@@ -1,0 +1,118 @@
+{
+  "agent": {
+    "description": null,
+    "endpoints": [
+      "https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter/conversations?api-version=2022-03-01-preview"
+    ],
+    "environment": "668de38d-2e66-ec7d-b6e0-a1e20283c34e",
+    "id": "apf_contractRouter",
+    "identity": {
+      "appId": null,
+      "blueprint": null,
+      "kind": "unknown",
+      "mode": "unknown",
+      "objectId": null,
+      "owner": null,
+      "sponsor": null
+    },
+    "inboundAuth": "none",
+    "instructions": {
+      "capChars": null,
+      "hash": "sha256:3b008463d6f5b6fe5f7f1242cf5681c63ebfa0a9e786d667eb44aca2ac12606e",
+      "tokens": 58
+    },
+    "name": "Contract router",
+    "platform": "copilot-studio",
+    "sourceFile": "fixtures\\02-contract-router\\solution\\bots\\apf_contractRouter\\bot.xml"
+  },
+  "bomFormat": "AgentBOM",
+  "economics": {
+    "estimatedCostPerInteraction": null,
+    "fanoutFactor": 1.97,
+    "groundingTokensPerTurn": 0,
+    "instructionTokens": 58,
+    "toolDescriptionTokens": 0
+  },
+  "edges": [
+    {
+      "auth": "key",
+      "confidence": "matched",
+      "crossPlatform": true,
+      "crossRegion": false,
+      "crossTenant": false,
+      "endpoint": "https://fdy-demo-agents-de-em.services.ai.azure.com/api/projects/preflight/assistants/asst_Y3XUjyknLU4ZzR732qhPDe7F/runs",
+      "from": "apf_contractRouter",
+      "signal": "endpoint",
+      "to": "asst_Y3XUjyknLU4ZzR732qhPDe7F",
+      "tool": "action:callRecordsAgent",
+      "via": "http-action"
+    }
+  ],
+  "generated": "2026-09-14T16:53:07.406176Z",
+  "generator": {
+    "collector": "copilot_studio@0.2.0",
+    "tool": "preflight",
+    "version": "0.1.0"
+  },
+  "guards": {
+    "contentFilter": "unknown",
+    "historySummarisation": null,
+    "humanInTheLoop": null,
+    "maxTurns": null,
+    "promptShields": null,
+    "rateLimit": null,
+    "tokenCap": null
+  },
+  "knowledge": [],
+  "models": [],
+  "residency": {
+    "declared": null,
+    "observed": [
+      "switzerland"
+    ]
+  },
+  "serialNumber": "urn:uuid:2c22b179-ec3d-5b40-a1ad-81af8e412d95",
+  "signature": null,
+  "specVersion": "0.1",
+  "storage": [],
+  "tags": {
+    "allowGeneralKnowledge": "True",
+    "generativeOrchestration": "True",
+    "published": "True",
+    "unparsedComponents": "none"
+  },
+  "tools": [
+    {
+      "annotations": null,
+      "approval": false,
+      "auth": {
+        "mode": "key",
+        "scopes": [],
+        "secretRef": "inline"
+      },
+      "classification": {
+        "confidence": "medium",
+        "irreversibleAction": true,
+        "rationale": "HTTP POST: state-changing operation.",
+        "source": "protocol",
+        "untrustedInput": true
+      },
+      "description": "Hands a contract enquiry to the records agent for filing or changes. Use when an enquiry needs a contract record created, updated or removed.",
+      "descriptionTokens": null,
+      "id": "action:callRecordsAgent",
+      "kind": "connector",
+      "name": "callRecordsAgent",
+      "referencedInInstructions": null,
+      "source": {
+        "allowlist": null,
+        "builtinId": null,
+        "httpMethod": "POST",
+        "manifestHash": null,
+        "pinned": null,
+        "server": "https://fdy-demo-agents-de-em.services.ai.azure.com/api/projects/preflight/assistants/asst_Y3XUjyknLU4ZzR732qhPDe7F/runs",
+        "toolbox": null,
+        "trusted": false
+      }
+    }
+  ]
+}

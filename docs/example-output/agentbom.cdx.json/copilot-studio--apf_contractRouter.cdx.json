@@ -1,0 +1,108 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-09-14T16:53:07Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "agent-preflight",
+          "version": "0.1.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "agent:apf_contractRouter",
+      "name": "Contract router",
+      "properties": [
+        {
+          "name": "preflight:agent.environment",
+          "value": "668de38d-2e66-ec7d-b6e0-a1e20283c34e"
+        },
+        {
+          "name": "preflight:agent.id",
+          "value": "apf_contractRouter"
+        },
+        {
+          "name": "preflight:agent.inboundAuth",
+          "value": "none"
+        },
+        {
+          "name": "preflight:agent.platform",
+          "value": "copilot-studio"
+        },
+        {
+          "name": "preflight:economics.tokensPerTurn",
+          "value": "58"
+        },
+        {
+          "name": "preflight:residency.observed",
+          "value": "switzerland"
+        }
+      ]
+    }
+  },
+  "components": [],
+  "services": [
+    {
+      "bom-ref": "tool:action:callRecordsAgent",
+      "name": "callRecordsAgent",
+      "description": "Hands a contract enquiry to the records agent for filing or changes. Use when an enquiry needs a contract record created, updated or removed.",
+      "endpoints": [
+        "https://fdy-demo-agents-de-em.services.ai.azure.com/api/projects/preflight/assistants/asst_Y3XUjyknLU4ZzR732qhPDe7F/runs"
+      ],
+      "authenticated": true,
+      "x-trust-boundary": true,
+      "properties": [
+        {
+          "name": "preflight:classification.confidence",
+          "value": "medium"
+        },
+        {
+          "name": "preflight:classification.irreversibleAction",
+          "value": "True"
+        },
+        {
+          "name": "preflight:classification.source",
+          "value": "protocol"
+        },
+        {
+          "name": "preflight:classification.untrustedInput",
+          "value": "True"
+        },
+        {
+          "name": "preflight:edge.to",
+          "value": "asst_Y3XUjyknLU4ZzR732qhPDe7F"
+        },
+        {
+          "name": "preflight:tool.approval",
+          "value": "False"
+        },
+        {
+          "name": "preflight:tool.auth.mode",
+          "value": "key"
+        },
+        {
+          "name": "preflight:tool.auth.secretRef",
+          "value": "inline"
+        },
+        {
+          "name": "preflight:tool.kind",
+          "value": "connector"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "agent:apf_contractRouter",
+      "dependsOn": [
+        "tool:action:callRecordsAgent"
+      ]
+    }
+  ],
+  "serialNumber": "urn:uuid:2c22b179-ec3d-5b40-a1ad-81af8e412d95"
+}
