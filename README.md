@@ -118,12 +118,13 @@ cannot be derived prints *requires human input*.
 
 | Built | Roadmap |
 |---|---|
-| Collectors: M365 declarative agents, Copilot Studio (export or live Dataverse), Foundry from files and live | Agent Framework collector; Agent 365 collector, which needs an Agent 365 or E7 licence |
-| AgentBOM schema v0.1, identity derived from the composition hash | M365 declarative agents read from the tenant app catalog, not only from files |
-| Four-tier classification, edge resolution by identity and endpoint | Probe tier for edge resolution |
-| Attack paths, privilege closure, cost, 32 of the 62 catalog rules | The remaining 30 rules, model lifecycle first |
-| SARIF, dossier, certification, MCP pinning, baselines, GitHub Action | Review board, auto-remediation, estate intelligence |
-| 45 tests, Swiss, EU and financial-services policy packs, [usage guide](docs/USAGE.md) | |
+| Collectors for all five platforms: M365 declarative, Copilot Studio (export or live Dataverse), Foundry (files or live), Agent Framework (export or static read of the source), Agent 365 registry | A review board of specialist agents for the judgments no rule can make |
+| AgentBOM schema v0.1, identity derived from the composition hash | Auto-remediation pull requests |
+| Four-tier classification, edge resolution by identity, endpoint and opt-in probe | Estate intelligence across a tenant |
+| Attack paths, privilege closure, cost, 45 of the 62 catalog rules | The remaining 17 rules, most of which need telemetry or intent no definition carries |
+| SARIF, CycloneDX 1.6, governance dossier with a drawn trust graph, certification, MCP pinning, baselines, GitHub Action with a lint and scan gate | |
+| `preflight whatif`, which answers what one change would do; tenant coverage, which answers what is deployed that this review never saw | |
+| 67 tests, Swiss, EU and financial-services policy packs, [usage guide](docs/USAGE.md) | |
 
 Full specification: [docs/capabilities.md](docs/capabilities.md). Plan:
 [docs/PLAN.md](docs/PLAN.md). Backlog: [BACKLOG.md](BACKLOG.md).

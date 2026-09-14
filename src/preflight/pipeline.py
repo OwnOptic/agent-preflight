@@ -25,6 +25,7 @@ from preflight.collectors.base import Scope
 from preflight.collectors.copilot_studio import CopilotStudioCollector, CopilotStudioLiveCollector
 from preflight.collectors.foundry import FoundryCollector, FoundryLiveCollector
 from preflight.collectors.m365_declarative import M365DeclarativeCollector
+from preflight.coverage import Coverage, tenant_coverage
 from preflight.findings import Finding
 from preflight.policy import Policy
 from preflight.resolve.edges import resolve
@@ -45,6 +46,8 @@ class Result:
     #: One line per endpoint the probe tier contacted. Empty unless --probe was passed, and the
     #: report prints it, because a result that needed a network call must say so.
     probes: list[str] = field(default_factory=list)
+    #: What the tenant has published versus what this scan saw. None unless asked for.
+    coverage: Coverage | None = None
 
 
 def collectors_for(*, live_foundry: str | None = None, subscription: str | None = None,
@@ -71,6 +74,7 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
             subscription: str | None = None, region: str | None = None,
             mcp_manifests: list | None = None, live_copilot_studio: str | None = None,
             cs_environment_id: str | None = None, agent365: bool = False, probe: bool = False,
+            coverage: bool = False,
             lock: dict[str, str] | None = None,
             certification: dict | None = None, baseline: set[str] | None = None,
             hook: Callable[[list[AgentBOM]], None] | None = None) -> Result:
@@ -116,4 +120,5 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
         boms=boms, paths=paths, groups=groups, privilege=privilege, findings=findings, policy=policy,
         skipped=skipped, certification=cert_status(boms, certification) if certification else {},
         probes=probes,
+        coverage=tenant_coverage(boms, subscription=subscription) if coverage else None,
     )

@@ -7,7 +7,7 @@ One control point for **governance, security, cost and compliance**.
 
 > **Status, 2026-09-11.** The engine is built: collectors for M365 declarative agents, Copilot Studio
 > and Foundry (files and live), edge resolution, attack paths, privilege closure, cost, 15 of the
-> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 45 tests. This document
+> catalog's rules, SARIF, the dossier, certification and MCP pinning, with 67 tests. This document
 > remains the full specification; the README's Status table separates built from roadmap.
 
 ---
@@ -48,8 +48,8 @@ self-contained contribution.
 | Foundry Agent Service | Foundry SDK: prompt and hosted agents, toolboxes, connections | toolbox pinning, MCP auth mode, A2A graph, content filters | **W1** |
 | Copilot Studio | solution export and Dataverse: topics, knowledge, actions, channels, auth | auth mode, published channels, connector DLP posture, generative answers scope | **W1** |
 | M365 declarative agents | `declarativeAgent.json` (schema 1.8) and the API plugin manifests it references | capabilities versus instructions, `discourage_model_knowledge`, disclaimer, OpenAPI surface, actions cap of 10 | **W1** |
-| Microsoft Agent Framework | code-first: tools registered at build, OpenTelemetry semantics | tool registration surface, no declarative gate exists today | stub |
-| Agent 365 / Entra Agent ID | registry roster, ownership, blueprints, OBO versus autonomous | orphaned agents, no sponsor, interactive versus autonomous mismatch | stub |
+| Microsoft Agent Framework | an exported definition, or the source parsed rather than executed | tool registration surface, and what a static read could not resolve | **W1** |
+| Agent 365 / Entra Agent ID | registry roster over Graph, ownership, blocked state, deployment | orphaned agents, no sponsor, delegation to an agent the registry never heard of | **W1**, needs a licence and `CopilotPackages.Read.All` |
 
 ### 2.2 The AgentBOM
 
@@ -449,6 +449,29 @@ the check reproducible rather than handing the judgment to a model.
 | CO-07 | Tool surface tax above threshold for the turn budget | Medium | CAF · track and allocate costs | def |
 | CO-08 | No cost-centre tag per agent or use case | Medium | CAF · track and allocate costs | def |
 | CO-09 | No conversation history summarisation on a long-running agent | Low | CAF · systematize cost optimization | def |
+
+### 4.1 What is not implemented, and why
+
+45 of these 62 are in `rules/catalog.py` today. The other 17 are not a to-do list that ran out of
+time: each needs evidence that no agent definition carries, and implementing one anyway would mean
+guessing, which is the one thing this tool must never do.
+
+| Rule | What it would need |
+|---|---|
+| ML-04 | Telemetry. "Dormant" is a fact about traffic, and Preflight reads definitions |
+| ML-02 | A model availability catalog per region, which is Azure's to publish |
+| RA-02 | The project's default content filter, to compare an agent against |
+| ID-05, ID-06 | The agent's intended purpose, to judge a scope or an autonomy choice against |
+| DR-02, DR-04, TS-03, TS-07 | Workload intent: what data is in scope, what a tool is needed for |
+| CO-04, CO-05 | A model catalog plus a judgment about whether work is deterministic |
+| RA-06 | The instruction text, which the BOM deliberately stores only as a hash |
+| DR-03 | A retention setting no platform exposes at design time; absent is unknown, not zero |
+| SC-03, SC-04 | Redundant or registry-dependent: a toolbox version bump already voids the certification through the composition hash, and ownership comes from the registry (ID-07) |
+| AP-05 | A model of which agents read which stores, which no platform declares |
+| MA-06 | A definition of "the governed estate" beyond what was scanned, which is the registry's job |
+
+The honest position: a rule that cannot be evidenced is worse than a missing rule, because it
+teaches reviewers to ignore findings.
 
 **Week one is every `def` rule**, which is most of the catalog. `cat`, `pol`, `reg` and `tel` rules
 each need a data source outside the agent definition and are the ones most likely to slip. Plan for

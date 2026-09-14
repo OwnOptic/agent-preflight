@@ -67,12 +67,13 @@ This is the real gap, and none of it is hard.
 
 | Gap | Where it stands |
 |---|---|
-| **32 of the 62 specified rules are implemented** | Missing by family: ML 5, ID 4, MA 4, CO 4, DR 3, SC 3, TS 3, AP 2, RA 2. ML (model lifecycle) has nothing at all, and needs a model catalog to be worth anything |
-| Agent Framework collector | Stub. Code-first, so it likely needs an exporter upstream |
-| Agent 365 collector | Stub, and licence-blocked. See Blocked |
-| Probe tier for edge resolution | Not built, and deliberately so: it makes network calls |
-| Standards alignment, CycloneDX or SPDX | Open question, unverified, and not claimed anywhere in writing |
-| Review board, trust graph in the dossier, what-if, auto-remediation | Roadmap |
+| **45 of the 62 specified rules are implemented** | The 17 left need evidence no definition carries: telemetry (ML-04), workload intent (ID-05, ID-06, DR-04, RA-06, TS-03, TS-07, CO-04, CO-05), a model catalog (ML-02), a project default to compare against (RA-02), or they duplicate something already reported (SC-03, which the composition hash voids anyway). Each is listed with its reason in `docs/capabilities.md` |
+| ~~Agent Framework collector~~ | Done: an exported definition, or the source parsed rather than executed. What a static read cannot resolve is recorded on the BOM |
+| ~~Agent 365 collector~~ | Done: reads `/copilot/admin/catalog/packages`. Needs a licence and `CopilotPackages.Read.All`; without them it reports why, never a clean estate |
+| ~~Probe tier for edge resolution~~ | Done: `--probe`, opt-in, a GET for an agent card, no credentials. Produces edges marked `probed`, which the severity gate treats as weaker |
+| ~~Standards alignment~~ | Done and verified: CycloneDX 1.6, validated in CI against the published schema. SPDX 3.0 AI profile was not adopted, because CycloneDX already has `service`, `x-trust-boundary` and machine-learning-model components, which is most of what an AgentBOM needs to say |
+| ~~Trust graph, what-if~~ | Done: the dossier draws the graph from the BOM, and `preflight whatif` diffs the findings under one change |
+| Review board, auto-remediation, estate intelligence | Roadmap. Tenant coverage (`--tenant-coverage`) is the first piece of estate intelligence: what is published that this review never saw |
 
 **Honest summary, 2026-09-12.** The engine is real and the chain it finds is real, reproduced from
 three agents that all exist in their platforms and, for two of them, read live rather than from

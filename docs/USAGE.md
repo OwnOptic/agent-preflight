@@ -101,6 +101,34 @@ preflight scan ./agents \
 one governance dossier per agent; fields that cannot be derived print *requires human input* rather
 than a guess. `.github/workflows/preflight.yml` in this repository is a working example.
 
+## The other questions it can answer
+
+```bash
+# What would one change do? Nothing is written; the analysis simply runs again.
+preflight whatif ./agents --policy policies/swiss.yaml --approve callRecordsAgent
+preflight whatif ./agents --trust-server mcp.records.internal.example
+
+# What is deployed in the tenant that this review never saw?
+preflight scan ./agents --tenant-coverage --subscription <id>
+
+# Read the Agent 365 registry as well, for ownership and blocked state.
+preflight scan ./agents --agent365 --subscription <id>
+
+# Ask unresolved endpoints what they are. This one makes network calls.
+preflight scan ./agents --probe
+
+# A CycloneDX 1.6 document per agent, for a supply-chain tool that already ingests them.
+preflight scan ./agents --cyclonedx out/cdx
+```
+
+`--agent365` needs `az login --scope https://graph.microsoft.com/CopilotPackages.Read.All`, and
+`--tenant-coverage` needs `AppCatalog.Read.All`. Without them each reports what is missing and the
+scan continues: a check that could not run is never reported as a check that passed.
+
+`--probe` sends one unauthenticated `GET` for an agent card and nothing else, and every endpoint it
+contacts is printed with the result. Edges it produces are marked `probed`, which the severity gate
+treats as weaker evidence than a match.
+
 ## Policy
 
 `policies/` holds Swiss, EU and financial-services packs. A policy decides what counts as a

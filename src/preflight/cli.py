@@ -47,6 +47,8 @@ def _common(sp: argparse.ArgumentParser) -> None:
                     help="also read the Agent 365 registry (needs a licence and CopilotPackages.Read.All)")
     sp.add_argument("--probe", action="store_true",
                     help="ask unresolved endpoints for an agent card. Makes network calls, so it is off by default")
+    sp.add_argument("--tenant-coverage", action="store_true",
+                    help="compare what this scan saw against what the tenant has published (needs AppCatalog.Read.All)")
 
 
 def _read_json(path: Path) -> dict:
@@ -101,7 +103,7 @@ def main(argv: list[str] | None = None) -> int:
     kwargs = dict(live_foundry=args.live_foundry, subscription=args.subscription, region=args.region,
                   mcp_manifests=args.mcp_manifests, live_copilot_studio=args.live_copilot_studio,
                   cs_environment_id=args.cs_environment_id, agent365=args.agent365,
-                  probe=getattr(args, "probe", False))
+                  probe=getattr(args, "probe", False), coverage=getattr(args, "tenant_coverage", False))
 
     if args.cmd == "scan":
         lock = load_lock(args.lock) if args.lock and args.lock.exists() else None
@@ -139,6 +141,10 @@ def main(argv: list[str] | None = None) -> int:
                 print("\nPROBE   network calls were made, so this result is not definition-only")
                 for line in result.probes:
                     print(f"  {line}")
+            if result.coverage is not None:
+                print()
+                for line in result.coverage.render():
+                    print(line)
 
         failing = [f for f in result.findings if not f.baselined and at_or_above(f.severity, args.fail_on)]
         return 1 if failing else 0
