@@ -48,10 +48,12 @@ CRITICAL  AP-02  Untrusted input reaches an irreversible action across 3 platfor
     Each hop was reviewed on its own platform. The defect exists only in the composition.
 ```
 
-<img src="docs/media/01-critical-path.png" alt="The critical path across three platforms" width="820">
+Each platform's own tooling sees one hop and reports it clean:
 
-Each platform's own tooling sees one hop and reports it clean. **Neither view is wrong**, and that is
-the point: a single hop is fine, and composition is what nothing else inventories.
+<img src="docs/media/02-platforms-clean.png" alt="Each platform reports its own agent clean" width="820">
+
+**Neither view is wrong**, and that is the point: a single hop is fine, and composition is what
+nothing else inventories.
 
 All three agents genuinely exist. One is a declarative agent in a tenant app catalog, one is a
 published Copilot Studio agent read live from Dataverse, one is a Foundry agent read live from its
