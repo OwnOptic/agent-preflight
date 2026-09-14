@@ -27,6 +27,7 @@ from preflight.collectors.m365_declarative import M365DeclarativeCollector
 from preflight.findings import Finding
 from preflight.policy import Policy
 from preflight.resolve.edges import resolve
+from preflight.resolve.probe import probe as run_probe
 from preflight.rules.catalog import Context, evaluate
 
 
@@ -40,6 +41,9 @@ class Result:
     policy: Policy
     skipped: list[tuple[str, str]] = field(default_factory=list)
     certification: dict[str, str] = field(default_factory=dict)
+    #: One line per endpoint the probe tier contacted. Empty unless --probe was passed, and the
+    #: report prints it, because a result that needed a network call must say so.
+    probes: list[str] = field(default_factory=list)
 
 
 def collectors_for(*, live_foundry: str | None = None, subscription: str | None = None,
@@ -65,7 +69,7 @@ def collectors_for(*, live_foundry: str | None = None, subscription: str | None 
 def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str | None = None,
             subscription: str | None = None, region: str | None = None,
             mcp_manifests: list | None = None, live_copilot_studio: str | None = None,
-            cs_environment_id: str | None = None, agent365: bool = False,
+            cs_environment_id: str | None = None, agent365: bool = False, probe: bool = False,
             lock: dict[str, str] | None = None,
             certification: dict | None = None, baseline: set[str] | None = None) -> Result:
     policy = policy or Policy.default()
@@ -88,6 +92,7 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
         for t in b.tools:
             t.classification = classify(t, policy)
     resolve(boms)
+    probes = run_probe(boms) if probe else []
     compute_cost(boms, policy)
     for b in boms:
         stamp(b)
@@ -104,4 +109,5 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
     return Result(
         boms=boms, paths=paths, groups=groups, privilege=privilege, findings=findings, policy=policy,
         skipped=skipped, certification=cert_status(boms, certification) if certification else {},
+        probes=probes,
     )

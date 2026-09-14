@@ -43,6 +43,8 @@ def _common(sp: argparse.ArgumentParser) -> None:
                     help="Power Platform environment id, so the live agent's connection URL can be derived")
     sp.add_argument("--agent365", action="store_true",
                     help="also read the Agent 365 registry (needs a licence and CopilotPackages.Read.All)")
+    sp.add_argument("--probe", action="store_true",
+                    help="ask unresolved endpoints for an agent card. Makes network calls, so it is off by default")
 
 
 def _read_json(path: Path) -> dict:
@@ -90,7 +92,8 @@ def main(argv: list[str] | None = None) -> int:
     policy = Policy.load(args.policy) if args.policy else Policy.default()
     kwargs = dict(live_foundry=args.live_foundry, subscription=args.subscription, region=args.region,
                   mcp_manifests=args.mcp_manifests, live_copilot_studio=args.live_copilot_studio,
-                  cs_environment_id=args.cs_environment_id, agent365=args.agent365)
+                  cs_environment_id=args.cs_environment_id, agent365=args.agent365,
+                  probe=getattr(args, "probe", False))
 
     if args.cmd == "scan":
         lock = load_lock(args.lock) if args.lock and args.lock.exists() else None
@@ -122,6 +125,10 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps([f.to_dict() for f in result.findings], indent=2))
         else:
             print(render(result, version=__version__))
+            if result.probes:
+                print("\nPROBE   network calls were made, so this result is not definition-only")
+                for line in result.probes:
+                    print(f"  {line}")
 
         failing = [f for f in result.findings if not f.baselined and at_or_above(f.severity, args.fail_on)]
         return 1 if failing else 0
