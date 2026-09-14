@@ -3,7 +3,7 @@
   "environmentId": "668de38d-2e66-ec7d-b6e0-a1e20283c34e",
   "environmentName": "Sandbox",
   "region": "switzerland",
-  "published": false,
+  "published": true,
   "endpoints": [
     "https://668de38d2e66ec7db6e0a1e20283c3.4e.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/apf_contractRouter/conversations?api-version=2022-03-01-preview"
   ]

@@ -6,4 +6,5 @@
   <name>Contract router</name>
   <runtimeprovider>0</runtimeprovider>
   <template>default-2.1.0</template>
+  <timezoneruleversionnumber>4</timezoneruleversionnumber>
 </bot>

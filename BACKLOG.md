@@ -14,7 +14,7 @@ and a live scan of the real Foundry project reproduces the same critical path.
 | Fixture | On disk | In its platform |
 |---|---|---|
 | 01 Inbox triage, M365 declarative | yes | **yes**, uploaded to the org app catalog from `dist/fixture-01-inbox-triage.zip` |
-| 02 Contract router, Copilot Studio | yes, a real unmanaged solution export | **yes**, `apf_contractRouter` in the Sandbox environment, **not yet published** |
+| 02 Contract router, Copilot Studio | yes, a real unmanaged solution export | **yes**, `apf_contractRouter` in the Sandbox environment, published 2026-09-14 |
 | 03 Records agent, Foundry | yes | **yes**, `asst_Y3XUjyknLU4ZzR732qhPDe7F` with MCP tool `records` |
 
 ## Next
@@ -26,9 +26,9 @@ and a live scan of the real Foundry project reproduces the same critical path.
       YAML), exported, and the collector now reads the real export. The chain reproduces unchanged.
       One finding fewer (18): RA-04 came from a field the stand-in invented; Copilot Studio has no
       forced-citations setting. `scripts/export_fixture02.py` refreshes the export
-- [ ] **Decide whether to publish fixture 02.** Unpublished, ID-01 reads "once published". Publishing
-      makes an unauthenticated agent reachable; its HTTP call carries a placeholder key, so it cannot
-      reach Foundry
+- [x] **Publish fixture 02**, 2026-09-14. ID-01 now reads "Published endpoint accepts unauthenticated
+      callers" because it genuinely does. Its HTTP call carries a placeholder key, so the published
+      agent cannot reach Foundry
 - [ ] **Capture each platform's own view** of its agent, for the demo
 - [ ] **Demo pull request**: a branch adding a destructive tool or rewriting the MCP manifest, so CI
       fails with the finding on the diff. Leave it unmerged
