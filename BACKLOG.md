@@ -36,8 +36,11 @@ and a live scan of the real Foundry project reproduces the same critical path.
 - [x] **Demo pull request**: [#1](https://github.com/OwnOptic/agent-preflight/pull/1). An approved
       MCP server rewrites one tool description to instruct the model. CI fails in 23 seconds on
       SC-01 and SC-02. Left unmerged on purpose
-- [x] **Record the demo**: `dist/agent-preflight-demo.mp4`, 1:56, narrated, 1920x1080. Built from
-      real command output, the dossier's own trust graph and the tenant's own UIs
+- [x] **Record the demo**: `dist/agent-preflight-demo.mp4`, 1:59, narrated, 1920x1080. Seven of its
+      ten segments are live screen recordings: a real console running `scan`, `whatif` and the
+      failing gate, and github.com read signed out for the workflow run and the diff. The rest are
+      the tenant's own portal captures and the dossier's own trust graph. Pipeline and its traps in
+      `scripts/video/`. The earlier styled cut is kept as `dist/agent-preflight-demo-storyboard-v4.mp4`
 - [ ] **Project page**: video uploaded and processed, page reads "Ready to submit" and auto-submits
       at the deadline. Left to do: paste the description addition from the private plan, which
       carries the required AI-assisted authoring disclosure, then submit
