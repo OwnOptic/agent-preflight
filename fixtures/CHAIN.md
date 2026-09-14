@@ -40,7 +40,7 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 
 ## Every expected finding
 
-21 findings in total.
+23 findings in total.
 
 | Agent | Rule | Count | Why |
 |---|---|---|---|
@@ -51,6 +51,7 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 | 01 Inbox triage | ID-08 | 1 | Declares no irreversible action, reaches three through delegation |
 | 02 Contract router | ID-01 | 1 | `authenticationmode` 1 in `bot.xml`: no end-user authentication |
 | 02 Contract router | ID-03 | 1 | `api-key` header written into the `Route enquiry` topic |
+| 02 Contract router | ID-04 | 1 | That key is used where the policy allows only OBO or managed identity |
 | 02 Contract router | MA-08 | 1 | Cross-platform call to fixture 03 authenticated by key |
 | 02 Contract router | ID-08 | 1 | Reaches three irreversible actions it does not hold |
 | 03 records-agent | AP-02 | 3 | One Critical to `delete_record`, two High possible paths to the assumed sinks |
@@ -58,6 +59,7 @@ Trust the server in policy and the two assumed sinks disappear, leaving only `de
 | 03 records-agent | TS-01 | 1 | MCP server attached with `allowed_tools: null` |
 | 03 records-agent | RA-01 | 1 | `contentFilter: none` |
 | 03 records-agent | RA-03 | 1 | `promptShields: false` |
+| 03 records-agent | ID-04 | 1 | The MCP connection uses a key where the policy allows only OBO or managed identity |
 | 03 records-agent | RA-05 | 1 | `humanInTheLoop: false` while three irreversible actions are attached |
 | 03 records-agent | SC-05 | 1 | Two tools fall to fail-closed because the server is not trusted |
 | 03 records-agent | SC-06 | 1 | `delete_record`'s classification rests on annotations from an untrusted server |

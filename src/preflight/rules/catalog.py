@@ -10,11 +10,14 @@ fired on silence would drown the real findings in noise.
 
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from urllib.parse import urlsplit
 
 from preflight.analyze.paths import PathGroup
+from preflight.certify import tokens_per_interaction
 from preflight.analyze.privilege import Privilege
 from preflight.bom.models import AgentBOM
 from preflight.findings import SEVERITY_ORDER, Finding
@@ -64,6 +67,17 @@ RULES: dict[str, Rule] = {
         Rule("CO-06", "Instructions near the character cap and unpriced", "low", "CAF: track and allocate costs"),
         Rule("CO-07", "Tool surface costs more per turn than the instructions", "medium", "CAF: track and allocate costs"),
         Rule("CO-09", "No conversation history summarisation", "low", "CAF: systematize cost optimization"),
+        Rule("AP-03", "Attack path crosses a residency or tenant boundary", "critical", "CAF: data residency"),
+        Rule("ID-04", "Key authentication where the policy requires a stronger mode", "high", "ZT: agent identity and RBAC"),
+        Rule("MA-01", "A2A endpoint attached without an allowlist", "critical", "ZT: communication governance"),
+        Rule("MA-03", "Delegation crosses a tenant boundary", "high", "CAF: data residency"),
+        Rule("ML-01", "Model deployment deprecated or retired", "high", "CAF: govern AI models"),
+        Rule("ML-03", "Model not on the permitted list", "high", "CAF: govern AI models"),
+        Rule("ML-05", "No recertification within the policy window", "medium", "ZT: lifecycle management"),
+        Rule("CO-02", "Cost per interaction regressed beyond the allowed delta", "high", "CAF: track and allocate costs"),
+        Rule("CO-08", "No cost centre recorded for the agent", "medium", "CAF: track and allocate costs"),
+        Rule("SC-02", "Injection payload in a tool description", "critical", "ZT: memory and retrieval hygiene"),
+        Rule("TS-02", "Tool surface far beyond what the instructions reference", "medium", "ZT: agent identity and RBAC"),
     ]
 }
 
@@ -80,6 +94,9 @@ class Context:
     privilege: dict[str, Privilege]
     policy: Policy
     lock: dict[str, str] | None = None
+    #: The certification record, when one was supplied. Two rules compare today against sign-off:
+    #: CO-02 (cost regression) and ML-05 (review expiry).
+    cert: dict | None = None
     by_id: dict[str, AgentBOM] = field(init=False)
 
     def __post_init__(self) -> None:
@@ -512,9 +529,205 @@ def co_09(bom: AgentBOM, ctx: Context) -> list[Finding]:
                 subject="historySummarisation")] if bom.guards.historySummarisation is False else []
 
 
-RULE_FUNCS = [ap, ap_04, id_01, id_02, id_03, id_08, ts_01, ts_04, ts_05, ts_06, ts_08, ma_02, ma_04, ma_07,
-              ma_08, dr_01, dr_05, ra_01, ra_03, ra_04, ra_05, ra_07, ra_08, sc_01, sc_05, sc_06, co_01,
-              co_03, co_06, co_07, co_09]
+# --- third cut: boundaries, model lifecycle, and what a description can carry ---------------
+
+
+def _geo(region: str | None) -> str | None:
+    from preflight.resolve.edges import geo
+    return geo(region)
+
+
+def ap_03(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    """A path that leaves the data boundary it started in. Reported on the sink, like AP-01/02."""
+    out = []
+    for g in ctx.groups:
+        if g.sink_agent != bom.agent.id:
+            continue
+        p = g.best
+        geos: list[tuple[str, str]] = []
+        for h in p.hops:
+            b = ctx.by_id.get(h.agent_id)
+            for r in (b.residency.observed if b else []):
+                gg = _geo(r)
+                if gg:
+                    geos.append((h.agent_name or h.agent_id, gg))
+        distinct = {g2 for _, g2 in geos}
+        crosses_tenant = any(e.crossTenant for b in ctx.boms for e in b.edges)
+        if len(distinct) < 2 and not crosses_tenant:
+            continue
+        where = ", ".join(f"{n} in {g2}" for n, g2 in dict.fromkeys(geos))
+        out.append(_mk("AP-03", bom,
+                       f"The path to `{p.sink_tool}` crosses a data boundary: {where}. "
+                       "Whatever the untrusted source injects travels with it.",
+                       subject=f"boundary:{p.sink_tool_id}", chain=p.chain_lines()))
+    return out
+
+
+def id_04(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    """Key auth where the policy requires a stronger mode.
+
+    Only keys: an unauthenticated call is ID-01's, and reporting it twice helps nobody. Grouped by
+    target, because one key on one connection is one decision however many tools ride on it.
+    """
+    required = {m.lower() for m in ctx.policy.required_auth_modes}
+    if not required or "key" in required:
+        return []
+    by_target: dict[str, list[str]] = defaultdict(list)
+    for t in bom.tools:
+        if t.auth.mode == "key":
+            by_target[_host(t.source.server) or t.source.server or t.id].append(t.name)
+    return [
+        _mk("ID-04", bom, f"Authenticates to {target} with a key, where the policy ({ctx.policy.origin}) allows only "
+                          f"{', '.join(sorted(required))}. Affects {len(names)} tool(s).", subject=f"auth:{target}")
+        for target, names in sorted(by_target.items())
+    ]
+
+
+def ma_01(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    return [
+        _mk("MA-01", bom, f"Agent-to-agent endpoint `{t.name}` is attached with no allowlist, so which agents it "
+                          "may reach is not constrained by the definition.", subject=t.id)
+        for t in bom.tools
+        if t.kind == "a2a" and t.source.allowlist is False
+    ]
+
+
+def ma_03(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    return [
+        _mk("MA-03", bom, f"Delegates to {_name(ctx, e.to)} in another tenant, so this estate's controls stop at "
+                          "the boundary.", subject=f"tenant-edge:{e.to}")
+        for e in bom.edges if e.crossTenant
+    ]
+
+
+def ml_01(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    retired = {m.lower() for m in ctx.policy.deprecated_models}
+    out = []
+    for m in bom.models:
+        why = None
+        if m.status in ("deprecated", "retired"):
+            why = f"the platform reports it as {m.status}"
+        elif m.model.lower() in retired or m.deployment.lower() in retired:
+            why = f"the policy ({ctx.policy.origin}) lists it as deprecated"
+        if why:
+            out.append(_mk("ML-01", bom, f"Deployment `{m.deployment}` runs `{m.model}` and {why}. The agent stops "
+                                         "working when it goes, and nothing in the definition says when that is.",
+                           subject=f"model:{m.deployment}"))
+    return out
+
+
+def ml_03(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    allowed = {m.lower() for m in ctx.policy.allowed_models}
+    if not allowed:
+        return []
+    return [
+        _mk("ML-03", bom, f"`{m.model}` is not on the permitted model list in {ctx.policy.origin}.",
+            subject=f"model-allowed:{m.deployment}")
+        for m in bom.models if m.model.lower() not in allowed
+    ]
+
+
+def _cert_entry(ctx: Context, agent_id: str) -> dict | None:
+    for a in (ctx.cert or {}).get("agents", []):
+        if a.get("id") == agent_id:
+            return a
+    return None
+
+
+def ml_05(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    days = ctx.policy.recertify_days
+    entry = _cert_entry(ctx, bom.agent.id)
+    when = (ctx.cert or {}).get("certifiedAt")
+    if not days or entry is None or not when:
+        return []
+    try:
+        signed = datetime.fromisoformat(when)
+    except ValueError:
+        return []
+    if signed.tzinfo is None:
+        signed = signed.replace(tzinfo=timezone.utc)
+    age = (datetime.now(timezone.utc) - signed).days
+    if age <= days:
+        return []
+    return [_mk("ML-05", bom, f"Last certified {age} days ago, and the policy ({ctx.policy.origin}) requires review "
+                              f"every {days}.", subject="recertification")]
+
+
+def co_02(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    delta = ctx.policy.max_cost_delta_pct
+    entry = _cert_entry(ctx, bom.agent.id)
+    if delta is None or entry is None:
+        return []
+    now_cost = bom.economics.estimatedCostPerInteraction
+    was_cost = entry.get("costPerInteraction")
+    if now_cost and was_cost and was_cost.get("value"):
+        before, after, unit = float(was_cost["value"]), now_cost.value, now_cost.currency
+    else:
+        before, after, unit = entry.get("tokensPerInteraction"), tokens_per_interaction(bom), "tokens"
+        if not before or not after:
+            return []
+    grew = (after - before) / before * 100
+    if grew <= delta:
+        return []
+    return [_mk("CO-02", bom, f"Costs {after} {unit} per interaction against {before} at sign-off, {grew:.0f}% more, "
+                              f"where the policy allows {delta:.0f}%.", subject="cost-delta")]
+
+
+def co_08(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    if not ctx.policy.require_cost_centre:
+        return []
+    tag = ctx.policy.cost_centre_tag
+    if (bom.tags.get(tag) or "").strip():
+        return []
+    return [_mk("CO-08", bom, f"No `{tag}` tag, so this agent's spend cannot be attributed to anyone.",
+                subject="costcentre")]
+
+
+#: Phrases in a tool description that address the model rather than describe the tool. A description
+#: is prompt text: whoever writes it is writing instructions the agent will read every turn.
+_INJECTION = [
+    (re.compile(r"ignore\s+(all\s+|any\s+)?(previous|prior|above|earlier)\s+instructions", re.I), "overrides the agent's instructions"),
+    (re.compile(r"disregard\s+(the\s+)?(previous|prior|above|system)", re.I), "overrides the agent's instructions"),
+    (re.compile(r"do\s+not\s+(tell|inform|mention\s+to|reveal\s+to)\s+the\s+user", re.I), "tells the agent to hide something from the user"),
+    (re.compile(r"without\s+(asking|confirming|telling|notifying)\s+(the\s+)?(user|anyone)", re.I), "tells the agent to skip confirmation"),
+    (re.compile(r"(reveal|print|output|send)\s+(the\s+)?(system\s+prompt|instructions|api[_\- ]?key|secret|token)", re.I), "asks the agent to disclose secrets or its prompt"),
+    (re.compile(r"you\s+(must|should|will)\s+always\s+call", re.I), "compels the agent to call it"),
+    (re.compile(r"[​-‏‪-‮⁦-⁩]"), "contains hidden bidirectional or zero-width characters"),
+    (re.compile(r"[A-Za-z0-9+/]{160,}={0,2}"), "contains a long encoded blob"),
+]
+
+
+def sc_02(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    out = []
+    for t in bom.tools:
+        text = t.description or ""
+        if not text:
+            continue
+        for pattern, why in _INJECTION:
+            m = pattern.search(text)
+            if not m:
+                continue
+            snippet = re.sub(r"\s+", " ", m.group(0))[:60]
+            out.append(_mk("SC-02", bom, f"The description of `{t.name}` {why}: \"{snippet}\". A tool description is "
+                                         "prompt text, read every turn, and nothing here was reviewed as prompt.",
+                           subject=f"description:{t.id}"))
+            break
+    return out
+
+
+def ts_02(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    unreferenced = sorted(t.name for t in bom.tools if t.referencedInInstructions is False)
+    if len(unreferenced) < 3:
+        return []
+    return [_mk("TS-02", bom, f"{len(unreferenced)} of {len(bom.tools)} tools are never called for in the "
+                              f"instructions: {', '.join(unreferenced)}. Every one of them is in the context window "
+                              "on every turn, and reachable on every turn.", subject="toolsurface-count")]
+
+
+RULE_FUNCS = [ap, ap_03, ap_04, id_01, id_02, id_03, id_04, id_08, ts_01, ts_02, ts_04, ts_05, ts_06, ts_08,
+              ma_01, ma_02, ma_03, ma_04, ma_07, ma_08, dr_01, dr_05, ml_01, ml_03, ml_05, ra_01, ra_03,
+              ra_04, ra_05, ra_07, ra_08, sc_01, sc_02, sc_05, sc_06, co_01, co_02, co_03, co_06, co_07,
+              co_09]
 
 
 def evaluate(ctx: Context) -> list[Finding]:

@@ -57,6 +57,9 @@ class Tool(BaseModel):
     id: str
     kind: ToolKind
     name: str
+    #: The description the model sees. Kept because it is an attack surface in its own right: a
+    #: tool description is instructions to the model, and SC-02 reads it.
+    description: str | None = None
     descriptionTokens: int | None = None
     approval: bool | None = None
     referencedInInstructions: bool | None = None

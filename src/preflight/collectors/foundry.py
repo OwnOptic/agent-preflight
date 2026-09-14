@@ -115,6 +115,7 @@ def _mcp_tools(spec: dict[str, Any], manifests: dict[str, dict]) -> list[Tool]:
             id=f"mcp:{label}/{t['name']}",
             kind="mcp",
             name=t["name"],
+            description=t.get("description"),
             descriptionTokens=_tokens(t.get("description")),
             source=ToolSource(server=server, manifestHash=mhash, allowlist=allowed is not None),
             auth=tool_auth,
@@ -155,6 +156,7 @@ def build_bom(d: dict[str, Any], *, collector: str, manifests: dict[str, dict],
         elif typ == "function":
             fn = spec.get("function") or {}
             tools.append(Tool(id=f"fn:{fn.get('name')}", kind="function", name=fn.get("name") or "function",
+                              description=fn.get("description"),
                               descriptionTokens=_tokens(fn.get("description"))))
         elif typ == "openapi":
             oa = spec.get("openapi") or {}

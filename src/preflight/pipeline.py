@@ -89,7 +89,8 @@ def analyze(path: str | Path, policy: Policy | None = None, *, live_foundry: str
     paths = find_paths(boms)
     groups = group(paths)
     privilege = closure(boms)
-    findings = evaluate(Context(boms=boms, groups=groups, privilege=privilege, policy=policy, lock=lock))
+    findings = evaluate(Context(boms=boms, groups=groups, privilege=privilege, policy=policy, lock=lock,
+                                cert=certification))
     if baseline:
         for f in findings:
             f.baselined = f.fingerprint in baseline

@@ -159,12 +159,16 @@ def build_bom(*, schema: str, name: str | None, auth_mode: int, cfg: dict, compo
     for t, _, data in comps:
         if t != _TOPIC:
             continue
+        # What generative orchestration reads when deciding to call this topic, so it is the
+        # description the model sees even though the HTTP node itself carries none.
+        topic_desc = str(data.get("modelDescription") or "") or None
         for node, confirmed in _http_actions(data):
             tools.append(
                 Tool(
                     id=f"action:{node.get('id')}",
                     kind="connector",
                     name=str(node.get("id")),
+                    description=topic_desc,
                     approval=confirmed,
                     source=ToolSource(server=_server(str(node.get("url") or "")),
                                       httpMethod=str(node.get("method") or "Get").upper()),

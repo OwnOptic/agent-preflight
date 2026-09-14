@@ -199,6 +199,7 @@ class M365DeclarativeCollector:
                         id=f"op:{action_id}/{op_id}",
                         kind="openapi",
                         name=op_id,
+                        description=desc or None,
                         descriptionTokens=_approx_tokens(desc),
                         source=ToolSource(
                             server=(server.rstrip("/") + path) if server else None,

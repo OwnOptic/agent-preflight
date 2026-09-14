@@ -123,6 +123,10 @@
         "id": { "type": "string" },
         "kind": { "enum": ["mcp", "openapi", "builtin", "connector", "function", "code-interpreter", "a2a"] },
         "name": { "type": "string" },
+        "description": {
+          "type": ["string", "null"],
+          "description": "The description the model sees. An attack surface in its own right: SC-02 reads it."
+        },
         "descriptionTokens": { "type": ["integer", "null"] },
         "approval": {
           "type": ["boolean", "null"],

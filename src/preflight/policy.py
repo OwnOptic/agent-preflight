@@ -29,6 +29,14 @@ class Policy:
     budget_per_interaction: float | None = None
     max_cost_delta_pct: float | None = None
     currency: str = "USD"
+    #: Models the organisation has retired or is retiring. ML-01 reads this, because no platform
+    #: tells you at design time that a deployment is about to disappear.
+    deprecated_models: set[str] = field(default_factory=set)
+    #: CO-08: whether every agent must carry a cost centre, and under which tag.
+    require_cost_centre: bool = False
+    cost_centre_tag: str = "costCentre"
+    #: ML-05: how long a certification stays valid before the agent must be reviewed again.
+    recertify_days: int | None = None
     #: Model or deployment name -> price per million input tokens. Empty means cost is reported in
     #: tokens only. Fill from the Azure pricing page rather than guessing.
     prices: dict[str, float] = field(default_factory=dict)
@@ -59,6 +67,10 @@ class Policy:
             budget_per_interaction=raw.get("budget_per_interaction"),
             max_cost_delta_pct=raw.get("max_cost_delta_pct"),
             currency=raw.get("currency") or "USD",
+            deprecated_models=set(raw.get("deprecated_models") or []),
+            require_cost_centre=bool(raw.get("require_cost_centre", False)),
+            cost_centre_tag=raw.get("cost_centre_tag") or "costCentre",
+            recertify_days=raw.get("recertify_days"),
             prices={str(k): float(v) for k, v in (raw.get("prices_per_million_input_tokens") or {}).items()},
             tool_overrides=overrides,
         )
