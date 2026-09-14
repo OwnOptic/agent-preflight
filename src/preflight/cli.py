@@ -40,6 +40,8 @@ def _common(sp: argparse.ArgumentParser) -> None:
                     help="read Copilot Studio agents live from this Dataverse org, instead of an export")
     sp.add_argument("--cs-environment-id", metavar="GUID",
                     help="Power Platform environment id, so the live agent's connection URL can be derived")
+    sp.add_argument("--agent365", action="store_true",
+                    help="also read the Agent 365 registry (needs a licence and CopilotPackages.Read.All)")
 
 
 def _read_json(path: Path) -> dict:
@@ -86,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
     policy = Policy.load(args.policy) if args.policy else Policy.default()
     kwargs = dict(live_foundry=args.live_foundry, subscription=args.subscription, region=args.region,
                   mcp_manifests=args.mcp_manifests, live_copilot_studio=args.live_copilot_studio,
-                  cs_environment_id=args.cs_environment_id)
+                  cs_environment_id=args.cs_environment_id, agent365=args.agent365)
 
     if args.cmd == "scan":
         lock = load_lock(args.lock) if args.lock and args.lock.exists() else None

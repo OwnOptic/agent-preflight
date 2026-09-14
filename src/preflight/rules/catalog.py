@@ -78,6 +78,8 @@ RULES: dict[str, Rule] = {
         Rule("CO-08", "No cost centre recorded for the agent", "medium", "CAF: track and allocate costs"),
         Rule("SC-02", "Injection payload in a tool description", "critical", "ZT: memory and retrieval hygiene"),
         Rule("TS-02", "Tool surface far beyond what the instructions reference", "medium", "ZT: agent identity and RBAC"),
+        Rule("ID-07", "No accountable owner or sponsor in the registry", "medium", "CAF: accountability"),
+        Rule("MA-05", "Delegation to an agent absent from the registry", "medium", "ZT: agent inventory and discovery"),
     ]
 }
 
@@ -724,7 +726,46 @@ def ts_02(bom: AgentBOM, ctx: Context) -> list[Finding]:
                               "on every turn, and reachable on every turn.", subject="toolsurface-count")]
 
 
-RULE_FUNCS = [ap, ap_03, ap_04, id_01, id_02, id_03, id_04, id_08, ts_01, ts_02, ts_04, ts_05, ts_06, ts_08,
+# --- what the registry knows and a definition cannot ---------------------------------------
+#
+# Both stay silent unless an Agent 365 registry was actually read. Without it, absence of an agent
+# from the registry is absence of evidence, not evidence of absence.
+
+
+def _registry(ctx: Context) -> list[AgentBOM]:
+    return [b for b in ctx.boms if b.tags.get("registry") == "agent365"]
+
+
+def id_07(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    if bom.tags.get("registry") != "agent365":
+        return []
+    if (bom.tags.get("owner") or "").strip():
+        return []
+    return [_mk("ID-07", bom, "Registered with no owner and no sponsor, so nobody is accountable for what it does "
+                              "or for retiring it.", subject="accountability")]
+
+
+def ma_05(bom: AgentBOM, ctx: Context) -> list[Finding]:
+    reg = _registry(ctx)
+    if not reg:
+        return []
+    known = {b.agent.id.lower() for b in reg} | {
+        (b.agent.identity.appId or "").lower() for b in reg if b.agent.identity.appId
+    }
+    out = []
+    for e in bom.edges:
+        target = ctx.by_id.get(e.to)
+        if target is None or target.tags.get("registry") == "agent365":
+            continue
+        ids = {target.agent.id.lower()} | ({target.agent.identity.appId.lower()} if target.agent.identity.appId else set())
+        if ids & known:
+            continue
+        out.append(_mk("MA-05", bom, f"Delegates to {_name(ctx, e.to)}, which is not in the agent registry, so the "
+                                     "control plane does not know it exists.", subject=f"unregistered:{e.to}"))
+    return out
+
+
+RULE_FUNCS = [ap, ap_03, ap_04, id_01, id_02, id_03, id_04, id_07, id_08, ma_05, ts_01, ts_02, ts_04, ts_05, ts_06, ts_08,
               ma_01, ma_02, ma_03, ma_04, ma_07, ma_08, dr_01, dr_05, ml_01, ml_03, ml_05, ra_01, ra_03,
               ra_04, ra_05, ra_07, ra_08, sc_01, sc_02, sc_05, sc_06, co_01, co_02, co_03, co_06, co_07,
               co_09]
